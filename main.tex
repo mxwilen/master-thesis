@@ -179,6 +179,12 @@
 \colorlet{correct_color}{correct_color}
 \colorlet{incorrect_color}{incorrect_color}
 
+\definecolor{weak_correct_color}{HTML}{F2FAF2}
+\colorlet{weak_correct_color}{weak_correct_color}
+
+\definecolor{weak_incorrect_color}{HTML}{FFEEEE}
+\colorlet{weak_incorrect_color}{weak_incorrect_color}
+
 \definecolor{default_bar_color}{HTML}{2AB6CB}
 \colorlet{default_bar_color}{default_bar_color}
 
@@ -409,6 +415,7 @@
 \mdfsetup{skipabove=1em,skipbelow=0em}
 
 
+
 \declaretheoremstyle[
     headfont=\color{color3},
     numbered=no,
@@ -418,9 +425,20 @@
         linecolor=color3, backgroundcolor=color0,
     },
 ]{thmexplanationbox}
-
 \declaretheorem[style=thmexplanationbox, name=Topics of discussion]{tmpexplanation}
 \newenvironment{explanation}[1][]{\vspace{0pt}\begin{tmpexplanation}}{\end{tmpexplanation}}
+
+\declaretheoremstyle[
+    headfont=\color{incorrect_color},
+    numbered=no,
+    mdframed={
+        linewidth=2pt,
+        rightline=false, topline=false, bottomline=false,
+        linecolor=incorrect_color, backgroundcolor=weak_incorrect_color,
+    },
+]{thmnotesbox}
+\declaretheorem[style=thmnotesbox, name=Important Note]{tmpnote}
+\newenvironment{note}[1][]{\vspace{0pt}\begin{tmpnote}}{\end{tmpnote}}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \department{Institutionen för datavetenskap}

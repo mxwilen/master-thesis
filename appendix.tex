@@ -7,74 +7,6 @@
 \begin{appendices}
 \chapter{Appendix}
 
-\begin{table}[H]
-  \centering
-  \begin{tabular}{@{} l l l @{}}
-    \toprule
-    Network Call & UI Update       & Text Manipulation \\ \midrule
-    api          & animatingtoggle & replace \\
-    connect      & bui             & spannable \\
-    fetch        & compact         & string \\
-    http         & display         & substring \\
-    network      & font            & text \\
-    post         & fragment        &  \\
-    put          & hide            &  \\
-    receive      & inflate         &  \\
-    request      & padding         &  \\
-    send         & refresh         &  \\
-    socket       & render          &  \\
-    sync         & scaffold        &  \\
-                 & setvisibility   &  \\
-                 & show            &  \\
-                 & toggle          &  \\
-                 & update          &  \\
-                 & view            &  \\
-                 & windowsize      &  \\ \bottomrule
-  \end{tabular}
-  \caption{Keywords used for noncritical categories in the regex patterns.}
-  \label{tab:noncritical_regex_keywords}
-\end{table}
-
-
-\begin{table}[H]
-  \centering
-  \begin{tabular}{@{} l l l l l l @{}}
-    \toprule
-    Authentication & Cryptographically & Data Storage & Error Handling & File Write & Logging \\ \midrule
-    auth           & aes               & commit       & assert         & append     & Log\_d \\
-    bearer         & brsa              & database     & catch          & export     & Log\_e \\
-    credentials    & bouncycastle      & db           & crash          & file       & Log\_i \\
-    jwt            & cipher            & delete       & error          & persist    & Log\_v \\
-    login          & Cipher            & insert       & exception      & save       & Log\_w \\
-    logout         & crypto            & query        & fail           & write      & logger \\
-    MasterKey      & CryptoHelper      & session      & handle         &            & log \\
-    mfa            & CryptoUtils       & sql          & recover        &            & print \\
-    oauth          & decrypt           & store        & retry          &            & trace \\
-    password       & digest            & transaction  & rollback       &            & verbose \\
-    refresh        & Encrypted         &              & throw          &            & warning \\
-    signin         & Encryptor         &              &                &            & warn \\
-    signout        & hash              &              &                &            & wtf \\
-    signup         & hmac              &              &                &            & \\
-    sso            & java.security    &              &                &            & \\
-    token          & javax.crypto     &              &                &            & \\
-    validate       & keystore          &              &                &            & \\
-    verify         & keygen            &              &                &            & \\
-                  & KeyStore          &              &                &            & \\
-                  & MessageDigest     &              &                &            & \\
-                  & md5               &              &                &            & \\
-                  & SecretKey         &              &                &            & \\
-                  & SecureStore       &              &                &            & \\
-                  & sha224            &              &                &            & \\
-                  & sha256            &              &                &            & \\
-                  & sha384            &              &                &            & \\
-                  & sha512            &              &                &            & \\
-                  & signature         &              &                &            & \\
-                  & spongycastle      &              &                &            & \\ \bottomrule
-  \end{tabular}
-  \caption{Keywords used for critical categories in the regex patterns.}
-  \label{tab:critical_regex_keywords}
-\end{table}
-
 \begin{figure}[]
     \centering
     \lstinputlisting[language=json]{code_blocks/ghidriff_json_output.json}
@@ -130,7 +62,7 @@
         axis x line*=bottom,
         axis y line*=left
       ]
-        \addplot coordinates {
+        \addplot[ybar,fill=gray!70] coordinates {
           (log,49) (throw,46) (exception,41) (session,36) (view,36)
           (ui,35) (store,28) (fail,22) (error,20) (token,20) (append,19)
           (fragment,19) (backup,18) (handle,18) (auth,15) (password,15)
@@ -174,7 +106,7 @@
         axis x line*=bottom,
         axis y line*=left
       ]
-        \addplot coordinates {
+        \addplot[ybar,fill=gray!70] coordinates {
           (log,12) (append,8) (fail,7) (database,5) (file,5) (store,5)
           (throw,5) (ui,5) (fragment,4) (connect,3) (delete,3) (error,3)
           (exception,3) (trace,3) (update,3) (auth,2) (backup,2) (handle,2)
@@ -215,7 +147,7 @@
         axis x line*=bottom,
         axis y line*=left
       ]
-        \addplot coordinates {
+        \addplot[ybar,fill=gray!70] coordinates {
           (exception,4) (save,4) (throw,4)
           (log,3) (store,3)
           (append,2) (error,2) (fragment,2) (request,2) (validate,2)

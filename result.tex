@@ -140,26 +140,25 @@ The report also includes a dark mode option, which can be toggled using a button
 \section{Categorization Results}
 This section presents the results obtained from analyzing three different versions of the Signal Android application using the tool developed in this thesis. The selected versions, summarized in Table \ref{tab:release_overview}, are sourced from Signal's official Android GitHub repository \cite{githubSignal}. Additionally, Table \ref{tab:run_time} provides an overview of the tool’s runtime performance for each version analysis, including key metrics such as analysis duration and the number of detected changes.
 
-\subsection*{Important Notes}
-\begin{description}
-    \item[\textit{Note 1:} Partial Analysis of Version Diff B] For version diff B, only a subset of the GitHub changes was manually reviewed during the analysis. Consequently, while Table \ref{tab:run_time} lists a higher number of detected changes for version diff B compared to version diff A, the actual volume of analyzed result data presented in this chapter is smaller for version diff B. This discrepancy is due to the limited scope of the manual review.
+\begin{note}
+    Partial Analysis of Version Diff B\\
+    \noindent
+    For version diff B, only a subset of the GitHub changes was manually reviewed during the analysis. Consequently, while Table \ref{tab:run_time} lists a higher number of detected changes for version diff B compared to version diff A, the actual volume of analyzed result data presented in this chapter is smaller for version diff B. This discrepancy is due to the limited scope of the manual review.
+\end{note}
 
-    \item[\textit{Note 2:} Failed .dex File Analysis] The column labeled "Failed .dex files" in Table \ref{tab:run_time} indicates whether the pipeline (specifically Ghidra) encountered issues analyzing any .dex files. If any .dex files could not be properly analyzed, this can impact the accuracy of the results for that version diff. Missing or failed .dex file analysis reduces the likelihood of detecting all changes and can affect classification performance. This challenge is further discussed in Section \ref{sec:discussion-results}.
-\end{description}
 
-\subsection*{Understanding the Pipeline Analysis}
+\subsection{Understanding the Pipeline Analysis}
 The pipeline analysis in this section focuses on three key aspects:
 
-\begin{itemize}
-    \item \textbf{Change Detection:} Identifying individual changes between the two versions of the Signal application. Each change is defined as a single method-level modification detected between the compared versions.
+\begin{description}
+    \item[Change Detection] Identifying individual changes between the two versions of the Signal application. Each change is defined as a single method-level modification detected between the compared versions.
 
-    \item \textbf{Status Classification:} Assigning each detected change to one of three status categories: Critical, Non-critical, or Uncategorized. These categories help determine the significance of each change.
+    \item[Status Classification] Assigning each detected change to one of three status categories: Critical, Non-critical, or Uncategorized. These categories help determine the significance of each change.
 
-    \item \textbf{Functional Categorization:} Labeling each detected change with one or more functional categories, such as "Data Storage," "UI Update," or "Authentication." Unlike the status classification, a single change can belong to multiple functional categories.
-\end{itemize}
+    \item[Functional Categorization] Labeling each detected change with one or more functional categories, such as \codebox{Data storage}, \codebox{UI update}, or \codebox{Authentication}. Unlike the status classification, a single change can belong to multiple functional categories.
+\end{description}
 
 It is important to note that the total number of detected changes reflects the unique modifications found, while the count of changes in each category may exceed this total because some changes are assigned to multiple categories. This distinction ensures a clear understanding of the results and their classification.
-
 
 \begin{table}[H]
   \centering
@@ -173,6 +172,14 @@ It is important to note that the total number of detected changes reflects the u
   \caption{Overview of version diffs from Signal's Android GitHub repository \cite{githubSignal}}
   \label{tab:release_overview}
 \end{table}
+
+
+\begin{note}
+    Failed .dex File Analysis\\
+    \noindent
+    The column labeled "Failed .dex files" in Table \ref{tab:run_time} indicates whether the pipeline (specifically Ghidra) encountered issues analyzing any .dex files. If any .dex files could not be properly analyzed, this can impact the accuracy of the results for that version diff. Missing or failed .dex file analysis reduces the likelihood of detecting all changes and can affect classification performance. This challenge is further discussed in Section \ref{sec:discussion-results}.
+\end{note}
+
 
 \begin{table}[H]
   \centering
@@ -202,13 +209,14 @@ To accurately assess the performance of the pipeline’s categorization, a manua
 
 The results of this manual evaluation are crucial because they serve as a benchmark for assessing the pipeline's accuracy. Although the manual analysis was conducted separately from the pipeline, it reflects the intended behavior of the tool and provides a standard for comparison. 
 
-\noindent
-\subsubsection{Understanding Correct and Incorrect Classification}
-\begin{itemize}
-    \item \textbf{Correct Category Classification:} This means that the pipeline correctly assigned all categories identified during the manual analysis. Even if the pipeline assigned extra categories, it is still considered correct as long as it includes all the manually identified categories.
 
-    \item \textbf{Incorrect Category Classification:} This occurs when the pipeline fails to include all categories assigned during the manual analysis. This can happen if the pipeline detects only a subset of the manually assigned categories or if it entirely misses the correct categories.
-\end{itemize}
+\subsection{Understanding Correct and Incorrect Classification}
+\label{sec:result:understanding_correct_incorrect}
+\begin{description}
+    \item[Correct Category Classification] This means that the pipeline correctly assigned all categories identified during the manual analysis. Even if the pipeline assigned extra categories, it is still considered correct as long as it includes all the manually identified categories.
+
+    \item[Incorrect Category Classification] This occurs when the pipeline fails to include all categories assigned during the manual analysis. This can happen if the pipeline detects only a subset of the manually assigned categories or if it entirely misses the correct categories.
+\end{description}
 
 Further discussion regarding the reliability of these manually gathered results can be found in Section~\ref{sec:discussion-results}.
 
@@ -571,7 +579,7 @@ A more detailed discussion of this observation, including its implications and p
 
 
 % noncritical cat dist %
-\subsubsection{Noncritical categorization distribution}
+\subsubsection{Non-critical categorization distribution}
 The non-critical changes identified during the pipeline analysis are categorized into four distinct categories, as previously introduced in Section~\ref{sec:method:changes_to_categorize}. These categories capture modifications that, while relevant, do not directly impact the core functionality, security, or data handling of the application. Such changes typically include user interface updates, logging adjustments, and other non-essential modifications.
 A detailed breakdown of the distribution of hits within each non-critical category is presented in Figures~\ref{fig:noncritical_changes_A}, \ref{fig:noncritical_changes_B}, and \ref{fig:noncritical_changes_C}. These figures illustrate how frequently each non-critical category was assigned across the three versions (A, B, and C), providing a clear view of how such changes are distributed in each analyzed version.
 It is important to clarify that the term "hit" in this context does not directly correspond to a unique change. A single detected change may be assigned to multiple categories, resulting in multiple hits. For instance, a change that affects both user interface elements and logging functionality would be counted as a hit in both categories. This approach allows for a more comprehensive understanding of the nature of the detected changes.
@@ -579,135 +587,135 @@ It is important to clarify that the term "hit" in this context does not directly
 
 \begin{figure}[H]
     \centering
-
-    \begin{tikzpicture}
-    \path[%
-        % style options
-        dc sector/.append style={shift={(\MedA:5pt)}}, % shift all sectors
-        dc dtag/.append style={},
-        dc legend/.append style={text width=3.5cm, align=right},
-        every pin/.style={fill=\Cj,draw=\Cj!50!black,thick},
-        % diagram options
-        /DiagCirc/.cd,
-        value list={
-            124/Network call,
-            816/UI update,
-            193/Library function,
-            27/Text manipulation
-        },
-        color list={"color6","color7","color8","color9"},
-        angle max=180,             % semi-circular
-        angle corr={0,0,0,0,0,0},    % correct round angle error
-        legend=\N\ :\hfill \V,     % custom legend
-        factor=.9,
-        percent corr={0,0,0,0,0,0}, % correct round percent error
-        shift sector={0,0,0,0,0,0}, % shift individual sector
-        tags={%
-            \P                   % custom sector nodes
-        },
-        sup loop={% custom features :       
-            %--- pin directions just for THIS figure --------------
-            %   slice 0, slice 1, ..., 
-            \def\Pin{{350, 170, 130, 160}}
-            %   ↑   moved Critical up to 80° so it clears the legend
-            \pgfmathparse{array(\Pin,\j)}
-            \edef\Pinj{\pgfmathresult}
-            \node[pin=\Pinj:\N] at (DC\j) {};
-        },
-        diagram] ;
-    
-    \end{tikzpicture}
-    
+    \resizebox{0.92\textwidth}{!}{%
+        \begin{tikzpicture}
+        \path[%
+            % style options
+            dc sector/.append style={shift={(\MedA:5pt)}}, % shift all sectors
+            dc dtag/.append style={},
+            dc legend/.append style={text width=3.5cm, align=right},
+            every pin/.style={fill=\Cj,draw=\Cj!50!black,thick},
+            % diagram options
+            /DiagCirc/.cd,
+            value list={
+                124/Network call,
+                816/UI update,
+                193/Library function,
+                27/Text manipulation
+            },
+            color list={"color6","color7","color8","color9"},
+            angle max=180,             % semi-circular
+            angle corr={0,0,0,0,0,0},    % correct round angle error
+            legend=\N\ :\hfill \V,     % custom legend
+            factor=.9,
+            percent corr={0,0,0,0,0,0}, % correct round percent error
+            shift sector={0,0,0,0,0,0}, % shift individual sector
+            tags={%
+                \P                   % custom sector nodes
+            },
+            sup loop={% custom features :       
+                %--- pin directions just for THIS figure --------------
+                %   slice 0, slice 1, ..., 
+                \def\Pin{{350, 170, 130, 160}}
+                %   ↑   moved Critical up to 80° so it clears the legend
+                \pgfmathparse{array(\Pin,\j)}
+                \edef\Pinj{\pgfmathresult}
+                \node[pin=\Pinj:\N] at (DC\j) {};
+            },
+            diagram] ;
+        
+        \end{tikzpicture}
+    }
     \caption{Distribution of hits for each non-critical category from analysis of version diff A}
     \label{fig:noncritical_changes_A}
 \end{figure}
 
 \begin{figure}[H]
     \centering
-
-    \begin{tikzpicture}
-    \path[%
-        % style options
-        dc sector/.append style={shift={(\MedA:5pt)}}, % shift all sectors
-        dc dtag/.append style={},
-        dc legend/.append style={text width=3.5cm, align=right},
-        every pin/.style={fill=\Cj,draw=\Cj!50!black,thick},
-        % diagram options
-        /DiagCirc/.cd,
-        value list={
-            1183/Network call,
-            889/UI update,
-            1062/Library function,
-            197/Text manipulation
-        },
-        color list={"color6","color7","color8","color9"},
-        angle max=180,             % semi-circular
-        angle corr={0,0,0,0,0,0},    % correct round angle error
-        legend=\N\ :\hfill \V,     % custom legend
-        factor=.9,
-        percent corr={0,0,0,0,0,0}, % correct round percent error
-        shift sector={0,0,0,0,0,0}, % shift individual sector
-        tags={%
-            \P                   % custom sector nodes
-        },
-        sup loop={% custom features :       
-            %--- pin directions just for THIS figure --------------
-            %   slice 0, slice 1, ..., 
-            \def\Pin{{330, 170, 120, 160}}
-            %   ↑   moved Critical up to 80° so it clears the legend
-            \pgfmathparse{array(\Pin,\j)}
-            \edef\Pinj{\pgfmathresult}
-            \node[pin=\Pinj:\N] at (DC\j) {};
-        },
-        diagram] ;
-    
-    \end{tikzpicture}
-    
+    \resizebox{0.92\textwidth}{!}{%
+        \begin{tikzpicture}
+        \path[%
+            % style options
+            dc sector/.append style={shift={(\MedA:5pt)}}, % shift all sectors
+            dc dtag/.append style={},
+            dc legend/.append style={text width=3.5cm, align=right},
+            every pin/.style={fill=\Cj,draw=\Cj!50!black,thick},
+            % diagram options
+            /DiagCirc/.cd,
+            value list={
+                1183/Network call,
+                889/UI update,
+                1062/Library function,
+                197/Text manipulation
+            },
+            color list={"color6","color7","color8","color9"},
+            angle max=180,             % semi-circular
+            angle corr={0,0,0,0,0,0},    % correct round angle error
+            legend=\N\ :\hfill \V,     % custom legend
+            factor=.9,
+            percent corr={0,0,0,0,0,0}, % correct round percent error
+            shift sector={0,0,0,0,0,0}, % shift individual sector
+            tags={%
+                \P                   % custom sector nodes
+            },
+            sup loop={% custom features :       
+                %--- pin directions just for THIS figure --------------
+                %   slice 0, slice 1, ..., 
+                \def\Pin{{330, 170, 120, 160}}
+                %   ↑   moved Critical up to 80° so it clears the legend
+                \pgfmathparse{array(\Pin,\j)}
+                \edef\Pinj{\pgfmathresult}
+                \node[pin=\Pinj:\N] at (DC\j) {};
+            },
+            diagram] ;
+        
+        \end{tikzpicture}
+    }
     \caption{Distribution of hits for each non-critical category from analysis of version diff B}
     \label{fig:noncritical_changes_B}
 \end{figure}
 
 \begin{figure}[H]
     \centering
-
-    \begin{tikzpicture}
-    \path[%
-        % style options
-        dc sector/.append style={shift={(\MedA:5pt)}}, % shift all sectors
-        dc dtag/.append style={},
-        dc legend/.append style={text width=3.5cm, align=right},
-        every pin/.style={fill=\Cj,draw=\Cj!50!black,thick},
-        % diagram options
-        /DiagCirc/.cd,
-        value list={
-            18/Network call,
-            159/UI update,
-            178/Library function,
-            14/Text manipulation
-        },
-        color list={"color6","color7","color8","color9"},
-        angle max=180,             % semi-circular
-        angle corr={0,0,0,0,0,0},    % correct round angle error
-        legend=\N\ :\hfill \V,     % custom legend
-        factor=.9,
-        percent corr={0,0,0,0,0,0}, % correct round percent error
-        shift sector={0,0,0,0,0,0}, % shift individual sector
-        tags={%
-            \P                   % custom sector nodes
-        },
-        sup loop={% custom features :       
-            %--- pin directions just for THIS figure --------------
-            %   slice 0, slice 1, ..., 
-            \def\Pin{{10, 88, 120, 160}}
-            %   ↑   moved Critical up to 80° so it clears the legend
-            \pgfmathparse{array(\Pin,\j)}
-            \edef\Pinj{\pgfmathresult}
-            \node[pin=\Pinj:\N] at (DC\j) {};
-        },
-        diagram] ;
-    
-    \end{tikzpicture}
-    
+    \resizebox{0.92\textwidth}{!}{%
+        \begin{tikzpicture}
+        \path[%
+            % style options
+            dc sector/.append style={shift={(\MedA:5pt)}}, % shift all sectors
+            dc dtag/.append style={},
+            dc legend/.append style={text width=3.5cm, align=right},
+            every pin/.style={fill=\Cj,draw=\Cj!50!black,thick},
+            % diagram options
+            /DiagCirc/.cd,
+            value list={
+                18/Network call,
+                159/UI update,
+                178/Library function,
+                14/Text manipulation
+            },
+            color list={"color6","color7","color8","color9"},
+            angle max=180,             % semi-circular
+            angle corr={0,0,0,0,0,0},    % correct round angle error
+            legend=\N\ :\hfill \V,     % custom legend
+            factor=.9,
+            percent corr={0,0,0,0,0,0}, % correct round percent error
+            shift sector={0,0,0,0,0,0}, % shift individual sector
+            tags={%
+                \P                   % custom sector nodes
+            },
+            sup loop={% custom features :       
+                %--- pin directions just for THIS figure --------------
+                %   slice 0, slice 1, ..., 
+                \def\Pin{{10, 88, 120, 160}}
+                %   ↑   moved Critical up to 80° so it clears the legend
+                \pgfmathparse{array(\Pin,\j)}
+                \edef\Pinj{\pgfmathresult}
+                \node[pin=\Pinj:\N] at (DC\j) {};
+            },
+            diagram] ;
+        
+        \end{tikzpicture}
+    }
     \caption{Distribution of hits for each non-critical category from analysis of version diff C}
     \label{fig:noncritical_changes_C}
 \end{figure}
@@ -852,7 +860,7 @@ This section presents an analysis of the distribution of keywords detected durin
 
 \subsubsection{Keywords Resulting in Critical and Non-Critical Categorizations}
 
-The total number of hits for each keyword that triggered a critical or non-critical classification during the regular-expression analysis is displayed in Figures~\ref{fig:commonly_used_words_A}, \ref{fig:commonly_used_words_B}, and \ref{fig:commonly_used_words_C}. Each figure visualizes how frequently each keyword was detected, along with a breakdown of how many of these detections led to correct or incorrect categorizations. This analysis helps identify which keywords are most effective at correctly classifying changes and which may require further refinement to improve accuracy.
+The total number of hits for each keyword that triggered a critical or non-critical classification during the regular-expression analysis is displayed in Figures \ref{fig:commonly_used_words_A}, \ref{fig:commonly_used_words_B}, and \ref{fig:commonly_used_words_C}. Each figure visualizes how frequently each keyword was detected, along with a breakdown of how many of these detections led to correct or incorrect categorizations. This analysis helps identify which keywords are most effective at correctly classifying changes and which may require further refinement to improve accuracy.
 
 
 \begin{figure}[H]
@@ -879,7 +887,7 @@ The total number of hits for each keyword that triggered a critical or non-criti
         axis x line*=bottom,
         axis y line*=left
       ]
-        \addplot[ybar,fill=default_bar_color] coordinates {
+        \addplot[ybar,fill=gray!70] coordinates {
           (log,49) (throw,46) (exception,41) (session,36) (view,36)
           (ui,35) (store,28) (fail,22) (error,20) (token,20) (append,19)
           (fragment,19) (backup,18) (handle,18) (auth,15) (password,15)
@@ -919,7 +927,7 @@ The total number of hits for each keyword that triggered a critical or non-criti
         axis x line*=bottom,
         axis y line*=left
       ]
-        \addplot[ybar,fill=default_bar_color] coordinates {
+        \addplot[ybar,fill=gray!70] coordinates {
           (log,12) (append,8) (fail,7) (database,5) (file,5) (store,5)
           (throw,5) (ui,5) (fragment,4) (connect,3) (delete,3) (error,3)
           (exception,3) (trace,3) (update,3) (auth,2) (backup,2) (handle,2)
@@ -955,7 +963,7 @@ The total number of hits for each keyword that triggered a critical or non-criti
         axis x line*=bottom,
         axis y line*=left
       ]
-        \addplot[ybar,fill=default_bar_color] coordinates {
+        \addplot[ybar,fill=gray!70] coordinates {
           (trace,10) (view,6) (fragment,5) (hash,4) (insert,4)
           (database,3) (exception,3) (handle,3) (throw,3) (windowsize,3)
           (compact,2) (fail,2) (put,2) (query,2) (db,1) (delete,1)
@@ -1001,7 +1009,7 @@ The results are visualized as bar charts in Figures~\ref{fig:keyword_incorrect_t
         axis x line*=bottom,
         axis y line*=left
       ]
-        \addplot[ybar,fill=default_bar_color] coordinates {
+        \addplot[ybar,fill=gray!70] coordinates {
           (exception,4) (save,4) (throw,4)
           (log,3) (store,3)
           (append,2) (error,2) (fragment,2) (request,2) (validate,2)
@@ -1035,7 +1043,7 @@ The results are visualized as bar charts in Figures~\ref{fig:keyword_incorrect_t
         axis x line*=bottom,
         axis y line*=left
       ]
-        \addplot[ybar,fill=default_bar_color] coordinates {
+        \addplot[ybar,fill=gray!70] coordinates {
           (throw,2)
           (append,1) (commit,1) (digest,1) (exception,1) (fail,1)
           (file,1) (hash,1) (log,1) (store,1) (text,1) (update,1) (write,1)
@@ -1069,7 +1077,7 @@ The results are visualized as bar charts in Figures~\ref{fig:keyword_incorrect_t
         axis x line*=bottom,
         axis y line*=left
       ]
-        \addplot[ybar,fill=default_bar_color] coordinates {
+        \addplot[ybar,fill=gray!70] coordinates {
           (trace,6) (handle,2) (hash,2) (insert,2) (query,2)
           (db,1) (put,1) (view,1)
         };
@@ -1087,16 +1095,7 @@ The results are visualized as bar charts in Figures~\ref{fig:keyword_incorrect_t
 
 This section examines the accuracy of keyword-based categorizations in the pipeline analysis, focusing on how effectively each keyword triggers correct classifications. The accuracy of keyword matches is visualized in three separate figures—Figures~\ref{fig:keyword_match_accuracy_A}, \ref{fig:keyword_match_accuracy_B}, and \ref{fig:keyword_match_accuracy_C}—each corresponding to one of the three analyzed version differences (A, B, and C). These figures provide a clear view of the performance of each keyword in accurately categorizing changes.
 
-It is important to clarify how accuracy is determined in this context. The definition of a \textit{correct} keyword match is relatively generous:
-
-\begin{itemize}
-    \item A match is considered \textbf{correct} if any category assigned by the pipeline overlaps with the categories identified in the manual analysis. This means that even if the pipeline assigns additional categories that were not present in the manual analysis, the match is still counted as correct.
-
-    \item Conversely, a match is considered \textbf{incorrect} if none of the categories assigned by the pipeline align with those identified manually. However, this definition can also mark some matches as incorrect even if they are partially correct. For instance, if the pipeline correctly assigns some but not all categories identified in the manual analysis, it is still treated as an incorrect match.
-
-\end{itemize}
-
-This approach may result in an inflated count of \textit{correct} matches, as keywords are credited with success whenever there is any overlap with the manually identified categories. Similarly, the number of \textit{incorrect} matches may be slightly deflated, as partially correct categorizations are also marked as incorrect. This distinction is crucial for accurately interpreting the results shown in the figures.
+Recall that a match is deemed correct when the pipeline assigns any category that also appears in the manual review; if none of its categories overlap, the match is incorrect—even when the pipeline captures parts of the manual set. See Section \ref{sec:result:understanding_correct_incorrect} for full definition. This approach may result in an inflated count of \textit{correct} matches, as keywords are credited with success whenever there is any overlap with the manually identified categories. Similarly, the number of \textit{incorrect} matches may be slightly deflated, as partially correct categorizations are also marked as incorrect. This distinction is crucial for accurately interpreting the results shown in the figures.
 
 
 
@@ -1255,49 +1254,6 @@ This approach may result in an inflated count of \textit{correct} matches, as ke
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Comprehensive summary of version diffs}
 \label{sec:res:comprehensive_summary}
-\begin{comment}
-%%%%%% NOTE:
-- Tveksam om vi ska kombinera critical/non-critical/uncategorized då det verkligen beror på vilka versions diffar vi använder som test data. Säger ju egenltigen inget om vår pipeline.
-
-When summarizing all three version diffs it is revealed that the majority of the detected changes are categorized as noncritical, as illustrated in Figure \ref{fig:categorization_comprehensive}.
-
-\begin{figure}[H]
-  \centering
-  \begin{tikzpicture}
-    \pie[text=legend, radius=2.4]{
-      10.1/Critical,
-      81.9/Noncritical,
-      7.9/Uncategorized
-    }
-  \end{tikzpicture}
-  \caption{Distribution of all (6133) changes detected detected by the pipeline.}
-    \label{fig:categorization_comprehensive}
-\end{figure}
-
-
-\textbf{TODO:} Add these parts
-\begin{itemize}
-    \item Categorization A has the best hit rate, and B has the worst
-    \item The accuracy of the categorization is better for noncritical
-\end{itemize}
-
-
-\begin{table}[H]
-  \centering
-  \begin{tabular}{@{} l c c c @{}}
-    \toprule
-    Version diff & Examined & Found & Correct status \\ \midrule
-    A & 84 & 76 & 67 \\
-    B & 29 & 15 & 27 \\
-    C & 28 & 27 & 19 \\ \midrule
-    \textbf{Total} & \textbf{141} & \textbf{83.6\%} & \textbf{77.3\%} \\ \bottomrule
-  \end{tabular}
-  \caption{Caption}
-  \label{tab:sdf}
-\end{table}
-\end{comment}
-
-
 
 \subsubsection{Summarized pipeline accuracy}
 The table in Figure~\ref{tab:overall_accuracy} presents a comprehensive overview of the pipeline's accuracy, aggregated across all three version differences (diffs). This table provides a summary of the pipeline’s performance in three key aspects:
@@ -1347,7 +1303,7 @@ As previously mentioned in Section~\ref{sec:result:categorization_distributions:
 
 A closer look at these figures reveals that some categories, such as \codebox{File write}, \codebox{Cryptographic}, and \codebox{Text manipulation}, exhibit 0\% accuracy in correct assignments. However, this result is misleading because the total number of assignments for these categories is either extremely low or nonexistent. Consequently, even a single incorrect categorization can significantly skew the accuracy percentage for these categories.
 
-Additionally, the category \codebox{Error handling} shows consistently low accuracy, even though it has a substantial number of assignments—both correct and incorrect. This suggests that the categorization keywords associated with \codebox{Error handling} may require refinement to improve accuracy.
+Additionally, the category \codebox{Error handling} shows consistently low accuracy, even though it has a substantial number of assignments, both correct and incorrect. This suggests that the categorization keywords associated with \codebox{Error handling} may require refinement to improve accuracy.
 
 From these observations, it is clear that the critical categories \codebox{Authentication} and \codebox{Data storage}, along with the non-critical categories \codebox{UI update} and \codebox{Network call}, have keyword definitions that are highly effective in producing accurate and reliable categorizations. These categories benefit from well-defined and contextually relevant keywords, leading to consistent and correct classifications.
 

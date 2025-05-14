@@ -77,7 +77,7 @@ The current method counts a change as “correctly categorized” even when the 
 
 
 \subsection{Depth of coverage}
-From looking at the result presented Chapter \ref{cha:result}, it is obvious that some of the categories were not sufficiently represented so that the performance indexes can be reliably used
+Looking at the results in Chapter \ref{cha:result}, it is clear that some categories—\codebox{File write}, \codebox{Cryptographic}, and \codebox{Text manipulation}—are under-represented, so their performance metrics cannot be considered reliable. In contrast, the many assignments to \codebox{UI update} and \codebox{Data storage} indicate that the selected version diffs are weighted toward changes that primarily affect those categories. With this in mind, it would—for future additions to this work—be of interest how to choose test data that more effectively targets all the categories used as part of the categorization. Unfortunately, this lies beyond the scope of this thesis.
 
 
 
@@ -97,7 +97,7 @@ From looking at the result presented Chapter \ref{cha:result}, it is obvious tha
 \end{itemize}    
 \end{comment}
 
-Is this needed? What could be written here?
+\textbf{NOTE TO SULEMAN:} Is this needed? The topics that we have acknowledged as limitations are already covered in either \ref{sec:discussion-results} or \ref{sec:discussion-method}. But maybe there is something else that we haven't thought about?
 
 
 
@@ -138,11 +138,13 @@ Testing as only been performed with the Android version of Signal, as presented 
 
 \subsection{Why we chose Ghidriff}
 
+\textbf{NOTE TO SULEMAN:} Not sure if this is needed? Some explanation can be found in Chapter \ref{cha:methodology}, but maybe that is not enough?
+
 
 
 \section{Replicability}
 \label{sec:replicability}
-To replicate the research performed in this thesis, the pipeline tool described in Chapter \ref{cha:methodology} must be used. The tool and additional information regarding installation and setup is accessible from XXX. All Signal versions mentioned in the thesis are public releases retrieved from the Signal Github repository \cite{githubSignal}. Lastly, Section \ref{sec:manual_evaluation_process} describes how the manual evaluation was conducted to collect the results in this thesis.
+To replicate the research performed in this thesis, the pipeline tool described in Chapter \ref{cha:methodology} must be used. The tool and additional information regarding installation and setup is accessible from the thesis project's GitHub repository \cite{public_project_github}. All Signal versions mentioned in the thesis are public releases retrieved from the Signal GitHub repository \cite{githubSignal}. Lastly, Section \ref{sec:res:categorization_result:manual_evaluation_process} describes how the manual evaluation was conducted to collect the results in this thesis.
 
 \section{The Work in a Wider Context}
 \label{sec:work-wider-context}
