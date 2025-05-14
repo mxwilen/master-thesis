@@ -1,0 +1,155 @@
+%%% Discussion.tex --- 
+%% 
+%% Filename: Discussion.tex
+%% Author: Jacob Ringfjord & Max Wilén
+%%% Code:
+
+\chapter{Discussion}
+\label{cha:discussion}
+This chapter begins by reviewing the findings presented in chapter \ref{cha:result} \textit{Result}, focusing on the performance and accuracy of the categorization. Secondly, the method from \ref{cha:methodology} \textit{Methodology} is discussed by reflecting on its design, implementation, and limitations. Lastly, the chapter explores the wider context of this thesis, considering societal implications of the work. 
+
+\section{Results}
+\label{sec:discussion-results}
+\begin{comment}
+\begin{itemize}
+    \item Best/worst categorization type accuracy
+    \item False positive and false negatives
+    
+    \item in some cases the pipeline analysis can actually be more precise and correct than the manual analysis since the pipeline processes operations done in the execution flow, and the manual analysis has only looked at the specific code line and it surrounding code lines to get a general view of what is happening. (more categories chosen by the pipeline than the manual analysis does not mean that the pipeline is too broad and too easily sets a category).
+    
+    \item in version diff C: more than usual amount of faulty categorizations. a lot of the manual analysis done detected UI changes, but the pipeline detected some other category. This could be because, only for this specific version diff, because the changes seemed when looking at the source code to indicate simple UI changes (viewmodel, mainactivity, onCreate etc) that was thought to not create any critical changes. this hypothesis can however be wrong since the pipeline seems to uncover more information/operations connected to the change that points to a critical change actually occuring. Therefore, this lack of high accuracy for this version diff could instead point to the pipeline being more effective at finding critical differences than the human eye (only looking at a specific code line)
+\end{itemize}
+
+
+
+One distinguishing factor between the manual evaluation process used for obtaining the results and the output from the developed tool is that the latter considers the program's control flow. The manual analysis relies on us investigating the changes in the source code and only reviewing them on an individual level. An approach where a more sophisticated investigation was made, where the usage was overseen, etc. would affect the consistency of the method since it would be difficult to treat everything equally. It would also be very time-consuming to do this for every change. However, the developed tool analyses the control flow of the program when comparing the given binaries and detecting the changes. Therefore, the analysis derived from the tool may sometimes be more precise than the manual analysis, since it analyzes from a more in-depth perspective. This is interesting since the accuracy of the pipeline in some cases may be more precise than the manual analysis if the latter one is categorized incorrectly.
+
+
+
+
+MAX TANKAR:
+    the subjective nature of the manual analysis:
+    - is a correct categorization actually correct?
+    
+
+\begin{enumerate}
+    \item[Is a correct categorization actually correct?] Is the categorization too lenient—are too many changes being assigned to the most critical categories?
+    
+    - categorizations being marked as correct even though the majority of the categories marked by the pipeline is not part of the manual analysis.
+    
+    KLAR - too many changes marked with a majority of the critical categories? can both be a consequence of the pipeline looking at execution flow (good consequence), and that the categorization is too kind (bad consequence).
+    
+\end{enumerate}
+\end{comment}
+
+Following the result presented in Chapter \ref{cha:result}, two main points of interests for further discussion has come up. The two are split up for the reason of targeting different root concerns, but they do somewhat intersect with each other:
+
+\begin{explanation}
+    These are addressed in their respective subsections.
+    \begin{enumerate}
+        \item \textbf{Validity of the categorization} - How confident can we be that each change has been placed in the correct category?
+    
+        \item \textbf{Criteria for correctness} – What threshold or standard determines whether a categorization is judged correct or incorrect?
+
+        \item \textbf{Depth of coverage} - Are all categories and keywords adequately represented in the result data to yield reliable accuracy estimates?
+    \end{enumerate}
+\end{explanation}
+
+
+\subsection{Validity of the Categorization}
+\label{sec:discussion:result:validity_of_categorization}
+As presented in Section \ref{sec:res:categorization_result:manual_evaluation_process}, the way that the declaration of a correct/incorrect categorization is done in this thesis has its accompanied concernes. Most obviously is the reliability of the manual analysis being correct in the first place, but this is discussed in the upcoming Section \ref{sec:discussion:subjective_nature_manual_analysis}. 
+
+% many critical changes received a majority if the critical categories
+% bad take ->
+Instead, we highlight the issue that many critical changes are assigned to several critical categories. Put differently, a substantial share of changes flagged as critical during the manual review have been assigned several critical categories by the pipeline, even though the manual analysis associated each with only a few. This is concerning because it is unclear whether the manual review was incorrect in the first place or whether the pipeline’s categorization is overly generous. It could be that the keyword lists for each category might need to be shortened, or a more relational keyword-matching approach—one that considers the relative positions of keywords—could produce more reliable results. Something however that is not part of this thesis.
+
+% good take ->
+Viewed from another angle, the pipeline’s seemingly “generous” labeling might simply reflect a higher level of accuracy and detail than the manual review. Because the pipeline bases its classifications on function-level data derived from Ghidra’s control-flow analysis, it evaluates not only the operations directly modified by a change but also the downstream operations influenced by that change and the overall structure that the change produces. Because of this, changes that have been assigned more categories by the pipeline analysis than the manual analysis can be a consequence of the manual analysis being too vague.
+
+
+
+\subsection{Criteria for correctness}
+This section examines the standards for calling a categorization correct or incorrect when we compare the manual review with the pipeline’s output, and it highlights the limitations of that comparison.
+
+The current method counts a change as “correctly categorized” even when the pipeline matches only a subset of the categories identified in the manual review. This can distort the results: a change tagged with all categories by the pipeline may still be labeled correct even though the manual analysis assigned just one. As noted in Section \ref{sec:discussion:result:validity_of_categorization}, the mismatch may stem from the pipeline’s finer granularity, but it is still problematic. Many changes end up marked as fully correct when they would be better described as e.g., only \textit{partly correct}. However, we decided not to adapt such labeling because it might add complexity without improving reliability. At the time of writing this thesis, we cannot tell whether the pipeline, the manual review, or both contains the greater inaccuracy, so we lack a clear basis for weighting one over the other. Given this uncertainty—and the experimental nature of the thesis—we have maintained the existing approach. Future studies may shed more light on the issue, with this thesis approach in mind.
+
+
+
+\subsection{Depth of coverage}
+From looking at the result presented Chapter \ref{cha:result}, it is obvious that some of the categories were not sufficiently represented so that the performance indexes can be reliably used
+
+
+
+
+
+
+\subsection{Limitations}
+
+\begin{comment}
+\textbf{TODO:} Full category metric score is given to a function that has all the categories listed in the hypothesis in the pipeline result column. So, if there is an extra category in the pipeline result which is not found in the hypothesis, this still is considered a full point.
+
+\textbf{TODO:} code diff syntax analysis is only computed for the critical categories. some explanation has been done in the method (regex explanation), but more is probably needed.
+
+\begin{itemize}
+    \item Multiple detections for same change
+    \item Alot more detections and category hits detected by the pipeline than discovered through the manual analysis. The accuracy calculations follows because of this from a small subset of the changes detected by the pipeline.
+\end{itemize}    
+\end{comment}
+
+Is this needed? What could be written here?
+
+
+
+\section{Method}
+\label{sec:discussion-method}
+
+Building on the results in Chapter \ref{cha:result} and the methodology in Chapter \ref{cha:methodology}, we have identified several discussion points. Each one stems from a different core concern, yet they partly overlap. 
+
+\begin{explanation}
+    These are addressed in their respective subsections.
+    \begin{enumerate}
+        \item \textbf{Uncontrollable external deficiencies} - How do external actions affect the pipeline?
+
+        \item \textbf{Subjective Nature of a Manual Analysis} - How certain can we be that the manual analysis was done correctly?
+
+        \item \textbf{Choice of Test Data} - Is Signal an appropriate program for testing the pipeline?
+
+        \item \textbf{Why we chose Ghidriff} - What made us choose it over the other options mentioned in Sections \ref{sec:background:binary_disassembler_decompilers} and \ref{sec:background:comparing_binaries}?
+    \end{enumerate}
+\end{explanation}
+
+\subsection{Uncontrollable external deficiencies}
+This thesis utilizes the previously mentioned tool, Ghidriff, to detect the changes between different software versions. As shown in Table \ref{tab:overall_accuracy}, not all changes are successfully detected from Ghidriff. If this is due to limitations in Ghidra or Ghidriff is unknown and falls outside the scope of this thesis to investigate, but it does affect the result. It is worth mentioning that Ghidriff has only been referenced in a limited number of prior studies, which may indicate that its capabilities and limitations are not fully explored. In this thesis, there have been cases where Ghidriff has not been able to analyze all .dex files, which can be seen in Table \ref{tab:run_time}.
+
+
+\subsection{Subjective Nature of a Manual Analysis}
+\label{sec:discussion:subjective_nature_manual_analysis}
+The results presented in this thesis are derived through manual analysis, and the source code is analyzed without prior knowledge of the implementation. Since both the source code and the output from the pipeline tool are based on this approach, there is a potential for bias. For instance, manual examination of the source code can present challenges since the implementation can sometimes be difficult to understand without knowing the entire code base. This highlights the subjective nature of the manual analysis. To counter this, an approach where a more sophisticated manual analysis was made would increase the consistency and reliability, but would also be more time-consuming given the complexity of automating such a task.
+
+The results presented in this thesis rest on the prior assumption that a change behaves as interpreted when one examines the specific line of code. Commit messages linked to the change can lend some support to this assumption, but the precise reason the change occurred remains uncertain, and the findings must therefore be interpreted with this limitation in mind.
+
+
+\subsection{Choice of Test Data}
+Testing as only been performed with the Android version of Signal, as presented in previous chapters. The reason for this lies in two main reasons. First, the NFC specifically requested Signal-Android because its scale and architectural style resemble the other apps they plan to process with the pipeline, making it a practical and representative choice for initial testing. Second, Signal’s open-source codebase simplifies data collection and analysis.
+
+% The results from the three version diffs analyzed in this thesis may not represent other applications in the same field. However, Signal was chosen since it is a large-scale application and an interesting one for the client to investigate. It is also one of the few where the source code is publicly accessible, which is required in this thesis to validate the performance of the developed tool.
+
+
+\subsection{Why we chose Ghidriff}
+
+
+
+\section{Replicability}
+\label{sec:replicability}
+To replicate the research performed in this thesis, the pipeline tool described in Chapter \ref{cha:methodology} must be used. The tool and additional information regarding installation and setup is accessible from XXX. All Signal versions mentioned in the thesis are public releases retrieved from the Signal Github repository \cite{githubSignal}. Lastly, Section \ref{sec:manual_evaluation_process} describes how the manual evaluation was conducted to collect the results in this thesis.
+
+\section{The Work in a Wider Context}
+\label{sec:work-wider-context}
+This thesis has been conducted on behalf of a client operating in the digital forensics sector. The tool
+has been tailored to meet their needs and requirements, but has been developed with flexibility in mind. The categories and keywords used can easily be modified, making it adaptable for a wider range of usage beyond its original purpose. 
+
+\subsection{Ethical Considerations}
+In the context of digital forensics, there are two opposing perspectives: those who aim to exploit systems and those who work to protect and investigate them. Therefore, ethical considerations remain an important aspect of this thesis. A potential hacker could benefit from understanding the differences between two software versions, as such changes may introduce new vulnerabilities that could be exploited in recently released software.
+
+However, the tool developed in this thesis is intended to streamline the process of selecting appropriate forensic methods for the client and not replace it. Based on the results obtained and insights gained from the analysis, the tool does not appear to be sufficient on its own for use in malicious activities such as hacking. Manual reverse-engineering and use of additional, more specialized software still seem necessary. While a skilled hacker might find value in the information provided by the tool, they would likely already have access to more effective tools suited for such purposes. All development in this thesis has been carried out using publicly available tools for everyone to use. 

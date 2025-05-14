@@ -1,0 +1,53 @@
+{
+    "program_options": {
+      "classes7.dex": {
+      "Decompiler": {
+        "Output Language": "java-language",
+        "Prototype Evaluation": "__stdcall"
+      },
+      ...
+    },
+    "matches": {
+      "address_matches": {
+        "500d7b24": [
+          [
+            "500dae44",
+            [
+              "Implied Match"
+            ]
+          ]
+        ],
+        ...
+      },
+      "name_matches": {
+        "org::whispersystems::signalservice::internal::websocket.. [
+          [
+            "org::whispersystems::signalservice::api::services::..",
+            [
+              "BulkBasicBlockMnemonicHash"
+            ]
+          ],
+        ]
+        ...
+      }
+    },
+    "stats": {
+      "added_funcs_len": 0,
+      "deleted_funcs_len": 64,
+      "modified_funcs_len": 102,
+      "added_symbols_len": 141,
+      "deleted_symbols_len": 44,
+      ...
+      "match_types": {
+        "SymbolsHash": 7821,
+        "ExactBytesFunctionHasher": 74,
+        "ExactInstructionsFunctionHasher": 742,
+        "BSIM": 7,
+        "SigCallingCalledHasher": 1904,
+        "StructuralGraphHash": 830,
+        "BulkBasicBlockMnemonicHash": 982,
+        "Implied Match": 39
+      },
+      ...
+    },
+    ...

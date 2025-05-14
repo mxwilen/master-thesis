@@ -1,0 +1,53 @@
+            ...
+            "length": 216,
+            "called": [
+              "org::whispersystems::signalservice::internal::util::
+              "org::whispersystems::signalservice::internal::websock
+              "org::whispersystems::signalservice::internal::websock
+              "org::whispersystems::signalservice::internal::websock
+              "org::whispersystems::signalservice::internal::websock
+            ],
+            "calling": [],
+            "paramcount": 1,
+            "address": "500f2c60",
+            "sig": "BehaviorSubject * __stdcall connect(LibSignalCha
+            "code": "\nBehaviorSubject connect(LibSignalChatConnecti 
+            "instructions": -637542262544425940,
+            "mnemonics": -7865751262045088584,
+            "blocks": -2269168960773066083,
+            "sym_type": "Function",
+            "sym_source": "ANALYSIS",
+            "external": false
+          },
+          "new": {
+            "name": "connect",
+            "fullname": "org::whispersystems::signalservice::interna
+            "parent": "org::whispersystems::signalservice::interna
+            "refcount": 2,
+            "length": 218,
+            "called": [
+              "org::whispersystems::signalservice::internal:
+              "org::whispersystems::signalservice::internal::websock
+              "org::whispersystems::signalservice::internal::websock
+              "org::whispersystems::signalservice::internal::websock
+              "org::whispersystems::signalservice::internal::websock
+            ],
+            "calling": [],
+            "paramcount": 1,
+            "address": "500f62d0",
+            "sig": "BehaviorSubject * __stdcall connect(LibSignalCha
+            "code": "\n/* Class: Lorg/whispersystems/signalservice/i
+            "instructions": -1343646570394148028,
+            "mnemonics": 2858087259115755273,
+            "blocks": -5548806748632249785,
+            "sym_type": "Function",
+            "sym_source": "ANALYSIS",
+            "external": false
+          },
+          "diff": "--- org::whispersystems::signalservice::internal:
+          "diff_type": [
+            "code",
+            "length",
+            "address"
+          ],
+          ...

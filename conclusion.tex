@@ -1,0 +1,45 @@
+%%% Conclusion.tex --- 
+%% 
+%% Filename: Conclusion.tex
+%% Author: Jacob Ringfjord & Max Wilén
+%%% Code:
+
+\chapter{Conclusion}
+\label{cha:conclusion}
+
+In this thesis, a new method for categorizing changes from Android APK files has been presented. 
+
+In addition to the presented results, the following research questions have been answered:
+
+\begin{enumerate}
+\item{\textbf{How does forensic analysis depend on knowledge of the differences between different versions of software applications?}}
+\newline
+...
+
+\item{\textbf{How to effectively determine programmatical changes of an Android application, based only
+on the executable?}}
+\newline
+...
+
+\item{\textbf{What techniques are most suitable for performing categorization of changes?}}
+\newline
+...
+\end{enumerate}
+
+
+\section{Future work}
+\begin{comment}
+    add callgraphs to the pipeline report?
+    - https://clearbluejar.github.io/posts/callgraphs-with-ghidra-pyhidra-and-jpype/
+\end{comment}
+There are several directions for extending the research presented in this thesis. The most significant challenge discovered throughout the project is the time-consuming manual evaluation process for verifying the result. In this thesis, three version diffs were investigated; a more comprehensive analysis would require more comparisons. Automating this process could not only improve the efficiency of gathering more results but also remove the human bias in the source code evaluation. 
+
+Furthermore, with additional data from the pipeline analysis, the use of machine learning and training larger data sets is an interesting path to explore. While the current state of the tool can determine whether a change is related to a specific category, it cannot differentiate between clear and ambiguous cases.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% lorem.tex ends here
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: "demothesis"
+%%% End: 

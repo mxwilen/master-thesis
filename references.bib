@@ -1,0 +1,714 @@
+% En tung referens for att bygga motivation
+@techreport{nij2004forensic,
+  title        = {Forensic Examination of Digital Evidence: A Guide for Law Enforcement},
+  author       = {{National Institute of Justice}},
+  institution  = {U.S. Department of Justice, Office of Justice Programs},
+  year         = 2004,
+  month        = apr,
+  number       = {NCJ 199408},
+  url          = {https://www.ojp.gov/pdffiles1/nij/199408.pdf},
+}
+
+
+% En snabb referens till digital forensic. Inget speciellt.
+@article{introductionForensics,
+	abstract = {Today's Golden Age of computer forensics is quickly coming to an end. Without a clear strategy for enabling research efforts that build upon one another, forensic research will fall behind the market, tools will become increasingly obsolete, and law enforcement, military and other users of computer forensics products will be unable to rely on the results of forensic analysis. This article summarizes current forensic research directions and argues that to move forward the community needs to adopt standardized, modular approaches for data representation and forensic processing.},
+	author = {Simson L. Garfinkel},
+	doi = {10.1016/j.diin.2010.05.009},
+	issn = {1742-2876},
+	journal = {Digital Investigation},
+	keywords = {Forensics, Human subjects research, Corpora, Real data corpus, Realistic data},
+	note = {The Proceedings of the Tenth Annual DFRWS Conference},
+	pages = {S64-S73},
+	title = {Digital forensics research: The next 10 years},
+	volume = {7},
+	year = {2010},
+	bdsk-url-1 = {https://www.sciencedirect.com/science/article/pii/S1742287610000368},
+	bdsk-url-2 = {https://doi.org/10.1016/j.diin.2010.05.009}}
+
+
+% Definitioner och förklaringar på vad som ingår i en forensisk method. Tar även upp förslag på sätt som forensiska metoder kan automatiseras, men även problem kopplat till detta och varför vissa saker är svåra att automatisera
+@article{automatingForensicMethods,
+	abstract = {Automation is crucial for managing the increasing volume of digital evidence. However, the absence of a clear foundation comprising a definition, classification, and common terminology has led to a fragmented landscape where diverse interpretations of automation exist. This resembles the wild west: some consider keyword searches or file carving as automation while others do not. We, therefore, reviewed automation literature (in the domain of digital forensics and other domains), performed three practitioner interviews, and discussed the topic with domain experts from academia. On this basis, we propose a definition and then showcase several considerations concerning automation for digital forensics, e.g., what we classify as no/basic automation or full automation (autonomous). We conclude that it requires these foundational discussions to promote and progress the discipline through a common understanding.},
+	author = {Ga{\"e}tan Michelet and Frank Breitinger and Graeme Horsman},
+	date-added = {2024-11-21 15:27:54 +0100},
+	date-modified = {2024-11-21 15:27:54 +0100},
+	doi = {10.1016/j.forsciint.2023.111769},
+	issn = {0379-0738},
+	journal = {Forensic Science International},
+	keywords = {Automation, Definition, Practitioner interviews, Digital Forensic investigation, Investigative task},
+	pages = {111769},
+	title = {Automation for digital forensics: Towards a definition for the community},
+	volume = {349},
+	year = {2023},
+	bdsk-url-1 = {https://www.sciencedirect.com/science/article/pii/S0379073823002190},
+	bdsk-url-2 = {https://doi.org/10.1016/j.forsciint.2023.111769}}
+
+
+% Referens för vad digital forensic är
+@online{nij_digital_multimedia_evidence,
+  author       = {{National Institute of Justice}},
+  title        = {Digital and Multimedia Evidence},
+  year         = 2024,
+  url          = {https://nij.ojp.gov/topics/forensics/digital-multimedia-evidence},
+  urldate      = {2024-11-21},
+  note         = {Accessed: 2024-11-21}
+}
+
+% Används för verifiering av binäranalys och hur det används
+@misc{nist_binary_code_scanners,
+  title        = {Binary Code Scanners},
+  author       = {{National Institute of Standards and Technology (NIST)}},
+  year         = {2024},
+  url          = {https://www.nist.gov/itl/ssd/software-quality-group/binary-code-scanners?utm_source=chatgpt.com},
+  note         = {Accessed: 2024-11-28}
+}
+
+% Mer specific källa för binäranalys
+@article{practical_binary_analysis_static_code,
+author = {Harris, Laune C. and Miller, Barton P.},
+title = {Practical analysis of stripped binary code},
+year = {2005},
+issue_date = {December 2005},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+volume = {33},
+number = {5},
+issn = {0163-5964},
+doi = {10.1145/1127577.1127590},
+abstract = {Executable binary code is the authoritative source of information about program content and behavior. The compile, link, and optimize steps can cause a program's detailed execution behavior to differ substantially from its source code. Binary code analysis is used to provide information about a program's content and structure, and is therefore a foundation of many applications, including binary modification[3,12,22,31], binary translation[5,29], binary matching[30], performance profiling[13,16,18], debugging, extraction of parameters for performance modeling, computer security[7,8] and forensics[23,26]. Ideally, binary analysis should produce information about the content of the program's code (instructions, basic blocks, functions, and modules), structure (control and data flow), and data structures (global and stack variables). The quality and availability of this information affects applications that rely on binary analysis.},
+journal = {SIGARCH Comput. Archit. News},
+month = dec,
+pages = {63–68},
+numpages = {6}
+}
+
+% Äldre artikel om symbolic execution och testning
+@article{king1976symbolic,
+  title={Symbolic execution and program testing},
+  author={King, James C},
+  journal={Communications of the ACM},
+  volume={19},
+  number={7},
+  pages={385--394},
+  year={1976},
+  publisher = {Association for Computing Machinery},
+  address = {New York, NY, USA},
+  doi = {10.1145/360248.360252},
+
+}
+
+% Artikel som beskriver skalbarhetsproblem och hur man skulle kunna tackla det
+@techreport{bucur2015improving,
+  title={Improving scalability of symbolic execution for software with complex environment interfaces},
+  author={Bucur, Stefan},
+  year={2015},
+  institution={EPFL},
+  doi = {10.5075/epfl-thesis-6719}
+}
+
+% Related work: Ghidrion (plugin for Ghidra that uses symbolic execution)
+@thesis{flum_huber_ghidrion_2024,
+  author       = {Flum, Silvan and Huber, Valentin},
+  title        = {Ghidrion: A Ghidra Plugin to Support Symbolic Execution},
+  year         = {2024},
+  month        = {01},
+  abstract     = {Symbolic execution is a powerful technique for automatic analysis of and reasoning about program behaviour, particularly in binary analysis. However, popular reverse engineering tools such as Ghidra lack native support for symbolic execution. Existing extensions advertising symbolic execution are limited in functionality, do not scale well enough to be employed on practical binaries and provide limited documentation. The Cyber-Defence Campus of armasuisse, as part of its vulnerability research program, has developed a proof-of-concept tool called Morion, that enables symbolic execution-based analysis of various vulnerability types on practical binaries. Previously, it had to be configured by manually writing configuration files. This thesis proposes Ghidrion, an open-source Ghidra plugin that leverages information gathered from Ghidra’s analysis tools to enhance analysts’ usage of Morion. Ghidrion suggests calls to external functions that can be hooked and simplifies configuring the setup necessary to run Morion. It further supports the analysis of Morion’s results by visually highlighting executed instructions and providing a side-by-side comparison of memory and register values at the beginning and end of the execution. Alongside the code, previously missing documentation on developing Ghidra plugins is provided. This thesis further proposes future research directions, such as improvements to Ghidra’s loader to match external functions to their libraries and added support for interactive Python shells to run Morion’s analysis modules from within Ghidra.},
+  url          = {https://research.ebsco.com/linkprocessor/plink?id=f3a48082-04fe-33da-b443-d09c21e7ff26},
+  language     = {English},
+  institution  = {Cyber-Defence Campus, armasuisse},
+  type         = {Bachelor Thesis},
+  database     = {OAIster},
+  source       = {EBSCOhost},
+  id           = {edsoai.on1422749028}
+}
+
+% Ghidra official website
+@online{ghidra_official,
+  author       = {{National Security Agency (NSA)}},
+  title        = {Ghidra: Software Reverse Engineering Framework},
+  url          = {https://ghidra-sre.org/},
+  year         = {2024},
+  note         = {Accessed: 2024-12-02},
+}
+
+% symbolic execution used in angr (dynamic binary analysis tool)
+@article{symbolic_exec_in_angr,
+  title={Binary analysis and symbolic execution with angr},
+  author={Cheng, Eric},
+  journal={PhD thesis, PhD thesis},
+  year={2016}
+}
+
+% original reference for angr
+@inproceedings{angr_original,
+  title={{SoK: (State of) The Art of War: Offensive Techniques in Binary Analysis}},
+  author={Shoshitaishvili, Yan and Wang, Ruoyu and Salls, Christopher and
+          Stephens, Nick and Polino, Mario and Dutcher, Audrey and Grosen, John and
+          Feng, Siji and Hauser, Christophe and Kruegel, Christopher and Vigna, Giovanni},
+  booktitle={IEEE Symposium on Security and Privacy},
+  year={2016},
+  doi={10.1109/SP.2016.17},
+  pages={138-157},
+}
+
+% Kandidatrapport från i våras (NFC)
+@misc{nfc_kandidatrapport_jesper,
+	abstract = {This thesis investigates the automation of forensic analysis in identifying and categorising forensically interesting changes across different versions of chat applications on Android platforms. The focus is primarily on the differentiation of Android Package Kit (APK) using reverse-engineering techniques to reconstruct the original source code and comparing the source code from two different versions of the APK. Given the rapid evolutionof chat applications and their frequent updates, it is crucial for forensic investigators to understand these changes to maintain the integrity of legal investigations. The research introduces a comprehensive framework leveraging the open-source tools, Ghidra and BinDiff, to automate the decompilation and differential analysis of APK files. This approach not only makes forensic analysis less complicated but also ensures that investigators can keep pace with the continuous updates in chat applications. Tests on the system are conducted on various versions of the Signal chat application. These tests aim to demonstrate the proposed tool in capturing significant changes between APK versions, such as alterations inlogging mechanisms, database interactions, and the use of encryption and cypher libraries. The results confirm that the integration of Ghidra and BinDiff provides a solution for automated forensic analysis, facilitating the identification of changes and categorisation of methods based on their forensic relevance. The study shows that the tool can pinpoint modifications and structural changes, which are essential for forensic investigations. },
+	author = {Ljungsten, Ted and Makowski, Adam},
+	institution = {Malm{\"o} University, Department of Computer Science and Media Technology (DVMT)},
+	keywords = {Ghidra, Bindiff, Python, Automation, Decompilation, Differentiation, Chat app, Chat application, Automation script, Ghidra, Bindiff, Python Automation, Dekompilering, Differensiering, Chatt app, Chatt applikation, Automatisations scriptcript},
+	pages = {53},
+	school = {Malm{\"o} University, Department of Computer Science and Media Technology (DVMT)},
+	title = {Automated Differentiation of Chat Application Versions and Categorisation of Changes Based on Forensic Relevance},
+	year = {2024}}
+
+% Differences between static and dynamic binary analysis
+@article{staitc_vs_dynamic_binary_analysis,
+author = {Or-Meir, Ori and Nissim, Nir and Elovici, Yuval and Rokach, Lior},
+title = {Dynamic Malware Analysis in the Modern Era—A State of the Art Survey},
+year = {2019},
+issue_date = {September 2020},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+volume = {52},
+number = {5},
+issn = {0360-0300},
+doi = {10.1145/3329786},
+abstract = {Although malicious software (malware) has been around since the early days of computers, the sophistication and innovation of malware has increased over the years. In particular, the latest crop of ransomware has drawn attention to the dangers of malicious software, which can cause harm to private users as well as corporations, public services (hospitals and transportation systems), governments, and security institutions. To protect these institutions and the public from malware attacks, malicious activity must be detected as early as possible, preferably before it conducts its harmful acts. However, it is not always easy to know what to look for—especially when dealing with new and unknown malware that has never been seen. Analyzing a suspicious file by static or dynamic analysis methods can provide relevant and valuable information regarding a file's impact on the hosting system and help determine whether the file is malicious or not, based on the method's predefined rules. While various techniques (e.g., code obfuscation, dynamic code loading, encryption, and packing) can be used by malware writers to evade static analysis (including signature-based anti-virus tools), dynamic analysis is robust to these techniques and can provide greater understanding regarding the analyzed file and consequently can lead to better detection capabilities. Although dynamic analysis is more robust than static analysis, existing dynamic analysis tools and techniques are imperfect, and there is no single tool that can cover all aspects of malware behavior. The most recent comprehensive survey performed in this area was published in 2012. Since that time, the computing environment has changed dramatically with new types of malware (ransomware, cryptominers), new analysis methods (volatile memory forensics, side-channel analysis), new computing environments (cloud computing, IoT devices), new machine-learning algorithms, and more. The goal of this survey is to provide a comprehensive and up-to-date overview of existing methods used to dynamically analyze malware, which includes a description of each method, its strengths and weaknesses, and its resilience against malware evasion techniques. In addition, we include an overview of prominent studies presenting the usage of machine-learning methods to enhance dynamic malware analysis capabilities aimed at detection, classification, and categorization.},
+journal = {ACM Comput. Surv.},
+month = sep,
+articleno = {88},
+numpages = {48},
+keywords = {Dynamic analysis, behavioral analysis, detection, evasion, malware}
+}
+
+@inproceedings{hu2016cross,
+  title={Cross-architecture binary semantics understanding via similar code comparison},
+  author={Hu, Yikun and Zhang, Yuanyuan and Li, Juanru and Gu, Dawu},
+  booktitle={2016 IEEE 23rd international conference on software analysis, evolution, and reengineering (SANER)},
+  volume={1},
+  pages={57--67},
+  year={2016},
+  organization={IEEE},
+  doi={10.1109/SANER.2016.50}
+}
+
+@article{hu2019semantics,
+  title={A semantics-based hybrid approach on binary code similarity comparison},
+  author={Hu, Yikun and Wang, Hui and Zhang, Yuanyuan and Li, Bodong and Gu, Dawu},
+  journal={IEEE Transactions on Software Engineering},
+  volume={47},
+  number={6},
+  pages={1241--1258},
+  year={2019},
+  publisher={IEEE},
+  doi={10.1109/TSE.2019.2918326}
+}
+
+% Used for the project timeline and evaluating experiments.
+@inproceedings{evaluating_experiments,
+  title={Scientific benchmarking of parallel computing systems: twelve ways to tell the masses when reporting performance results},
+  author={Hoefler, Torsten and Belli, Roberto},
+  booktitle={Proceedings of the international conference for high performance computing, networking, storage and analysis},
+  pages={1--12},
+  year={2015},
+  doi = {10.1145/2807591.2807644},
+  publisher = {Association for Computing Machinery},
+  address = {New York, NY, USA},
+}
+
+
+@article{1027796,
+  author={Kitchenham, B.A. and Pfleeger, S.L. and Pickard, L.M. and Jones, P.W. and Hoaglin, D.C. and El Emam, K. and Rosenberg, J.},
+  journal={IEEE Transactions on Software Engineering}, 
+  title={Preliminary guidelines for empirical research in software engineering}, 
+  year={2002},
+  volume={28},
+  number={8},
+  pages={721-734},
+  keywords={Guidelines;Software engineering;Computer Society;Statistics;Computer science;Data analysis;Software standards;Laboratories;Software performance;Surgery},
+  doi={10.1109/TSE.2002.1027796}}
+
+
+@book{wilhelm2013compiler,
+  title={Compiler Design: Syntactic and Semantic Analysis},
+  author={Wilhelm, R. and Seidl, H. and Hack, S.},
+  isbn={9783642175404},
+  year={2013},
+  publisher={Springer Berlin Heidelberg}
+}
+
+% talks about scaling issued of symbolic execution and ways to tackle path explosion using heuristic approaches
+@INPROCEEDINGS{tackling_path_explosion,
+  author={Xiao, Xu and Zhang, Xiao-song and Li, Xiong-da},
+  booktitle={2010 First International Conference on Pervasive Computing, Signal Processing and Applications}, 
+  title={New Approach to Path Explosion Problem of Symbolic Execution}, 
+  year={2010},
+  volume={},
+  number={},
+  pages={301-304},
+  abstract={This paper is dedicated to the study of Symbolic Execution and improves the core algorithm of it using Heuristic learning, search and Function Abstraction to effectively address the path explosion problem, which will trigger the vulnerabilities that the traditional method can not find and improve the efficiency, precision and accuracy of software vulnerability discovery.},
+  keywords={Software;Explosions;Algorithm design and analysis;Heuristic algorithms;Software algorithms;Security;Testing;Symbolic Execution;Heuristic learning and search;Funtcion Abstraction;Path Explosion},
+  doi={10.1109/PCSPA.2010.80},
+  ISSN={},
+  month={Sep.},}
+
+@article{allen1970control,
+  title={Control flow analysis},
+  author={Allen, Frances E},
+  journal={ACM Sigplan Notices},
+  volume={5},
+  number={7},
+  pages={1--19},
+  year={1970},
+  isbn = {9781450373869},
+  publisher = {Association for Computing Machinery},
+  address = {New York, NY, USA},
+  doi = {10.1145/800028.808479},
+}
+
+% Related work: automating binary analysis
+@inproceedings{automating_binary_analysis,
+  title={Automated binary analysis: A survey},
+  author={Liu, Zian and Chen, Chao and Ejaz, Ahmed and Liu, Dongxi and Zhang, Jun},
+  booktitle={International Conference on Algorithms and Architectures for Parallel Processing},
+  pages={392--411},
+  year={2022},
+  organization={Springer},
+  doi = {10.1007/978-3-031-22677-9_21}
+}
+
+% XMPChecker
+@inproceedings {XMPChecker,
+author = {Xiaohan Zhang and Yuan Zhang and Qianqian Mo and Hao Xia and Zhemin Yang and Min Yang and XiaoFeng Wang and Long Lu and Haixin Duan},
+title = {An Empirical Study of Web Resource Manipulation in Real-world Mobile Applications},
+booktitle = {27th USENIX Security Symposium (USENIX Security 18)},
+year = {2018},
+isbn = {978-1-939133-04-5},
+address = {Baltimore, MD},
+pages = {1183--1198},
+url = {https://www.usenix.org/conference/usenixsecurity18/presentation/zhang-xiaohan},
+publisher = {USENIX Association},
+month = aug
+}
+
+% CoP tool (common subsequence of semantically equivalent basic blocks)
+@article{CoP,
+  author={Luo, Lannan and Ming, Jiang and Wu, Dinghao and Liu, Peng and Zhu, Sencun},
+  journal={IEEE Transactions on Software Engineering}, 
+  title={Semantics-Based Obfuscation-Resilient Binary Code Similarity Comparison with Applications to Software and Algorithm Plagiarism Detection}, 
+  year={2017},
+  volume={43},
+  number={12},
+  pages={1157-1177},
+  keywords={Semantics;Software development;Plagiarism;Binary codes;Software algorithms;Syntactics;Computational modeling;Software plagiarism detection;algorithm detection;binary code similarity comparison;obfuscation;symbolic execution;constraint solving},
+  doi={10.1109/TSE.2017.2655046}}
+}
+
+% Binsim
+@inproceedings{binsim,
+author = {Ming, Jiang and Xu, Dongpeng and Jiang, Yufei and Wu, Dinghao},
+title = {BinSim: trace-based semantic binary diffing via system call sliced segment equivalence checking},
+year = {2017},
+isbn = {9781931971409},
+publisher = {USENIX Association},
+address = {USA},
+abstract = {Detecting differences between two binary executables (binary diffing), first derived from patch analysis, have been widely employed in various software security analysis tasks, such as software plagiarism detection and malware lineage inference. Especially when analyzing malware variants, pervasive code obfuscation techniques have driven recent work towards determining semantic similarity in spite of ostensible difference in syntax. Existing ways rely on either comparing runtime behaviors or modeling code snippet semantics with symbolic execution. However, neither approach delivers the expected precision. In this paper, we propose system call sliced segment equivalence checking, a hybrid method to identify fine-grained semantic similarities or differences between two execution traces. We perform enhanced dynamic slicing and symbolic execution to compare the logic of instructions that impact on the observable behaviors. Our approach improves existing semantics-based binary diffing by 1) inferring whether two executable binaries' behaviors are conditionally equivalent; 2) detecting the similarities or differences, whose effects spread across multiple basic blocks. We have developed a prototype, called BinSim, and performed empirical evaluations against sophisticated obfuscation combinations and more than 1;000 recent malware samples, including now-infamous crypto ransomware. Our experimental results show that BinSim can successfully identify fine-grained relations between obfuscated binaries, and outperform existing binary diffing tools in terms of better resilience and accuracy.},
+booktitle = {Proceedings of the 26th USENIX Conference on Security Symposium},
+pages = {253–270},
+numpages = {18},
+location = {Vancouver, BC, Canada},
+series = {SEC'17},
+url = {https://www.usenix.org/conference/usenixsecurity17/technical-sessions/presentation/ming},
+}
+
+% RAZOR
+@inproceedings{RAZOR,
+  title={$\{$RAZOR$\}$: A framework for post-deployment software debloating},
+  author={Qian, Chenxiong and Hu, Hong and Alharthi, Mansour and Chung, Pak Ho and Kim, Taesoo and Lee, Wenke},
+  booktitle={28th USENIX security symposium (USENIX Security 19)},
+  pages={1733--1750},
+  year={2019}
+}
+
+% Concolic testing
+@inproceedings{concolic_testing,
+author = {Sen, Koushik},
+title = {Concolic testing},
+year = {2007},
+isbn = {9781595938824},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+doi = {10.1145/1321631.1321746},
+abstract = {Concolic testing automates test input generation by combining the concrete and symbolic (concolic) execution of the code under test. Traditional test input generation techniques use either (1) concrete execution or (2) symbolic execution that builds constraints and is followed by a generation of concrete test inputs from these constraints. In contrast, concolic testing tightly couples both concrete and symbolic executions: they run simultaneously, and each gets feedback from the other.We have implemented concolic testing in tools for testing both C and Java programs. We have used the tools to find bugs in several real-world software systems including SGLIB, a popular C data structure library used in a commercial tool, a third-party implementation of the Needham-Schroeder protocol and the TMN protocol, the scheduler of Honeywell's DEOS real-time operating system, and the Sun Microsystems' JDK 1.4 collection framework. In this tutorial, we will describe concolic testing and some of its recent extensions},
+booktitle = {Proceedings of the 22nd IEEE/ACM International Conference on Automated Software Engineering},
+pages = {571–572},
+numpages = {2},
+keywords = {unit testing, testing tools, testing C programs, symbolic execution, random testing, explicit path model-checking, data structure testing, concolic testing},
+location = {Atlanta, Georgia, USA},
+series = {ASE '07}
+}
+
+@INPROCEEDINGS{8023121,
+  author={Xu, Hui and Zhou, Yangfan and Kang, Yu and Lyu, Michael R.},
+  booktitle={2017 47th Annual IEEE/IFIP International Conference on Dependable Systems and Networks (DSN)}, 
+  title={Concolic Execution on Small-Size Binaries: Challenges and Empirical Study}, 
+  year={2017},
+  volume={},
+  number={},
+  pages={181-188},
+  keywords={Tools;Concrete;Cognition;Scalability;Testing;Data models;Arrays;concolic execution},
+  doi={10.1109/DSN.2017.11}}
+
+
+% what are decompilers and dissassemblers
+@inproceedings {binary_decompilers_dissassemblers,
+author = {Kruegel, Christopher and Robertson, William and Valeur, Fredrik and Vigna, Giovanni},
+title = {Static disassembly of obfuscated binaries},
+year = {2004},
+publisher = {USENIX Association},
+address = {USA},
+abstract = {Disassembly is the process of recovering a symbolic representation of a program's machine code instructions from its binary representation. Recently, a number of techniques have been proposed that attempt to foil the disassembly process. These techniques are very effective against state-of-the-art disassemblers, preventing a substantial fraction of a binary program from being disassembled correctly. This could allow an attacker to hide malicious code from static analysis tools that depend on correct disassembler output (such as virus scanners).The paper presents novel binary analysis techniques that substantially improve the success of the disassembly process when confronted with obfuscated binaries. Based on control flow graph information and statistical methods, a large fraction of the program's instructions can be correctly identified. An evaluation of the accuracy and the performance of our tool is provided, along with a comparison to several state-of-the-art disassemblers.},
+booktitle = {Proceedings of the 13th Conference on USENIX Security Symposium - Volume 13},
+pages = {18},
+numpages = {1},
+keywords = {binary obfuscation, reverse engineering, static analysis},
+location = {San Diego, CA},
+series = {SSYM'04},
+}
+
+% IDA Pro website
+@misc{ida_pro_official,
+  title = {IDA Pro},
+  author = {{Hex-Rays}},
+  year = {2025},
+  url = {https://hex-rays.com/ida-pro},
+  note = {Accessed: 2025-01-28}
+}
+
+% Binary ninja website
+@misc{binaryninja_official,
+  author       = {Vector 35, Inc.},
+  title        = {Binary Ninja: The Reverse Engineering Platform},
+  year         = {2025},
+  url          = {https://binary.ninja/},
+  note         = {Accessed: 2025-01-28}
+}
+
+% radare2 github repo
+@online{radare2_official,
+  author       = {RadareOrg},
+  title        = {Radare2: The Open Source Reverse Engineering Framework},
+  year         = {2025},
+  url          = {https://github.com/radareorg/radare2},
+  note         = {Accessed: 2025-01-28}
+}
+
+% rizing github
+@online{rizin_official,
+  author       = {RizinOrg},
+  title        = {Rizin: A Unified Framework for Reverse Engineering},
+  year         = {2025},
+  url          = {https://github.com/rizinorg/rizin},
+  note         = {Accessed: 2025-01-28}
+}
+
+% cutter github
+@online{cutter_official,
+  author       = {RizinOrg},
+  title        = {Cutter: A Qt and C++ GUI for Rizin Reverse Engineering Framework},
+  year         = {2025},
+  url          = {https://github.com/rizinorg/cutter},
+  note         = {Accessed: 2025-01-28}
+}
+
+% x64dbg website
+@online{x64dbg_official,
+  author       = {x64dbg Development Team},
+  title        = {x64dbg: An Open-Source x64/x86 Debugger for Windows},
+  year         = {2025},
+  url          = {https://x64dbg.com/},
+  note         = {Accessed: 2025-01-28}
+}
+
+% ApkTool website
+@online{apktool_official,
+  author       = {Connor Tumbleson},
+  title        = {APKTool: A Tool for Reverse Engineering Android APK Files},
+  year         = {2025},
+  url          = {https://apktool.org/},
+  note         = {Accessed: 2025-01-28}
+}
+
+% Patch diffing
+@inproceedings{patch_diffing,
+author = {Zhao, Lei and Zhu, Yuncong and Ming, Jiang and Zhang, Yichen and Zhang, Haotian and Yin, Heng},
+title = {PatchScope: Memory Object Centric Patch Diffing},
+year = {2020},
+isbn = {9781450370899},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+doi = {10.1145/3372297.3423342},
+abstract = {Software patching is one of the most significant mechanisms to combat vulnerabilities. To demystify underlying patch details, the techniques of patch differential analysis (a.k.a. patch diffing) are proposed to find differences between patched and unpatched programs' binary code. Considering the sophisticated security patches, patch diffing is expected to not only correctly locate patch changes but also provide sufficient explanation for understanding patch details and the fixed vulnerabilities. Unfortunately, none of the existing patch diffing techniques can meet these requirements. In this study, we first perform a large-scale study on code changes of security patches for better understanding their patterns. We then point out several challenges and design principles for patch diffing. To address the above challenges, we design a dynamic patch diffing technique PatchScope. Our technique is motivated by two key observations: 1) the way that a program processes its input reveals a wealth of semantic information, and 2) most memory corruption patches regulate the handling of malformed inputs via updating the manipulations of input-related data structures. The core of PatchScope is a new semantics-aware program representation, memory object access sequence, which characterizes how a program references data structures to manipulate inputs. The representation can not only deliver succinct patch differences but also offer rich patch context information such as input-patch correlations. Such information can interpret patch differences and further help security analysts understand patch details, locate vulnerability root causes, and even detect buggy patches.},
+booktitle = {Proceedings of the 2020 ACM SIGSAC Conference on Computer and Communications Security},
+pages = {149–165},
+numpages = {17},
+keywords = {vulnerability analysis, software security, patch diffing},
+location = {Virtual Event, USA},
+series = {CCS '20}
+}
+
+
+% How compilers affect the binary output
+@inproceedings{compiler_effects_on_binaries,
+author = {Ren, Xiaolei and Ho, Michael and Ming, Jiang and Lei, Yu and Li, Li},
+title = {Unleashing the hidden power of compiler optimization on binary code difference: an empirical study},
+year = {2021},
+isbn = {9781450383912},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+doi = {10.1145/3453483.3454035},
+abstract = {Hunting binary code difference without source code (i.e., binary diffing) has compelling applications in software security. Due to the high variability of binary code, existing solutions have been driven towards measuring semantic similarities from syntactically different code. Since compiler optimization is the most common source contributing to binary code differences in syntax, testing the resilience against the changes caused by different compiler optimization settings has become a standard evaluation step for most binary diffing approaches. For example, 47 top-venue papers in the last 12 years compared different program versions compiled by default optimization levels (e.g., -Ox in GCC and LLVM). Although many of them claim they are immune to compiler transformations, it is yet unclear about their resistance to non-default optimization settings. Especially, we have observed that adversaries explored non-default compiler settings to amplify malware differences.  This paper takes the first step to systematically studying the effectiveness of compiler optimization on binary code differences. We tailor search-based iterative compilation for the auto-tuning of binary code differences. We develop BinTuner to search near-optimal optimization sequences that can maximize the amount of binary code differences. We run BinTuner with GCC 10.2 and LLVM 11.0 on SPEC benchmarks (CPU2006 \& CPU2017), Coreutils, and OpenSSL. Our experiments show that at the cost of 279 to 1,881 compilation iterations, BinTuner can find custom optimization sequences that are substantially better than the general -Ox settings. BinTuner's outputs seriously undermine prominent binary diffing tools' comparisons. In addition, the detection rate of the IoT malware variants tuned by BinTuner falls by more than 50\%. Our findings paint a cautionary tale for security analysts that attackers have a new way to mutate malware code cost-effectively, and the research community needs to step back to reassess optimization-resistance evaluations.},
+booktitle = {Proceedings of the 42nd ACM SIGPLAN International Conference on Programming Language Design and Implementation},
+pages = {142–157},
+numpages = {16},
+keywords = {Binary Code Difference, Compiler Optimization},
+location = {Virtual, Canada},
+series = {PLDI 2021}
+}
+
+
+% Bindiff website
+@online{bindiff_official,
+  title     = {BinDiff},
+  author    = {{Zynamics}},
+  url       = {https://zynamics.com/bindiff.html},
+  urldate   = {2025-02-03},
+  note      = {Accessed: 2025-02-03}
+} 
+
+
+% paper introducing binhunt. code and source of program is unknown...
+@inproceedings{binhunt_official,
+	abstract = {We introduce BinHunt, a novel technique for finding semantic differences in binary programs. Semantic differences between two binary files contrast with syntactic differences in that semantic differences correspond to changes in the program functionality. Semantic differences are difficult to find because of the noise from syntactic differences caused by, e.g., different register allocation and basic block re-ordering. BinHunt bases its analysis on the control flow of the programs using a new graph isomorphism technique, symbolic execution, and theorem proving. We implement a system based on BinHunt and demonstrate the application of the system with three case studies in which BinHunt manages to identify the semantic differences between an executable and its patched version, revealing the vulnerability that the patch eliminates.},
+    author="Gao, Debin
+    and Reiter, Michael K.
+    and Song, Dawn",
+    editor="Chen, Liqun
+    and Ryan, Mark D.
+    and Wang, Guilin",
+    title="BinHunt: Automatically Finding Semantic Differences in Binary Programs",
+    booktitle="Information and Communications Security",
+    year="2008",
+    publisher="Springer Berlin Heidelberg",
+    address="Berlin, Heidelberg",
+    pages="238--255",
+    isbn="978-3-540-88625-9"
+    }
+
+
+% diaphora website
+@online{diaphora_official,
+  author       = {Koret, Joxean},
+  title        = {Diaphora -- Binary Diffing for IDA Pro},
+  url          = {http://diaphora.re/},
+  urldate      = {2025-02-03},
+  note         = {Accessed: 2025-02-03}
+}
+
+% turbodiff github
+@online{turbodiff_official,
+  title     = {TurboDiff},
+  author    = {{HelpSystems}},
+  url       = {https://github.com/helpsystems/turbodiff},
+  urldate   = {2025-02-03},
+  note      = {GitHub repository. Accessed on 2025-02-03.}
+}
+
+
+@book{Ethical_Hackers_Handbook_fourth,
+	author = {Spasojevic, B. and Linn, R. and Harper, A. and Ness, J. and Harris, S. and Sims, S. and Regalado, D. and Eagle, C.},
+	isbn = {9780071832380},
+	publisher = {McGraw-Hill Education},
+	title = {Gray Hat Hacking The Ethical Hacker's Handbook, Fourth Edition},
+	year = {2015},
+	bdsk-url-1 = {https://books.google.se/books?id=8Dk1ngEACAAJ}}
+
+
+% about dex, dalvik, dalvik bytecode and ART
+% Android official docs
+@online{AndroidRuntime_official,
+  author    = {Android Open Source Project},
+  title     = {Android Runtime (ART) and Dalvik},
+  year      = {2024},
+  url       = {https://source.android.com/docs/core/runtime},
+  note      = {Accessed: 2025-02-12}
+}
+% More specifically about the bytecode format
+@online{DalvikBytecode_official,
+  author    = {Android Open Source Project},
+  title     = {Dalvik Bytecode},
+  year      = {2024},
+  url       = {https://source.android.com/docs/core/runtime/dalvik-bytecode},
+  note      = {Accessed: 2025-02-12}
+}
+
+% Ghidriff git repo
+@misc{Ghidriff,
+	author = {},
+	title = {{G}it{H}ub - clearbluejar/ghidriff: {P}ython {C}ommand-{L}ine {G}hidra {B}inary {D}iffing {E}ngine --- github.com},
+	howpublished = {\url{https://github.com/clearbluejar/ghidriff}},
+	year = {},
+	note = {[Accessed 18-02-2025]},
+}
+
+% Android official page for entry point and call graphs. talking about activity and its methods
+@manual{android_official-ActivitiesGuide,
+  author    = {{Android Developers}},
+  title     = {Introduction to Activities},
+  year      = {2024},
+  url       = {https://developer.android.com/guide/components/activities/intro-activities},
+  note      = {Accessed: 2024-03-03}
+}
+
+
+% used in comparing binaries (background). syntactic comparison
+@Article{A_Survey_of_Binary_Code_Similarity_Detection_Techniques,
+AUTHOR = {Ruan, Liting and Xu, Qizhen and Zhu, Shunzhi and Huang, Xujing and Lin, Xinyang},
+TITLE = {A Survey of Binary Code Similarity Detection Techniques},
+JOURNAL = {Electronics},
+VOLUME = {13},
+YEAR = {2024},
+NUMBER = {9},
+ARTICLE-NUMBER = {1715},
+ISSN = {2079-9292},
+ABSTRACT = {Binary Code Similarity Detection is a method that involves comparing two or more binary code segments to identify their similarities and differences. This technique plays a crucial role in areas such as software security, vulnerability detection, and software composition analysis. With the extensive use of binary code in software development and system optimization, binary code similarity detection has become an important area of research. Traditional methods of source code similarity detection face challenges when dealing with the unreadable and complex nature of binary code, necessitating specialized techniques and algorithms. This review compares and summarizes various techniques and methods of binary code similarity detection, highlighting their strengths and limitations in handling different characteristics of binary code. Additionally, the article suggests potential future research directions. As research and innovation in this technology continue to advance, binary code similarity detection is expected to play an increasingly significant role in fields like software security.},
+DOI = {10.3390/electronics13091715}
+}
+
+@inproceedings{android_matching,
+author = {De Ghein, Robbe and Abrath, Bert and De Sutter, Bjorn and Coppens, Bart},
+title = {ApkDiff: Matching Android App Versions Based on Class Structure},
+year = {2022},
+isbn = {9781450398817},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+doi = {10.1145/3560831.3564257},
+abstract = {Reverse engineering an application requires attackers to invest time and effort doing manual and automatic analyses. When a new version of the application is released, this investment could be lost completely, if all the analyses had to be re-done. The gained insights into how an application functions might be transferred from one version to the next, however, if the versions do not differ too much. Diffing tools are thus valuable to reverse engineers attempting to transfer their knowledge across versions, as well as to defenders trying to assess this attack vector, and whether or how much a new version has to be diversified. While such diffing tools exist and are in widespread use for binary applications, they are in short supply for Android apps.This paper presents ApkDiff, a tool for diffing Android apps based on the semantic features of the class structure. To evaluate our tool we selected 20 popular financial apps available in the Google Play Store, and tracked their version updates over eight months. We found that on average 79\% of all classes had a unique match across version updates. When we consider only classes for which we detect explicit obfuscations being applied (by applying heuristics on their identifiers), we still find that we can find a match for 56\% of the classes (ranging from 23\% to 85\%), suggesting that these obfuscated apps are not resilient to our matching strategies. Our results suggest that ApkDiff provides a valuable approach to diffing Android apps.},
+booktitle = {Proceedings of the 2022 ACM Workshop on Research on Offensive and Defensive Techniques in the Context of Man At The End (MATE) Attacks},
+pages = {1–12},
+numpages = {12},
+keywords = {reverse engineering, matching program versions, classes, bytecode},
+location = {Los Angeles, CA, USA},
+series = {Checkmate '22}
+}
+
+% Europol - brottskämpande organ mot brottslighet
+@misc{europaInternationalOperation,
+	author = {},
+	title = {{I}nternational operation takes down another encrypted messaging service used by criminals | {E}uropol --- europol.europa.eu},
+	howpublished = {\url{https://www.europol.europa.eu/media-press/newsroom/news/international-operation-takes-down-another-encrypted-messaging-service-used-criminals}},
+	year = {},
+	note = {[Accessed 10-03-2025]},
+}
+
+@misc{githubSignal,
+	author = {},
+	title = {{S}ignal --- github.com},
+	howpublished = {\url{https://github.com/signalapp}},
+	year = {},
+	note = {[Accessed 10-03-2025]},
+}
+
+% ACM Finger printing paper Suleman has mentioned
+@article{acm_fingerprinting_survey,
+author = {Alrabaee, Saed and Debbabi, Mourad and Wang, Lingyu},
+title = {A Survey of Binary Code Fingerprinting Approaches: Taxonomy, Methodologies, and Features},
+year = {2022},
+issue_date = {January 2023},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+volume = {55},
+number = {1},
+issn = {0360-0300},
+doi = {10.1145/3486860},
+abstract = {Binary code fingerprinting is crucial in many security applications. Examples include malware detection, software infringement, vulnerability analysis, and digital forensics. It is also useful for security researchers and reverse engineers since it enables high fidelity reasoning about the binary code such as revealing the functionality, authorship, libraries used, and vulnerabilities. Numerous studies have investigated binary code with the goal of extracting fingerprints that can illuminate the semantics of a target application. However, extracting fingerprints is a challenging task since a substantial amount of significant information will be lost during compilation, notably, variable and function naming, the original data and control flow structures, comments, semantic information, and the code layout. This article provides the first systematic review of existing binary code fingerprinting approaches and the contexts in which they are used. In addition, it discusses the applications that rely on binary code fingerprints, the information that can be captured during the fingerprinting process, and the approaches used and their implementations. It also addresses limitations and open questions related to the fingerprinting process and proposes future directions.},
+journal = {ACM Comput. Surv.},
+month = jan,
+articleno = {19},
+numpages = {41},
+keywords = {Binary code analysis, reverse engineering, software security}
+}
+
+
+% Mobile forensics ACM
+@article{ACM_Current_and_Future_Trends_in_Mobile_Device_Forensics_A_Survey,
+author = {Barmpatsalou, Konstantia and Cruz, Tiago and Monteiro, Edmundo and Simoes, Paulo},
+title = {Current and Future Trends in Mobile Device Forensics: A Survey},
+year = {2018},
+issue_date = {May 2019},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+volume = {51},
+number = {3},
+issn = {0360-0300},
+doi = {10.1145/3177847},
+abstract = {Contemporary mobile devices are the result of an evolution process, during which computational and networking capabilities have been continuously pushed to keep pace with the constantly growing workload requirements. This has allowed devices such as smartphones, tablets, and personal digital assistants to perform increasingly complex tasks, up to the point of efficiently replacing traditional options such as desktop computers and notebooks. However, due to their portability and size, these devices are more prone to theft, to become compromised, or to be exploited for attacks and other malicious activity. The need for investigation of the aforementioned incidents resulted in the creation of the Mobile Forensics (MF) discipline. MF, a sub-domain of digital forensics, is specialized in extracting and processing evidence from mobile devices in such a way that attacking entities and actions are identified and traced. Beyond its primary research interest on evidence acquisition from mobile devices, MF has recently expanded its scope to encompass the organized and advanced evidence representation and analysis of future malicious entity behavior. Nonetheless, data acquisition still remains its main focus. While the field is under continuous research activity, new concepts such as the involvement of cloud computing in the MF ecosystem and the evolution of enterprise mobile solutions—particularly mobile device management and bring your own device—bring new opportunities and issues to the discipline. The current article presents the research conducted within the MF ecosystem during the last 7 years, identifies the gaps, and highlights the differences from past research directions, and addresses challenges and open issues in the field.},
+journal = {ACM Comput. Surv.},
+month = may,
+articleno = {46},
+numpages = {31},
+keywords = {mobile cloud forensics, forensic ontologies, evidence parsing, evidence acquisition, digital investigations, digital forensics, Mobile forensics}
+}
+
+
+% Ghidriff official blog
+@online{ghidriff_official_blog,
+  author    = {ClearBlueJar},
+  title     = {Ghidriff - Ghidra Binary Diffing Engine},
+  year      = {2023},
+  url       = {https://clearbluejar.github.io/posts/ghidriff-ghidra-binary-diffing-engine/},
+  note      = {Accessed: 2025-03-11},
+}
+
+
+@article{ml_classification,
+  author={Kim, Sunghun and Whitehead, E. James and Zhang, Yi},
+  journal={IEEE Transactions on Software Engineering}, 
+  title={Classifying Software Changes: Clean or Buggy?}, 
+  year={2008},
+  volume={34},
+  number={2},
+  pages={181-196},
+  keywords={Computer bugs;Machine learning;Open source software;Classification algorithms;History;Data mining;Feature extraction;Software debugging;Project management;Computer languages;Software maintenance;Metrics/Measurement;Clustering;classification;and association rules;Configuration Management;Data mining;Software maintenance;Metrics/Measurement;Clustering;classification;and association rules;Configuration Management;Data mining},
+  doi={10.1109/TSE.2007.70773}
+}
+
+@inproceedings{classification_of_change_messages,
+author = {Hassan, Ahmed E.},
+title = {Automated classification of change messages in open source projects},
+year = {2008},
+isbn = {9781595937537},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+doi = {10.1145/1363686.1363876},
+abstract = {Source control systems permit developers to attach a free form message to every committed change. The content of these change messages can support software maintenance activities. We present an automated approach to classify a change message as either a bug fix, a feature introduction, or a general maintenance change. Researchers can study the evolution of project using our classification. For example, researchers can monitor the rate of bug fixes in a project without having access to bug reporting databases like Bugzilla.A case study using change messages from several open source projects, shows that our approach produces results similar to a manual classifications performed by professional developers. These findings are similar to ones reported by Mockus and Votta for commercial projects.},
+booktitle = {Proceedings of the 2008 ACM Symposium on Applied Computing},
+pages = {837–841},
+numpages = {5},
+location = {Fortaleza, Ceara, Brazil},
+series = {SAC '08}
+}
+
+
+
+
+% pip library for writing java with python (used by ghidriff)
+@misc{jpype1_official,
+  author       = {Steve Menard et al.},
+  title        = {JPype1: A Python to Java Bridge},
+  year         = {2025},
+  url          = {https://pypi.org/project/jpype1/},
+  note         = {Version as per PyPI},
+}

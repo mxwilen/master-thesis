@@ -1,0 +1,7 @@
+ghidriff==0.8.0       (change to correct at completion)
+jpype1==1.5.2         (Python module used by Ghidriff)
+mdutils==1.6.0
+packaging==24.2
+pyghidra==2.0.0       (Official Python port of the Ghidra engine.)
+python-dotenv==1.0.1
+markdown

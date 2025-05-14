@@ -1,0 +1,471 @@
+\documentclass[msc,lith,english]{liuthesis}
+%% Settings go in settings.tex
+\input{settings}
+\usepackage{rotating}
+\usepackage{color}
+\usepackage{url}
+
+% \usepackage{changebar}
+
+\usepackage{comment}
+
+%%%%%%%%%%%%%%%%% GRAPHVIZ %%%%%%%%%%%%%%%%%%%
+\usepackage[pdf]{graphviz}
+\usepackage{float}    % For the [H] placement specifier
+\usepackage{dot2texi}
+
+%%%%%%%%%%%%%%%%% GANTT CHART %%%%%%%%%%%%%%%%%%%
+\usepackage{pgfgantt}
+\usepackage{tikz}
+\usepackage{pgfgantt}
+\usepackage{graphicx} % Required for rotation
+%Used to draw gantt charts, which I will use for the calendar.
+%Let's define some awesome new ganttchart elements:
+\newganttchartelement{orangebar}{
+    orangebar/.style={
+        inner sep=0pt,
+        draw=red!66!black,
+        very thick,
+        top color=white,
+        bottom color=orange!80
+    },
+    orangebar label font=\slshape,
+    orangebar left shift=.1,
+    orangebar right shift=-.1
+}
+
+\newganttchartelement{bluebar}{
+    bluebar/.style={
+        inner sep=0pt,
+        draw=purple!44!black,
+        very thick,
+        top color=white,
+        bottom color=blue!80
+    },
+    bluebar label font=\slshape,
+    bluebar left shift=.1,
+    bluebar right shift=-.1
+}
+
+\newganttchartelement{greenbar}{
+    greenbar/.style={
+        inner sep=0pt,
+        draw=green!50!black,
+        very thick,
+        top color=white,
+        bottom color=green!80
+    },
+    greenbar label font=\slshape,
+    greenbar left shift=.1,
+    greenbar right shift=-.1
+}
+
+
+%%%%%%%%%%%%%%%% CODE BLOCKS %%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{listings}
+\usepackage{xcolor}
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+    
+\lstdefinestyle{python}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\scriptsize,
+    stringstyle=\color{codepurple},
+    basicstyle=\normalfont\ttfamily,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=8pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,
+    frame=single,   % or lines
+    tabsize=2
+}
+\lstset{style=python}
+
+\colorlet{punct}{red!60!black}
+\colorlet{delim}{brown!80!black}
+
+
+\lstdefinelanguage{json}{
+    basicstyle=\normalfont\ttfamily,
+    numbers=left,
+    numberstyle=\scriptsize,
+    stepnumber=1,
+    numbersep=8pt,
+    showstringspaces=false,
+    frame=single,   % or lines
+    breaklines=false,        % Enables line breaking
+    breakatwhitespace=false,
+    backgroundcolor=\color{backcolour},
+    literate=
+      {:}{{{\color{punct}{:}}}}{1}
+      {,}{{{\color{punct}{,}}}}{1}
+      {\{}{{{\color{delim}{\{}}}}{1}
+      {\}}{{{\color{delim}{\}}}}}{1}
+      {[}{{{\color{delim}{[}}}}{1}
+      {]}{{{\color{delim}{]}}}}{1},
+}
+
+
+\lstdefinelanguage{bash}{
+    basicstyle=\normalfont\ttfamily,
+    numbers=left,
+    numberstyle=\scriptsize,
+    stepnumber=1,
+    numbersep=8pt,
+    showstringspaces=false,
+    frame=single,   % or lines
+    breaklines=false,        % Enables line breaking
+    breakatwhitespace=false,
+    backgroundcolor=\color{backcolour},
+    literate=
+      {:}{{{\color{punct}{:}}}}{1}
+      {,}{{{\color{punct}{,}}}}{1}
+      {\{}{{{\color{delim}{\{}}}}{1}
+      {\}}{{{\color{delim}{\}}}}}{1}
+      {[}{{{\color{delim}{[}}}}{1}
+      {]}{{{\color{delim}{]}}}}{1}
+      {├}{|-}2 {└}{`-}2 {─}{-}1 {│}{|}1,
+}
+
+
+\usepackage[edges]{forest}
+
+\definecolor{foldercolor}{RGB}{124,166,198}
+
+\tikzset{pics/folder/.style={code={%
+    \node[inner sep=0pt, minimum size=#1](-foldericon){};
+    \node[folder style, inner sep=0pt, minimum width=0.3*#1, minimum height=0.6*#1, above right, xshift=0.05*#1] at (-foldericon.west){};
+    \node[folder style, inner sep=0pt, minimum size=#1] at (-foldericon.center){};}
+    },
+    pics/folder/.default={20pt},
+    folder style/.style={draw=foldercolor!80!black,top color=foldercolor!40,bottom color=foldercolor}
+}
+
+\forestset{is file/.style={edge path'/.expanded={%
+        ([xshift=\forestregister{folder indent}]!u.parent anchor) |- (.child anchor)},
+        inner sep=1pt},
+    this folder size/.style={edge path'/.expanded={%
+        ([xshift=\forestregister{folder indent}]!u.parent anchor) |- (.child anchor) pic[solid]{folder=#1}}, inner xsep=0.7*#1},
+    folder tree indent/.style={before computing xy={l=#1}},
+    folder icons/.style={folder, this folder size=#1, folder tree indent=3*#1},
+    folder icons/.default={12pt},
+}
+
+
+%%%%%%%%%%%% COOL LOOKING PIECHART FOR RESULT CATEGORIZATION DISTRIBUTION %%%%%%%%%%%%%%
+\usepackage[svgnames]{xcolor}
+\usepackage{tikz,ifthen}
+
+% "The fourier package replaces LaTeX’s default Computer Modern (CM) fonts with the “Fourier‑Utopia” text and math family. As soon as TeX reads that package, every piece of type in your document—headings, body text, equations—switches to Utopia, so it looks as though “something” in the diagram code changed the font."
+\usepackage{fourier}
+
+\usetikzlibrary{calc}
+
+\newcommand{\degre}{$^\circ$}
+
+% ——— Other colors ————————————
+\definecolor{correct_color}{HTML}{7DCE82}
+\definecolor{incorrect_color}{HTML}{FF5E5B}
+\colorlet{correct_color}{correct_color}
+\colorlet{incorrect_color}{incorrect_color}
+
+\definecolor{default_bar_color}{HTML}{2AB6CB}
+\colorlet{default_bar_color}{default_bar_color}
+
+% ——— Graph overview ————————————
+\definecolor{unique1}{HTML}{FA9638}   % critical
+\definecolor{unique2}{HTML}{73A1AB}   % non-critical
+\definecolor{unique3}{HTML}{C5C5C5}   % uncategorized
+
+% ——— Graph critical ———————
+\definecolor{crit1}{HTML}{FEF4EB}
+\definecolor{crit2}{HTML}{FDDEC4}
+\definecolor{crit3}{HTML}{FBB574}
+\definecolor{crit4}{HTML}{FCC574}
+\definecolor{crit5}{HTML}{F78B26}
+\definecolor{crit6}{HTML}{D96D08}
+
+% ——— Graph non-critical ———————
+\definecolor{noncrit1}{HTML}{CCDDE0}
+\definecolor{noncrit2}{HTML}{A6C4C9}
+\definecolor{noncrit3}{HTML}{81AAB1}
+\definecolor{noncrit4}{HTML}{5D8F98}
+
+%%%% Critical cats
+\colorlet{color0}{crit1}
+\colorlet{color1}{crit2}
+\colorlet{color2}{crit3}
+\colorlet{color3}{crit4}
+\colorlet{color4}{crit5}
+\colorlet{color5}{crit6}
+
+%%%% Non-Critical cats
+\colorlet{color6}{noncrit1}
+\colorlet{color7}{noncrit2}
+\colorlet{color8}{noncrit3}
+\colorlet{color9}{noncrit4}
+
+%%%% Unique changes distr
+\colorlet{color10}{unique1}
+\colorlet{color11}{unique2}
+\colorlet{color12}{unique3}
+
+
+\makeatletter
+    \tikzset{%
+        dc tag/.style={align=center},
+        dc legend/.style={align=left,anchor=west},
+        dc sector/.style={fill=\Cj,line join=round}
+        }
+
+    \pgfkeys{/DiagCirc/.cd,
+        % liste of \Name/Value
+        value list/.store in=\Value@list,
+        % circular : 360 - semi circular 180
+        angle max/.store in=\Angle@max,
+        angle max=360,
+        % radius of the diagram
+        radius/.store in=\R@dius,
+        radius=4cm,
+        % composition of the legend
+        % \V value
+        % \N name
+        % \P percent
+        % \A angle
+        % \Cj color
+        legend/.store in=\L@gend,
+        legend=,
+        % location of the legend
+        legend location/.store in=\Legend@Loc,
+        legend location={($(\R@dius,\R@dius)+(.5,-.5)$)},   
+        % poisition of the node in the sector
+        % 0 center, 1 on the edge, 1.++ external
+        factor/.store in=\F@ctor,
+        factor=.80,
+        % composition of the node in the sector
+        tags/.store in=\T@gs,
+        tags=,
+        % correction of round errors in percents
+        percent corr/.store in=\C@rrP,
+        percent corr=,
+        % correction of round errors in angles
+        angle corr/.store in=\C@rrA,
+        angle corr=,
+        % individual shift
+        shift sector/.store in=\Shift@j,
+        shift sector=,
+        % more nodes in the sectors, or new legeng
+        sup loop/.store in=\Sup@Loop,
+        sup loop=,
+        % ----- *** NEW *** explicit colour list -----------------------------------
+        color list/.store in=\Color@list,
+        color list=,
+        % ----- main drawing macro --------------------------------------------------
+        diagram/.code={%
+        % Calculation of the sum
+        \pgfmathsetmacro\S@m{0}
+        \foreach \i/\y in \Value@list {\xdef\S@m{\S@m+\i}}  
+        \pgfmathsetmacro\S@m{\S@m}
+        \pgfmathsetmacro\C@eff{\Angle@max/\S@m}
+
+        % beginning of the first sector
+        \xdef\@ngleA{0}
+
+        % main loop
+        \foreach \V/\N [count=\j from 0] in \Value@list {%
+
+        % calculation of the current angle
+        \pgfmathsetmacro\A{\V*\C@eff}
+
+        % superior limit of the sector
+        \pgfmathsetmacro\@ngleB{\@ngleA+\A} ;
+
+        % mean angle
+        \pgfmathsetmacro\MedA{(\@ngleA+\@ngleB)/2} ;        
+
+        % color
+        % \pgfmathtruncatemacro\@k{mod(\j,10)}
+        % \def\Cj{color\@k}
+        % ----- *** colour picker *** ------------------------------------------
+        \ifx\Color@list\@empty
+            \pgfmathtruncatemacro\@k{mod(\j,10)}
+            \edef\Cj{color\@k}
+        \else
+            \pgfmathparse{array({\Color@list},\j)}
+            \edef\Cj{\pgfmathresult}
+        \fi
+
+        % individual shift
+        \ifthenelse{\equal{\Shift@j}{}}{%
+        \edef\Sh@ft{0}}{%
+        \pgfmathparse{array({\Shift@j},\j)}
+        \edef\Sh@ft{\pgfmathresult} 
+        }
+
+        % drawing of the sector
+        \draw[dc sector,shift={(\MedA:\Sh@ft)}] (0,0)
+            -- (\@ngleA:\R@dius) arc (\@ngleA:\@ngleB:\R@dius)
+                node[midway] (DC\j) {} -- cycle ;
+
+        % low limit of the next sector
+        \xdef\@ngleA{\@ngleB} ;
+
+
+        % ------- CONFIGURE HERE ----------------------------------------
+        \def\DecPlaces{1}
+        
+        % --- raw percentage (can be real) ------------------------------
+        \pgfmathsetmacro\Praw{\V/\S@m*100}
+        
+        % --- slice‑specific correction, if any -------------------------
+        \ifthenelse{\equal{\C@rrP}{}}{}{%
+          \pgfmathparse{array({\C@rrP},\j)}%
+          \pgfmathsetmacro\Praw{\Praw+\pgfmathresult}%
+        }
+        
+        % --- format with \pgfmathprintnumber ---------------------------
+        \pgfmathprintnumberto[fixed,precision=\DecPlaces]{\Praw}{\Ptmp}
+        
+        % --- final token inserted in the picture -----------------------
+        \edef\P{\Ptmp\,\%}
+        % ---------------------------------------------------------------
+        
+        
+        
+
+        % current angle and corection
+        \pgfmathtruncatemacro\A{round(\A)}
+        \ifthenelse{\equal{\C@rrA}{}}{}{%
+            \pgfmathparse{array({\C@rrA},\j)}
+            \pgfmathtruncatemacro\A{\A+\pgfmathresult}  
+            \edef\A{\A\,\degre}
+        }
+
+        % the sector node
+        \ifthenelse{\equal{\T@gs}{}}{}{%
+        \DiagNode[dc tag]{\F@ctor} {\T@gs} ;
+        }
+
+        % the legend
+        \ifthenelse{\equal{\L@gend}{}}{}{%
+        \begin{scope}[shift=\Legend@Loc]
+        \draw[fill=\Cj] (0,-.5*\j)
+                rectangle ++(.25,.25) ++(0,-.15)
+                node[dc legend] {\strut\L@gend} ;
+        \end{scope}
+        }
+
+        % some more stuff
+        \Sup@Loop ;
+        }
+
+        } % end of diagram code
+    }
+\makeatother
+
+% Node on the \j sector
+\newcommand{\DiagNode}[2][]{\node[#1] at ($(0,0)!#2!(DC\j)$)}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+% Used for markdown-like highlighting of in text-function-names
+\usepackage{tcolorbox}
+\newtcbox{\codebox}{on line, boxrule=0pt, colback=gray!20, colframe=gray!20, arc=3pt, boxsep=1pt, left=1pt, right=1pt, top=1pt, bottom=1pt}
+%%%%%%%%%%%%%%%%% TABULARS AND GRAPHS %%%%%%%%%%%%%%%%%%%
+\usepackage[table,xcdraw]{xcolor}
+\usepackage{array}
+\renewcommand{\arraystretch}{1}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.17}
+\usepgfplotslibrary{colormaps}
+
+% Used for reverse engineering tools tabular
+\usepackage{longtable}
+\usepackage{booktabs}
+\usepackage{makecell}
+
+% pie‑chart helper built on TikZ
+\usepackage{pgf-pie}
+%%%%%%%%%%%%%%%%% GHidriff diagram %%%%%%%%%%%%%%%%%%%
+\usetikzlibrary{shapes.geometric, arrows, shadows, positioning, fit}
+
+
+
+%%%%%%%%%%%%%%%% MATTE-RUTOR %%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{amsthm}
+\usepackage{thmtools}
+\usepackage[framemethod=TikZ]{mdframed}
+\mdfsetup{skipabove=1em,skipbelow=0em}
+
+
+\declaretheoremstyle[
+    headfont=\color{color3},
+    numbered=no,
+    mdframed={
+        linewidth=2pt,
+        rightline=false, topline=false, bottomline=false,
+        linecolor=color3, backgroundcolor=color0,
+    },
+]{thmexplanationbox}
+
+\declaretheorem[style=thmexplanationbox, name=Topics of discussion]{tmpexplanation}
+\newenvironment{explanation}[1][]{\vspace{0pt}\begin{tmpexplanation}}{\end{tmpexplanation}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\department{Institutionen för datavetenskap}
+\departmentenglish{Department of Computer and Information Science}
+\departmentshort{IDA}
+% If this is a thesis at the cognitive science study programme, use
+% the "area" command to generate a proper (?) ISRN
+% \area{KOGVET-A}
+
+% Include an external supervisor on the cover page
+% \externalsupervisor{Min företagshandledare}
+\supervisor{Suleman Khan}
+\examiner{Andrei Gurtov}
+\titleenglish{Version Comparison of Software in Context of Forensic Analysis}
+
+% OLD
+%Automated binary analysis %for uncovering core %operational differences in %software executables
+
+\subtitleenglish{Efficiently detect and categorize Android application changes}
+\titleswedish{Versionsjämförelse av programvara inom forensisk analys}
+\thesissubject{Datateknik}
+
+\publicationyear{2025}
+\currentyearthesisnumber{XXX}
+\dateofpublication{2025-XX-XX}
+
+% One author
+% \author{författare}
+
+% Two authors
+\author{\parbox{\textwidth}{Jacob Ringfjord \& Max Wilén}}
+
+
+\begin{document}
+\chapterstyle{VZ43}
+\include{intro-cs}
+\include{background}
+\include{related_work}
+\include{method}
+\include{result}
+\include{discussion-cs}
+\include{conclusion}
+
+\printbibliography
+\include{appendix}
+
+
+\end{document}

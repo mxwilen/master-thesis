@@ -1,0 +1,54 @@
+    ...
+    "symbols": {
+      "added": [
+        "attachmentBackfillResponse",
+        "poll(...)",
+        "(Lorg/whispersystems/signalservice/internal/push/Conversati
+        "(Lorg/whispersystems/signalservice/internal/push/Conversati
+        ...
+      ],
+      "deleted": [
+        "readRequestInternal",
+        "getCleanupMonitor",
+        "org/whispersystems/signalservice/internal/push/SyncMessage,
+        ...
+      ]
+    },
+    "strings": {
+      "added": [],
+      "deleted": []
+    },
+    "functions": {
+      "added": [],
+      "deleted": [
+        {
+          "name": "forRead",
+          "fullname": "org::whispersystems::signalservice::api::mess
+          "parent": "org::whispersystems::signalservice::api::messag
+          "refcount": 2,
+          "length": 160,
+          "called": [
+            "org::whispersystems::signalservice::api::messages::mult
+          ],
+          "calling": [],
+          "paramcount": 1,
+          "address": "5007a9c0",
+          "sig": "SignalServiceSyncMessage * __stdcall forRead(Objec
+          "code": "\nSignalServiceSyncMessage forRead(Object p0)\n\n
+          "instructions": -2902182190005989823,
+          "mnemonics": -4637372826309358011,
+          "blocks": -2760996159576653531,
+          "sym_type": "Function",
+          "sym_source": "ANALYSIS",
+          "external": false
+        },
+        ...
+      ],
+      "modified": [
+        {
+          "old": {
+            "name": "connect",
+            "fullname": "org::whispersystems::signalservice::interna
+            "parent": "org::whispersystems::signalservice::internal:
+            "refcount": 2,
+            ...

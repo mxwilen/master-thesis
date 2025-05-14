@@ -1,0 +1,355 @@
+%%% Appendix.tex --- 
+%% 
+%% Filename: Appendix.tex
+%% Author: Jacob Ringfjord & Max Wilén
+%%% Code:
+
+\chapter{Background}
+\label{cha:background}
+
+This section provides knowledge to all readers regardless of previous knowledge 
+in the field. It introduces processes, tools, and techniques in the context of 
+their respective sections, providing relevant context rather than 
+an exhaustive list.
+
+The chapter is structured into two sections: a theoretical section, which explains the foundational concepts and principles of the tools and techniques, and a practical section, which demonstrates their application through tools and real-world use cases.
+
+\begin{center}
+    \Large\textit{Theoretical background}
+\end{center}
+
+
+\section{Digital Forensic Methods}
+\label{sec:background:digital_forensic_methods}
+\begin{comment}
+- what "stuff" to retrieve from the digital media
+- how to get "stuff" from the digital media
+\end{comment}
+The process of performing digital forensic analysis involves identifying, examining,
+analyzing, and preserving digital evidence—defined as "information stored or 
+transmitted in binary form that may be relied on in court," according to 
+\textcite{nij_digital_multimedia_evidence}.
+
+A significant portion of the forensic process relies on steps that could be automated 
+to enhance the efficiency and volume of evidence analyzed within the same time frame 
+\cite{automatingForensicMethods}. However, automating these steps in forensic analysis 
+is more complex than it initially appears, a challenge highlighted by 
+\textcite{automatingForensicMethods}. Given the complexity of automating the evaluation 
+of diverse sets of evidence and their intricate interconnections, as well as developing 
+a tool capable of performing such comprehensive analyses is considered inefficient 
+\cite{automatingForensicMethods}. Instead, efforts can be directed toward automating 
+specific steps of the process, such as parsing, structuring, and organizing data.
+
+
+
+\section{Binary Analysis}
+\label{sec:background:binary_analysis}
+\begin{comment}
+Om vi vill ha in något mer specifikt angående jämförelse av olika binära filer, använd: https://www.mdpi.com/2079-9292/13/9/1715
+\end{comment}
+
+Starting an arbitrary program cannot simply be done by executing the source 
+code. For the machine to process and execute these instructions, the source 
+code must first be translated into a format that the machine can understand: 
+machine code. This translation process is called compilation, and the output 
+of this process is referred to as binaries. Binaries contain the program's 
+logic and operations written by the developer, but in a low-level format 
+optimized for the machine to read and execute efficiently. When a program is 
+finalized and ready for distribution, all the necessary binaries required to run on a machine are linked and combined into a single file. 
+This file is an executable, containing everything needed for the 
+operating system to load and execute the program. Understanding the 
+fundamental functionality of this distributed program then involves analyzing 
+the binaries within its executable (assuming the source code is unavailable), as these binaries represent the program's core logic. This process 
+of determining the program's functionality based only on the binaries is 
+called binary analysis \cite{nist_binary_code_scanners}.
+
+In terms of performing forensic analysis on a software application, 
+binary analysis is crucial. Identifying differences between two separate
+executables must be done in two ways: 
+
+\begin{enumerate}
+    \item Revealing changes in the source code \cite{practical_binary_analysis_static_code}.
+
+    \item Analyzing how different ways of compiling the program affect the program's fundamental behavior \cite{practical_binary_analysis_static_code}.
+\end{enumerate}
+
+\noindent
+To ensure that the appropriate forensic tools are applied, both must be understood.
+% To illustrate with an analogy: understanding a car's (the executable) fuel 
+% efficiency requires analyzing how the engine (one binary) functions, how the 
+% electronics (another binary) operate, and how the chassis (another binary) is 
+% designed. Additionally, it involves examining how these components (binaries) 
+% interact. This analysis provides insight into why a specific amount of fuel 
+% (input) results in a particular level of acceleration (output). 
+From this, the forensic investigator can leverage an understanding of the software's 
+logical behavior to validate digital evidence—such as data retrieved from the 
+device's memory \cite{nij_digital_multimedia_evidence}—by placing it within a 
+broader, more comprehensible context that clarifies its relevance and application.
+
+% Argument som kan användas tidigare!
+However, the process of performing binary analysis is time-consuming, which is 
+Why automation of finding these logical differences can imply greater 
+efficiency and effectiveness in performing forensic analysis on software, 
+without sacrificing the integrity of the evidence by letting some arbitrary 
+An automatic process determines the classification of the evidence.
+
+\section{Control-Flow Graph (CFG)}
+To perform static program analysis, knowledge of the control flow is required to understand how the program operates \cite{allen1970control}. Compilers often use analysis of control-flow graphs to optimize software programs, where the purpose is to determine the flow relationships in the program. For instance, detecting inner loops, placement of expressions, and variable definitions \cite{allen1970control}. The control flow is a directed graph, as shown in Figure \ref{background:control_flow_analysis}. In this example, a function that determines prime numbers is shown where conditional logic is depicted as nodes and control flow paths are represented as edges. Python code for the control-flow graph can be seen in Figure \ref{fig:python_code-cfg}.
+
+
+
+\begin{figure}[htbp]
+    \centering
+    \lstinputlisting[language=python]{code_blocks/cfg.py}
+    \caption{Python implementation of a function determines prime numbers.}
+    \label{fig:python_code-cfg}
+\end{figure}
+
+
+\begin{figure}[htbp]
+    \centering
+    \begin{dot2tex}[dot, options=-tmath --autosize]
+    digraph primeCFG {
+        rankdir=TB;
+
+        node [shape=ellipse, style=filled, fillcolor=lightgray];
+
+        Start [label="Start"];
+        Node2 [label="n\ <=\ 1"];
+        Node3 [label="while\ i\ *\ i\ <=\ n"];
+        Node4 [label="n\ \%\ i\ ==\ 0"];
+        Node5 [label="i\ +=\ 1"];
+        Node6 [label="Return\ True"];
+        ReturnFalse [label="Return\ False"];
+
+        Start -> Node2;
+        Node2 -> ReturnFalse [label="true"];
+        Node2 -> Node3 [label="false"];
+        Node3 -> Node6 [label="false"];
+        Node3 -> Node4 [label="true"];
+        Node4 -> ReturnFalse [label="true"];
+        Node4 -> Node5 [label="false"];
+        Node5 -> Node3;
+    }
+    \end{dot2tex}
+    \caption{Control-flow graph representation of the prime number function, illustrating execution paths.}
+    \label{background:control_flow_analysis}
+\end{figure}
+
+\newpage
+\section{Compilation Effects on Binaries}
+\label{sec:background:compilation_effects_on_binaries}
+
+While compiling the same source code twice should, in theory, produce identical binaries, this is not always guaranteed in practice. Different compilation settings, such as flags, optimization configurations, compiler version, compiler type, and even the operating system version, can affect the generated binary both semantically and logically \cite{compiler_effects_on_binaries}. To accurately compare binaries, it is essential to understand these differences in control-flow behavior and semantic properties, as they help reveal variations between two unique binaries, ensuring the integrity of the findings.
+
+
+
+\section{Techniques for Binary Comparison and Detecting Relevant Changes}
+\label{sec:background:comparing_binaries}
+\begin{comment}
+Several changes can occur from a simple change in the source of a binary:
+[cite = https://clearbluejar.github.io/posts/ghidriff-ghidra-binary-diffing-engine/]
+1. Registers used to hold specific variables (using RAX instead of RDX)
+2. Basic block arrangement and branches (flowgraph and callgraph respectively)
+3. Compiler might optimize instructions that perform the same operations (xor eax, eax or mov eax,0)
+
+
+
+[cite = https://clearbluejar.github.io/posts/ghidriff-ghidra-binary-diffing-engine/]
+3 General Methods for Matching Functions
+I know of 3 different methods of matching two functions. Each method has its pros and cons.
+
+Syntax - compare representation of actual bytes or sequence of instructions
+Pros - Quick. Easy to compute, just hash the two binaries
+Cons - Not generally realistic. Compiling the same source twice with the same compiler will generate a different hash, as this naive approach doesn’t consider the time based metadata put into a binary by the compiler. Cannot handle minor changes or compiler optimizations.
+
+Semantics - compare the meaning is equivalent or provide the same functionality, or has similar effects
+Pros - Less susceptible to metadata or simple compiler changes.
+Cons - To prove two functions are semantically equivalent basically boils down to the halting problem. Don't know of any semantic heuristic, but the closes to one is probably the pseudo-code output of the compiler.
+
+Structure - a blend of semantic and syntax. Analyzes graph representations of binaries ( control flow, callgraphs, etc. ) and computes similarity on these generated structures. Looks at the edges and nodes.
+Pros - More general. A control flow is a type of semantic, and easier to compute.
+
+Source: Ghidra Patch Diffing (https://cve-north-stars.github.io/docs/Ghidra-Patch-Diffing#run-correlators-step-3)
+\end{comment}
+
+While binary comparison may seem daunting at first glance, breaking it down into three distinct segments—each focusing on its specific qualities—can improve accuracy and reliability when used in tandem. These three segments are as follows:
+
+\begin{description}
+    \item[Syntax] Byte-level or instruction-level analysis of binary code that looks at the raw data to find patterns of matches or minor variations \cite{A_Survey_of_Binary_Code_Similarity_Detection_Techniques}. Effective in matching opcode sequences, function and symbol names, but prone to finding irrelevant changes like e.g. compilation configuration changes (see Section \ref{sec:background:compilation_effects_on_binaries}).
+    
+    \item[Semantic] Analysis of behavior and logical intent of functions by looking at the possible paths to and from a given function of the first binary, and then comparing the outcome relative to the input with the function of the second binary \cite{binhunt_official}. This is done by checking conditional branches at compile time to ensure that declarations and statements are correctly used in a program \cite{wilhelm2013compiler}. This correctness is determined based on the language's definition, using structures like syntax trees and symbol tables. A key semantic analysis component is type checking, where the compiler verifies that operations are applied to compatible types, ensuring that operators and operands are used appropriately and that multiple operators are not declared to the same identifier \cite{wilhelm2013compiler}.
+    
+    \item[Structure] Analysis of the conditional branches leading to and from each basic block, which are then stitched together to form the function’s overall control flow. This structured representation is then compared against another function’s control flow to identify similarities and differences in execution paths \cite{binhunt_official}.
+\end{description}
+
+\noindent
+Effectively detecting relevant changes in binary comparisons requires a balanced approach that leverages these three segments individually. Focusing on meaningful variations while minimizing noise from insignificant modifications, leading to a more precise and reliable binary comparison.
+
+%\newpage
+\begin{center}
+    * * *\\
+    \Large\textit{Practical background}
+\end{center}
+
+
+\section{Binary Disassemblers and Decompilers}
+\label{sec:background:binary_disassembler_decompilers}
+The task of a \textit{disassembler} is to generate human-readable instructions that represent the behavior of the analyzed binary. Something which is done by looking at binary sequences and translating these into representative assembly code instructions \cite{binary_decompilers_dissassemblers}. The purpose of a \textit{decompiler} is then to generate high-level source code from the disassembler-generated assembly code, and from that build representative source code of the binary's behavior \cite{binary_decompilers_dissassemblers}. Between these two translators, a graph view can be used to visualize interconnections between representative functions. 
+
+\begin{table}[H]
+    \centering
+    \begin{longtable}{|c|c|c|c|c|c|c|c|c|c|}
+        \hline
+        \multicolumn{10}{|c|}{\textbf{Tools for disassembling \& decompiling binaries}} \\
+        \hline
+        Tool & 
+        \makecell[tc]{\rotatebox{90}{Open Source}} & 
+        \makecell[tc]{\rotatebox{90}{Graphical Interface}} & 
+        \makecell[tc]{\rotatebox{90}{Command-line Interface}} & 
+        \makecell[tc]{\rotatebox{90}{Multiple architectures}} &
+        \makecell[tc]{\rotatebox{90}{Debugger (dynamic analysis) }} &
+        \makecell[tc]{\rotatebox{90}{Scripting Support}} & 
+        \makecell[tc]{\rotatebox{90}{Extension Capabilities}} &
+        \makecell[tc]{\rotatebox{90}{Advanced binary deobfuscation }} &
+        \makecell[tc]{\rotatebox{90}{Library identification}} \\
+        \hline
+        \endhead
+        \hline
+        \endfoot
+    
+        \textbf{IDA Pro \cite{ida_pro_official}} &  & X & X & X & X & X & X & X & X \\
+        \hline
+        \textbf{Binary ninja \cite{binaryninja_official}} &  & X & X & X & X & X & X & X & \\
+        \hline
+        \textbf{Ghidra \cite{ghidra_official}} & X & X & X & X & X & X & X &  & \\
+        \hline
+        \textbf{radare2 \cite{radare2_official}} & X &  & X & X & X & X & X &  & \\
+        \hline
+        \textbf{Cutter/Rizin \cite{cutter_official, rizin_official}} & X & X & X & X & X & X & X &  & \\
+        \hline
+        \textbf{x64dbg \cite{x64dbg_official}} & X & X & X &  & X & X & X &  & \\
+        \hline
+        \textbf{Apktool \cite{apktool_official}} & X &  & X &  &  & X & X &  & \\
+        \hline
+    \end{longtable}
+    \caption{Feature comparison of commonly used tools for decompiling and disassembling binaries. Plugin-specific features are not included.}
+    \label{tab:decomp_dissassembly_tools}
+\end{table}
+
+Various tools leveraging these techniques to build representative versions of a program exist, most commonly developed open source. In Table \ref{tab:decomp_dissassembly_tools}, the most prominent tools are listed. As seen, the tools have unique specifications, but with the acknowledgment that tools developed open source often have scalability concerns when working with larger binaries and less common architectures. Additionally, IDA is the only fully integrated tool with extensive static and dynamic analysis features for uncovering binary obfuscation and finding uses of external development libraries.
+
+The majority of tools listed in Table \ref{tab:decomp_dissassembly_tools} have a \textit{graph view}, which represents a diagram-based function viewer to demonstrate how different reconstructed functions interact with each other. %Figure \ref{fig:graph-view_binary_ninja} shows the graph view from Binary Ninja. The interface and content shown generally follow the pattern of all the tools with a graph view feature.
+
+
+\section{Binary Diffing}
+\label{sec:background:binary_diffing}
+\begin{comment}
+"It takes relatively little work to change source code and recompile, while the analysis of the object code will have to be completely redone to detect the changes." [cite = Structural Comparison of Executable Objects]
+\end{comment}
+
+Leveraging the findings obtained by applying the previous section’s steps to two different binaries can reveal the differences between them. More specifically, performing binary diffing on two versions of the same program makes it possible to identify which specific source code lines and control flow behaviors have changed between the versions \cite{Ethical_Hackers_Handbook_fourth}.
+
+\begin{table}
+    \centering
+    \begin{longtable}{|c|c|c|c|c|c|c|c|c|c|c|}
+        \hline
+        \multicolumn{11}{|c|}{\textbf{Tools for comparing binaries}} \\
+        \hline
+        Tool & 
+        \makecell[tc]{\rotatebox{90}{Open Source}} & 
+        \makecell[tc]{\rotatebox{90}{Graphical Interface }} & 
+        \makecell[tc]{\rotatebox{90}{Command-line Interface}} & 
+        \makecell[tc]{\rotatebox{90}{Built-in disassembler}} & 
+        \makecell[tc]{\rotatebox{90}{Built-in CFGs}} & 
+        \makecell[tc]{\rotatebox{90}{Built-in Decompiler}} & 
+        \makecell[tc]{\rotatebox{90}{IDA Pro integration}} &
+        \makecell[tc]{\rotatebox{90}{Binary Ninja integration }} &
+        \makecell[tc]{\rotatebox{90}{Ghidra integration}} &
+        \makecell[tc]{\rotatebox{90}{Scripting Support}} \\
+        \hline
+        \endhead
+        \hline
+        \endfoot
+    
+        \textbf{BinDiff \cite{bindiff_official}} & X & X & X &  &  &  & X & *B & *B & X \\
+        \hline
+        \textbf{Version Tracking \cite{ghidra_official}} & X & X &  &  &  &  &  &  & X & X \\
+        \hline
+        \textbf{Diaphora \cite{diaphora_official}} & X & X &  &  &  &  & X &  &  & X \\
+        \hline
+        \textbf{TurboDiff \cite{turbodiff_official}} & X & X &  &  &  &  & X &  &  & X \\
+        \hline
+        %\textbf{BinHunt \cite{binhunt_official}} &  &  &  &  &  &  &  &  &  & \\
+        %\hline
+        %\textbf{BinSim \cite{binsim}} &  &  &  &  &  &  &  &  &  & \\
+        %\hline
+    \end{longtable}
+    \textit{*B: In beta}
+    \caption{Feature comparision of commonly used tools for comparing binaries. Features from available plugins are not included.}
+    \label{tab:comparing_binaries}
+\end{table}
+
+There are numerous tools available for binary diffing. A common limitation of the tools listed in Table \ref{tab:comparing_binaries} is that they are not offered as stand-alone products with integrated disassemblers, decompilers, and related analysis features. Instead, these tools rely on integration with established platforms, such as IDA Pro and Ghidra, to provide the necessary disassembly and decompilation functionality. Furthermore, these binary diffing tools typically operate statically. They compare pre-generated output files from the disassembly and decompilation processes rather than incorporating dynamic analysis during the comparison phase. However, one notable exception is BinHunt, a novel research prototype that leverages symbolic execution and backtracking to enhance the capabilities of traditional diffing approaches like BinDiff. BinHunt aims to integrate dynamic analysis techniques into the diffing process, offering a more in-depth comparison by analyzing the semantics and runtime behavior of the code. At the time of writing this thesis, there is no released version of BinHunt available, leaving its practical utility for future exploration.
+
+
+
+
+\section{Analyzing Android Binaries: Key Components and Considerations}
+\label{sec:background:android_binaries}
+\begin{comment}
+TODO:
+
+paper which presents the challenges with performing static analysis on android applications: https://www.sciencedirect.com/science/article/pii/S0950584917302987?casa_token=SYkBbm19UN0AAAAA:h1KQgOV1Nnd4RTuGIL6TpeDV1VJuhmUBHoGsaO_fzebgBHphrP0jI5RPTvOLLKoWnwI766Qmcg
+
+
+Dalvik & APK: 
+- https://stackoverflow.com/questions/7750448/what-are-dex-files-in-android
+- https://source.android.com/docs/core/runtime/dex-format
+
+
+\end{comment}
+
+\begin{description}
+    \item[ART and Dalvik] Android runtime (ART) is the runtime environment that newer versions of Android use, and it comes with features like ahead-of-time (AOT) compilation for better time efficiency when compared to its predecessor Dalvik. Both of the runtime environments execute Dalvik executables (.dex) \cite{AndroidRuntime_official}.
+    
+    \item[Dalvik bytecode] Both ART and Dalvik compile the application into Dalvik bytecode. The bytecode is similar to machine code instructions but is optimized for Android applications specifically. The Dalvik bytecode is stored in dex files \cite{DalvikBytecode_official}.
+
+    \item[APK] A package containing all the generated Dalvik bytecode files, compiled libraries, etc. needed to execute the application.
+
+    \item[Call graphs and program entry points] Unlike traditional Java applications that begin execution from a single \codebox{main} method, Android applications rely on multiple entry points, primarily through instances of \codebox{Activity} and their \codebox{onCreate} methods \cite{android_official-ActivitiesGuide}. This complicates the process of constructing a call graph as execution flow is event-driven and dependent on the Android framework’s lifecycle management \cite{android_official-ActivitiesGuide}. As a result, generating an accurate call graph for an entire Android application is significantly more challenging than for standard Java applications running on the JVM (Java Virtual Machine).
+
+    \item[Libraries] Because of Android development’s heavy reliance on external third-party and official Android libraries, a significant portion of an Android application’s executed code is externally written. Due to this, discovering differences between two versions of an Android application can be cumbersome since changed library code is also detected during the analysis. To cover for this, neglecting a list of specified external libraries can prove efficient when dealing with large differences.
+    
+    \item[Lambdas] Anonymous functions written by the developer, are often used to reduce the amount of boilerplate code.
+    
+    \item[Synthetic methods] Compiler-generated methods internally access private class properties. These methods are automatically created at compile time and do not exist in the source code. Because of this, it is reasonable to deprioritize analyzing the functionality of synthetic methods due to the functionality not directly reflecting the code written by the developer. However, since being compiler compiler-generated, a synthetic method can indirectly indicate how a developer's written function operates.
+\end{description}
+
+
+\section{Ghidra Function Matching}
+\label{sec:background:ghidra_function_matching}
+
+\textbf{TODO:} Expand the explanation of how function differences are detected at a technical level. (explain how ghidra finds the matches) - maybe add this to the background instead)
+
+matching functions: syntax based, structure based and semantic based.
+
+ghidra analyzes symbol names inside functions, making logical behavior syntactically able to read. much more complex to catch code that doesn't use symbols inside the functions, but that is not the case of e.g. signal.
+
+
+
+
+
+\section{Ghidriff}
+\label{sec:background:ghidriff}
+Ghidriff \cite{ghidriff_official_blog, Ghidriff} is a command-line binary diffing engine released in late 2023 and written in Python, that leverages Ghidra's robust binary analysis and version tracking capabilities. Designed as a pipeline extension to Ghidra, Ghidriff enables users to input two binaries to compare and then be fed back with a comprehensive diffing result in multiple formats, including Markdown, JSON, and HTML. An example of how the JSON format looks can be seen in Figure \ref{fig:ghidriff_json_output}.
+
+Ghidriff uses Ghidra's FlatProgramAPI which facilitates headless execution of custom operations within the Ghidra engine, allowing a seamless automation-like functionality of the steps needed to perform binary analysis and binary diffing. Firstly, Ghidriff conducts an in-depth analysis of the individual Dalvik Executables (DEX), extracting relevant structural, functional information, and generation of Ghidra's P-code (logically representable machine source code generated during binary disassembling). Secondly, it performs binary diffing on the analyzed output to identify added, deleted, and modified functions. Adding to this, Ghidriff parses the detected changes, including the changes in the decompiled code, for an in-depth comparison of the two binaries.
+
+
+
+%\section{Bayesian networks}
+
+%\textbf{TODO:} Talk about what bayesian networks are
+
+%\textbf{TODO:} Add graph and tabular explaining bayesian networks

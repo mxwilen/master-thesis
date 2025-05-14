@@ -1,0 +1,19 @@
+          ...
+          "ratio": 0.11,
+          "i_ratio": 0.28,
+          "m_ratio": 0.99,
+          "b_ratio": 0.95,
+          "match_types": [
+            "SymbolsHash"
+          ]
+        }
+      ]
+    },
+    "old_meta": {
+      ...
+    },
+    "new_meta": {
+      ...
+    },
+    ...
+  }
