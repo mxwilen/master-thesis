@@ -101,7 +101,7 @@ To perform static program analysis, knowledge of the control flow is required to
 \begin{figure}[htbp]
     \centering
     \lstinputlisting[language=python]{code_blocks/cfg.py}
-    \caption{Python implementation of a function determines prime numbers.}
+    \caption{Python implementation of a function determines prime numbers}
     \label{fig:python_code-cfg}
 \end{figure}
 
@@ -132,7 +132,7 @@ To perform static program analysis, knowledge of the control flow is required to
         Node5 -> Node3;
     }
     \end{dot2tex}
-    \caption{Control-flow graph representation of the prime number function, illustrating execution paths.}
+    \caption{Control-flow graph of the prime number function, illustrating execution paths}
     \label{background:control_flow_analysis}
 \end{figure}
 
@@ -286,7 +286,7 @@ Leveraging the findings obtained by applying the previous section’s steps to t
         %\hline
     \end{longtable}
     \textit{*B: In beta}
-    \caption{Feature comparision of commonly used tools for comparing binaries. Features from available plugins are not included.}
+    \caption{Feature comparision of commonly used tools for comparing binaries. Features from available plugins are not included}
     \label{tab:comparing_binaries}
 \end{table}
 
@@ -330,11 +330,10 @@ Dalvik & APK:
 \section{Ghidra Function Matching}
 \label{sec:background:ghidra_function_matching}
 
-\textbf{TODO:} Expand the explanation of how function differences are detected at a technical level. (explain how ghidra finds the matches) - maybe add this to the background instead)
-
-matching functions: syntax based, structure based and semantic based.
+\textbf{TODO:} Expand the explanation of how function differences are detected at a technical level. (explain how ghidra finds the matches)
 
 ghidra analyzes symbol names inside functions, making logical behavior syntactically able to read. much more complex to catch code that doesn't use symbols inside the functions, but that is not the case of e.g. signal.
+
 
 
 

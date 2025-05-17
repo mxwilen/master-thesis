@@ -63,7 +63,7 @@ The pipeline developed in this thesis can be split into three separate modules. 
         "\text{Weighted words}" -> "\text{Result}";
     }
     \end{dot2tex}
-    \caption{An overview of the different modules in the developed tool.}
+    \caption{An overview of the different modules in the developed tool}
     \label{fig:pipeline_overview2}
 \end{figure}
 
@@ -73,7 +73,7 @@ The tool Ghidriff, described in Section \ref{sec:background:ghidriff}, is chosen
 
 Other tools for detecting changes have been described in Sections \ref{sec:background:binary_disassembler_decompilers}, \ref{sec:background:binary_diffing}. E.g., recall that combining IDA Pro and BinDiff can serve as a useful alternative to Ghidriff as the combination leverages two independently strong engines for binary analysis and binary diffing. However, integrating these two into a pipeline would require additional time to ensure they work together effectively, rather than simply using Ghidriff's output data. Ultimately, the decision comes down to leveraging an already robust and extendable platform rather than building a new one. More about this can be found in Section \ref{sec:discussion-method}.
 
-In Figure \ref{fig:ghidriff_diagram}, an in-depth visualization of how Ghidriff is constructed is presented.
+In Figure \ref{fig:ghidriff_diagram}, an in-depth visualization of how Ghidriff is constructed is presented, and examples of what the JSON output looks like are found in Figures \ref{fig:ghidriff_json_output_A}, \ref{fig:ghidriff_json_output_B}, and \ref{fig:ghidriff_json_output_C}.
 
 %...The categorization used in the work presented by %\textcite{nfc_kandidatrapport_jesper}, mentioned in Section %\ref{sec:related_work:kandidat_pipeline} is in early development. Because of %this, in tandem with the lack of data, their categorization computes on, %Ghidriff is the chosen option of the two and the work that this thesis %builds towards.
 
@@ -279,80 +279,8 @@ Potential misclassifications due to matching functions with misleading names are
 
 
 \subsubsection{Android Syntax Matching}
-The syntax matching of Android-specific operations used in this thesis is a straightforward process where industry-standard function names and symbol patterns are chosen. The keywords used in this thesis are presented in Table \ref{tab:critical_regex_keywords} and \ref{tab:noncritical_regex_keywords}. These are chosen because these names are widely accepted in software development, particularly within Android frameworks, APIs, and libraries, where they appear consistently across applications. Furthermore, these industry-standard functions are typically used rather than custom implementations because of security and reliability \textbf{CITE HERE??}, and developers rarely create entirely new function names for common tasks. This consistency makes them reliable indicators of the type of operation being performed and strengthens the accuracy of our syntax matching when relying on these established naming conventions. Adding to this, the choice provides a great way to scale and improve the syntax matching by changing the list of words.
+The syntax matching of Android-specific operations used in this thesis is based on the assumption that industry-standard function names and symbol patterns serve as effective indicators of program behavior. The set of keywords is selected due to their widespread usage in software development related to Android frameworks, APIs, and libraries, where they appear consistently across applications. It is assumed that developers generally use industry-standard functions over custom implementations for reasons related to security, reliability, and ease of use. It is also believed that developers rarely create entirely new function names for common tasks and rely on these established naming conventions, making this approach feasible.
 
-
-\subsubsection{Two-layered Matching}
-\label{sec:two_layered_matching}
-The keywords used for critical changes in the syntax matching undergo a two-layered matching process made by us, where the words are divided into two types: \textit{normal} and \textit{ambiguous}. \textit{Normal} words are more reliably linked to a specific category compared to the \textit{4} ones. For instance, \textit{db} is more likely to yield an accurate categorization than \textit{delete}, as the latter is assumed to be used more often in other contexts than only database management. The sectioning between the two types for critical keywords is presented in  Table \ref{tab:critical_regex_keywords}.
-
-However, this separation does not change the behavior of the categorization, only the evaluation. For instance, the categorization for a change containing the word \textit {delete} should be considered as a Data storage change, but when comparing it with other changes of the same category, it should be ranked lower than, let's say \textit{db}.
-
-\begin{table}[H]
-  \centering
-  \begin{tabular}{@{} l l l l l l @{}}
-    \toprule
-    Authentication & Cryptographically & Data Storage & Error Handling & File Write & Logging \\ \midrule
-    auth           & aes               & commit        & assert         & append*     & Log\_d \\
-    bearer         & brsa              & database      & catch          & export      & Log\_e \\
-    credentials    & bouncycastle      & db            & crash          & file        & Log\_i \\
-    jwt            & cipher            & delete*       & error          & persist     & Log\_v \\
-    login          & Cipher            & insert*       & exception      & save*       & Log\_w \\
-    logout         & crypto            & query*        & fail           & write*      & logger \\
-    MasterKey      & CryptoHelper      & session*      & handle*        &             & log \\
-    mfa            & CryptoUtils       & sql           & recover*       &             & print* \\
-    oauth          & decrypt           & store*        & retry*         &             & trace \\
-    password       & digest            & transaction   & rollback       &             & verbose \\
-    refresh*       & Encrypted         &               & throw          &             & warning \\
-    session*       & Encryptor         &               &                &             & warn \\
-    signin         & hash*             &               &                &             & wtf \\
-    signout        & hmac              &               &                &             & debug* \\
-    signup         & java.security     &               &                &             & \\
-    sso            & javax.crypto      &               &                &             & \\
-    token          & keystore          &               &                &             & \\
-    validate       & keygen            &               &                &             & \\
-    verify         & KeyStore          &               &                &             & \\
-                  & MessageDigest     &               &                &             & \\
-                  & md5               &               &                &             & \\
-                  & SecretKey         &               &                &             & \\
-                  & SecureStore       &               &                &             & \\
-                  & sha256            &               &                &             & \\
-                  & signature         &               &                &             & \\
-                  & spongycastle      &               &                &             & \\ 
-                  & verify*           &               &                &             & \\ \bottomrule
-\bottomrule
-  \end{tabular}
-  \caption{Keywords used for critical categories. *Word of type ambiguous}
-  \label{tab:critical_regex_keywords}
-\end{table}
-
-\begin{table}[H]
-  \centering
-  \begin{tabular}{@{} l l l @{}}
-    \toprule
-    Network Call & UI Update       & Text Manipulation \\ \midrule
-    api          & animatingtoggle & replace \\
-    connect      & bui             & spannable \\
-    fetch        & compact         & string \\
-    http         & display         & substring \\
-    network      & font            & text \\
-    post         & fragment        &  \\
-    put          & hide            &  \\
-    receive      & inflate         &  \\
-    request      & padding         &  \\
-    send         & refresh         &  \\
-    socket       & render          &  \\
-    sync         & scaffold        &  \\
-                 & setvisibility   &  \\
-                 & show            &  \\
-                 & toggle          &  \\
-                 & update          &  \\
-                 & view            &  \\
-                 & windowsize      &  \\ \bottomrule
-  \end{tabular}
-  \caption{Keywords used for non-critical categories}
-  \label{tab:noncritical_regex_keywords}
-\end{table}
 
 
 %    \begin{table}[ht]
@@ -397,7 +325,7 @@ The categorization result is parsed in tandem with the analysis data into an HTM
 \begin{figure}
     \centering
     \includegraphics[width=1\linewidth]{figures/results/report_screenshots/report_front_page.png}
-    \caption{Screenshot of output HTML result after executing our pipeline on two versions of the Android app Signal.}
+    \caption{Screenshot of HTML output from the pipeline used on two versions of Signal (Android)}
     \label{fig:html_output}
 \end{figure}
 
@@ -513,7 +441,79 @@ The following descriptions outline the specific categories for the non-critical 
 
 Regular expression grammars have been defined for each category to map function names, symbols, and code changes accordingly. During syntax analysis, function names are compared against a predefined set of keywords. In addition, critical categories are also computed using an analysis of the code diff. The reason for only looking at the code diff when computing the critical syntax analysis is that the critical changes are harder to spot when only matching function names. This is further discussed in Section \ref{sec:discussion-method}
 
-To illustrate the syntax analysis, consider a function that has been identified as changed between the two compared binaries. Then, the function names and code changes will undergo a syntax matching analysis where the strings are mapped to the predefined list of keywords for each of the available categories. All keywords used in the regex matching can be found in the Tables \ref{tab:noncritical_regex_keywords} and \ref{tab:critical_regex_keywords} in the Appendix. All matched keywords are stored for later use when generating the HTML report, and the functions are assigned to the matched category.
+To illustrate the syntax analysis, consider a function that has been identified as changed between the two compared binaries. Then, the function names and code changes will undergo a syntax matching analysis where the strings are mapped to the predefined list of keywords for each of the available categories. All matched keywords are stored for later use when generating the HTML report, and the functions are assigned to the matched category. The keywords for the regex matching used in this thesis are found in the Tables \ref{tab:critical_regex_keywords} and \ref{tab:noncritical_regex_keywords}.\textbf{}
+
+\subsubsection{Two-layered Matching}
+\label{sec:two_layered_matching}
+The keywords used for critical changes in the syntax matching undergo a two-layered matching process made by us, where the words are divided into two types: \textit{normal} and \textit{ambiguous}. \textit{Normal} words are more reliably linked to a specific category compared to the \textit{ambiguous} ones. For instance, \textit{db} is more likely to yield an accurate categorization than \textit{delete}, as the latter is assumed to be used more often in other contexts than only database management. The sectioning between the two types for critical keywords is presented in  Table \ref{tab:critical_regex_keywords}.
+
+However, this separation does not change the behavior of the categorization, only the evaluation. For instance, the categorization for a change containing the word \textit {delete} should be considered as a Data storage change, but when comparing it with other changes of the same category, it should be ranked lower than, let's say \textit{db}.
+
+\begin{table}[H]
+  \centering
+  \begin{tabular}{@{} l l l l l l @{}}
+    \toprule
+    Authentication & Cryptographically & Data Storage & Error Handling & File Write & Logging \\ \midrule
+    auth           & aes               & commit        & assert         & append*     & Log\_d \\
+    bearer         & brsa              & database      & catch          & export      & Log\_e \\
+    credentials    & bouncycastle      & db            & crash          & file        & Log\_i \\
+    jwt            & cipher            & delete*       & error          & persist     & Log\_v \\
+    login          & Cipher            & insert*       & exception      & save*       & Log\_w \\
+    logout         & crypto            & query*        & fail           & write*      & logger \\
+    MasterKey      & CryptoHelper      & session*      & handle*        &             & log \\
+    mfa            & CryptoUtils       & sql           & recover*       &             & print* \\
+    oauth          & decrypt           & store*        & retry*         &             & trace \\
+    password       & digest            & transaction   & rollback       &             & verbose \\
+    refresh*       & Encrypted         &               & throw          &             & warning \\
+    session*       & Encryptor         &               &                &             & warn \\
+    signin         & hash*             &               &                &             & wtf \\
+    signout        & hmac              &               &                &             & debug* \\
+    signup         & java.security     &               &                &             & \\
+    sso            & javax.crypto      &               &                &             & \\
+    token          & keystore          &               &                &             & \\
+    validate       & keygen            &               &                &             & \\
+    verify         & KeyStore          &               &                &             & \\
+                  & MessageDigest     &               &                &             & \\
+                  & md5               &               &                &             & \\
+                  & SecretKey         &               &                &             & \\
+                  & SecureStore       &               &                &             & \\
+                  & sha256            &               &                &             & \\
+                  & signature         &               &                &             & \\
+                  & spongycastle      &               &                &             & \\ 
+                  & verify*           &               &                &             & \\
+\bottomrule
+  \end{tabular}
+  \caption{Keywords used for critical categories. *Word of type ambiguous}
+  \label{tab:critical_regex_keywords}
+\end{table}
+
+\begin{table}[H]
+  \centering
+  \begin{tabular}{@{} l l l @{}}
+    \toprule
+    Network Call & UI Update       & Text Manipulation \\ \midrule
+    api          & animatingtoggle & replace \\
+    connect      & bui             & spannable \\
+    fetch        & compact         & string \\
+    http         & display         & substring \\
+    network      & font            & text \\
+    post         & fragment        &  \\
+    put          & hide            &  \\
+    receive      & inflate         &  \\
+    request      & padding         &  \\
+    send         & refresh         &  \\
+    socket       & render          &  \\
+    sync         & scaffold        &  \\
+                 & setvisibility   &  \\
+                 & show            &  \\
+                 & toggle          &  \\
+                 & update          &  \\
+                 & view            &  \\
+                 & windowsize      &  \\ \bottomrule
+  \end{tabular}
+  \caption{Keywords used for non-critical categories}
+  \label{tab:noncritical_regex_keywords}
+\end{table}
 
 \begin{comment}
 This operation will be processed by the category matching functions, e.g. \codebox{is\_db\_change}, which itself loads the keywords defined for that category found in the file \codebox{categorization/matchers/data\_storage.yml}. Then all matched keywords are stored for later use when generating the HTML report, and the function itself is set to the matched category.

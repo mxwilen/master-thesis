@@ -7,7 +7,9 @@
 \chapter{Conclusion}
 \label{cha:conclusion}
 
-This thesis presents a novel method for categorizing changes in Android APK files across different software versions. The outcome of this work is a tool designed to streamline reverse engineering processes through a set of targeted features.
+This thesis presents a novel method for categorizing changes in Android binaries across different software versions. The outcome of this work is a tool designed to streamline reverse engineering processes through a set of targeted features.
+
+The result showed that the tool detected 91.4\% of the changes, with a categorization accuracy of 74.3\%. Across the three release comparisons, only 3.3\% of the unique changes were marked as \textit{uncategorized}, indicating they did not match any of the defined categories. Among the critical changes, the pipeline performed best on \textit{Authentication} changes, with an accuracy of 91.43\%, followed by \textit{Data storage} at 70.47\%. For non-critical changes, the accuracy was 92.86\% for \textit{UI updates} and 83.33\% for \textit{Network calls}, demonstrating that these less important changes can be filtered out with reasonable effectiveness, resulting in a smaller and more focused set of critical changes for manual analysis.
 
 In addition to the presented results of the tool's performance and accuracy, the following research questions have been answered:
 
@@ -35,6 +37,8 @@ on the executable?}}
 There are several directions for extending the research presented in this thesis. The most significant challenge discovered throughout the project is the time-consuming manual evaluation process for verifying the result. In this thesis, three version diffs were investigated; a more comprehensive analysis would require more comparisons. Automating this process could not only improve the efficiency of gathering more results but also remove the human bias in the source code evaluation. 
 
 Furthermore, with additional data from the pipeline analysis, the use of machine learning and training larger data sets is an interesting path to explore. While the current state of the tool can determine whether a change is related to a specific category, it cannot differentiate between clear and ambiguous cases.
+
+An alternative approach is to work recursively with the provided call graphs from Ghidra, by categorizing the preceding functions that lead to the actual change. This would introduce an additional step beyond the current syntax matching, making the categorization method more advanced. While this process can be performed manually, integrating it into the tool would significantly improve its efficiency. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% lorem.tex ends here

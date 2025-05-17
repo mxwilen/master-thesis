@@ -23,7 +23,7 @@ The Result chapter is structured into two main sections. The first section provi
 \begin{figure}
     \centering
     \includegraphics[width=1\linewidth]{figures/results/report_screenshots/diagrams.png}
-    \caption{Screenshot of the pie charts representing the categorization and classification distributions.}
+    \caption{Screenshot of the pie charts showing the categorization and classification distributions}
     \label{fig:pipeline_piecharts}
 \end{figure}
 
@@ -64,7 +64,11 @@ Figure \ref{fig:pipeline_exporting} illustrates the export feature of the HTML r
 
 The HTML report provides a search field located next to the export buttons, making it easy for users to quickly find specific information. By entering a search term, users can filter the table, showing only the rows where the search term appears. For example, if you search for a function name or part of a file path, only rows matching that term will be displayed, while everything else is hidden. This feature, shown in Figure \ref{fig:pipeline_searchfield}, helps users focus on the most relevant data.
 
-Just below the export buttons and the search field is the main data table. This table is organized in a simple row-and-column format, where each row represents a detected change, and each column shows details about that change, such as its category, function name, and other information. The layout makes it easy to review and understand the results and is presented in Figure \ref{fig:pipeline_datatable}.
+Just below the export buttons and the search field is the main data table. This table is organized in a simple row-and-column format, where each row represents a detected change, and each column shows details about that change, such as its category, function name, and other information. 
+
+\begin{comment}
+The layout makes it easy to review and understand the results and is presented in Figure \ref{fig:pipeline_datatable}.
+\end{comment}
 
 \begin{figure}
     \centering
@@ -75,7 +79,7 @@ Just below the export buttons and the search field is the main data table. This 
 
 
 
-\beigin{comment}
+\begin{comment}
 \begin{figure}
     \centering
     \includegraphics[width=1\linewidth]{figures/results/report_screenshots/table_columns.png}
@@ -175,7 +179,7 @@ It is important to note that the total number of detected changes reflects the u
 
 
 \begin{note}
-    Failed .dex File Analysis\\
+    Failed .dex File Analysis.\\
     \noindent
     The column labeled "Failed .dex files" in Table \ref{tab:run_time} indicates whether the pipeline (specifically Ghidra) encountered issues analyzing any .dex files. If any .dex files could not be properly analyzed, this can impact the accuracy of the results for that version diff. Missing or failed .dex file analysis reduces the likelihood of detecting all changes and can affect classification performance. This challenge is further discussed in Section \ref{sec:discussion-results}.
 \end{note}
@@ -190,9 +194,11 @@ It is important to note that the total number of detected changes reflects the u
     B & 21m 43s & 100 MB & 2386 & classes2.dex \& classes5.dex \\
     C & 21m 25s & 102 MB & 377 & classes2.dex \\ \bottomrule
   \end{tabular}
-  \caption{Runtime comparison of the different version diffs. \textit{Execution time captured on a MacBook Pro with M1 Pro chip}}
+  \caption{Runtime comparison of the different version diffs*}
   \label{tab:run_time}
 \end{table}
+
+*\textit{Execution time captured on a MacBook Pro with M1 Pro chip}
 
 \subsection{Manual Evaluation Process}
 \label{sec:res:categorization_result:manual_evaluation_process}
@@ -299,9 +305,11 @@ This section provides a detailed analysis of the distribution of categorized cha
 
 \subsubsection{Distribution of Unique Changes}
 
-The pipeline analysis categorizes each detected change—each method or function listed in the report—into one of three main categories: \textit{Critical}, \textit{Non-Critical}, or \textit{Uncategorized}. Critical changes represent modifications that directly impact the functionality, security, or data handling of the application. Non-Critical changes are those that do not significantly affect the application’s core operations, such as UI adjustments or minor text updates. Uncategorized changes are those that do not match any of the predefined categories.
+The pipeline analysis categorizes each detected change—each method or function listed in the report—into one of three main categories: \textit{Critical}, \textit{Non-Critical}, or \textit{Uncategorized}. Critical changes represent modifications that directly impact the core functionality of the application. Non-critical changes are those that do not significantly affect the application’s main operations, and \textit{uncategorized} changes are those that do not match any of the predefined categories.
 
-The overall distribution of these classifications is visually represented using pie charts in Figures~\ref{fig:categorization_A}, \ref{fig:categorization_B}, and \ref{fig:categorization_C}. Each pie chart illustrates the proportion of changes that fall under each classification for the three analyzed versions (A, B, and C). This graphical representation provides a clear overview of the prevalence of each category across the analyzed versions, helping to identify patterns and trends in the types of changes detected by the pipeline.
+The overall distribution of these categories is visually represented using pie charts in Figures~\ref{fig:categorization_A}, \ref{fig:categorization_B}, and \ref{fig:categorization_C}. Each pie chart illustrates the proportion of changes that fall under each category for the three analyzed versions. This graphical representation provides an overview of the prevalence of each category across the analyzed versions, helping to identify patterns and trends.
+
+Since software releases vary in size and scope, deriving results from the distribution of \textit{Critical} and \textit{non-critical} changes across versions is not meaningful. However, aggregating the number of \textit{Uncategorized} changes among all three versions reveals that only 3.3\%  of uniquely detected changes fall outside the defined categories.
 
 \begin{figure}[H]
     \centering
@@ -972,7 +980,7 @@ The total number of hits for each keyword that triggered a critical or non-criti
         };
       \end{axis}
     \end{tikzpicture}
-    \caption{Keyword hits generating categorizations in version diff C (complete).}
+    \caption{Keyword hits generating categorizations in version diff C (complete)}
     \label{fig:commonly_used_words_C}
 \end{figure}
 
@@ -1017,7 +1025,7 @@ The results are visualized as bar charts in Figures~\ref{fig:keyword_incorrect_t
         };
       \end{axis}
     \end{tikzpicture}
-    \caption{Keywords resulting in incorrect categorization for version diff A. Hits below 2 have been neglected. See Figure \ref{fig:keyword_incorrect_trigger_A_full} for complete data.}
+    \caption{Keywords resulting in incorrect categorization for version diff A. Hits below 2 have been neglected. See Figure \ref{fig:keyword_incorrect_trigger_A_full} for complete data}
     \label{fig:keyword_incorrect_trigger_A}
 \end{figure}
 
@@ -1050,7 +1058,7 @@ The results are visualized as bar charts in Figures~\ref{fig:keyword_incorrect_t
         };
       \end{axis}
     \end{tikzpicture}
-    \caption{Keywords resulting in incorrect categorization for version diff B.}
+    \caption{Keywords resulting in incorrect categorization for version diff B}
     \label{fig:keyword_incorrect_trigger_B}
 \end{figure}
 
@@ -1083,7 +1091,7 @@ The results are visualized as bar charts in Figures~\ref{fig:keyword_incorrect_t
         };
       \end{axis}
     \end{tikzpicture}
-    \caption{Keywords resulting in incorrect categorization for version diff C.}
+    \caption{Keywords resulting in incorrect categorization for version diff C}
     \label{fig:keyword_incorrect_trigger_C}
 \end{figure}
 
@@ -1093,7 +1101,8 @@ The results are visualized as bar charts in Figures~\ref{fig:keyword_incorrect_t
 \subsubsection{Accuracy of Keyword Matches}
 \label{sec:result:keyword_distribution:Accuracy_of_keyword_matches}
 
-This section examines the accuracy of keyword-based categorizations in the pipeline analysis, focusing on how effectively each keyword triggers correct classifications. The accuracy of keyword matches is visualized in three separate figures—Figures~\ref{fig:keyword_match_accuracy_A}, \ref{fig:keyword_match_accuracy_B}, and \ref{fig:keyword_match_accuracy_C}—each corresponding to one of the three analyzed version differences (A, B, and C). These figures provide a clear view of the performance of each keyword in accurately categorizing changes.
+This section examines the accuracy of keyword-based categorizations in the pipeline analysis, focusing on how effectively each keyword triggers correct classifications. The accuracy of keyword matches is visualized in three separate figures—Figures~\ref{fig:keyword_match_accuracy_A}, \ref{fig:keyword_match_accuracy_B}, and \ref{fig:keyword_match_accuracy_C}—each corresponding to one of the three analyzed version differences (A, B, and C). These figures provide a clear view of the performance of each keyword in accurately categorizing changes. Keywords with matches below 2 have been
+neglected from the figures.
 
 Recall that a match is deemed correct when the pipeline assigns any category that also appears in the manual review; if none of its categories overlap, the match is incorrect—even when the pipeline captures parts of the manual set. See Section \ref{sec:result:understanding_correct_incorrect} for full definition. This approach may result in an inflated count of \textit{correct} matches, as keywords are credited with success whenever there is any overlap with the manually identified categories. Similarly, the number of \textit{incorrect} matches may be slightly deflated, as partially correct categorizations are also marked as incorrect. This distinction is crucial for accurately interpreting the results shown in the figures.
 
@@ -1148,7 +1157,7 @@ Recall that a match is deemed correct when the pipeline assigns any category tha
       \legend{Correct,Incorrect}
     \end{axis}
   \end{tikzpicture}
-  \caption{Keyword match accuracy, for version diff A. Keywords with matches below 2 have been neglected.}
+  \caption{Keyword match accuracy, for version diff A}
   \label{fig:keyword_match_accuracy_A}
 \end{figure}
 
@@ -1196,7 +1205,7 @@ Recall that a match is deemed correct when the pipeline assigns any category tha
       \legend{Correct,Incorrect}
     \end{axis}
   \end{tikzpicture}
-  \caption{Keyword match accuracy, for version diff B. Keywords with matches below 2 have been neglected.}
+  \caption{Keyword match accuracy, for version diff B}
   \label{fig:keyword_match_accuracy_B}
 \end{figure}
 
@@ -1241,7 +1250,7 @@ Recall that a match is deemed correct when the pipeline assigns any category tha
       \legend{Correct,Incorrect}
     \end{axis}
   \end{tikzpicture}
-  \caption{Keyword match accuracy, for version diff C. Keywords with matches below 2 have been neglected.}
+  \caption{Keyword match accuracy, for version diff C}
   \label{fig:keyword_match_accuracy_C}
 \end{figure}
 
@@ -1305,7 +1314,7 @@ A closer look at these figures reveals that some categories, such as \codebox{Fi
 
 Additionally, the category \codebox{Error handling} shows consistently low accuracy, even though it has a substantial number of assignments, both correct and incorrect. This suggests that the categorization keywords associated with \codebox{Error handling} may require refinement to improve accuracy.
 
-From these observations, it is clear that the critical categories \codebox{Authentication} and \codebox{Data storage}, along with the non-critical categories \codebox{UI update} and \codebox{Network call}, have keyword definitions that are highly effective in producing accurate and reliable categorizations. These categories benefit from well-defined and contextually relevant keywords, leading to consistent and correct classifications.
+From these observations, it is clear that the critical categories \codebox{Authentication} and \codebox{Data storage}, along with the non-critical categories \codebox{UI update} and \codebox{Network call}, have keyword definitions that are highly effective in producing accurate and reliable categorizations. These categories benefit from well-defined and contextually relevant keywords, leading to consistent and correct classifications. High accuracy of the non-critical categories like \codebox{UI update} and \codebox{Network call} is beneficial when analyzing the tool's report. Accurately filtering out unimportant changes reduces the number of critical changes to investigate, making the manual review process more focused and efficient.
 
 
 \begin{table}[H]

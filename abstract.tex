@@ -4,12 +4,25 @@
 %% Author: Jacob Ringfjord & Max Wilén
 %%% Code:
 
-\noindent
+\begin{comment}
 Applications of forensic interest are often analyzed to examine functionality that may affect the results of digital forensic investigations. When new versions of an application are released, there is a risk that assumptions about its functionality may no longer hold. Conducting a full analysis of every version of all relevant applications would entail an unreasonable amount of work. To counter this, an automated analysis would improve the quality of investigations performed while maintaining a reasonable workload.
 This thesis aims to develop a method for automating the version comparison process across various executable files. The developed method is intended to help assess whether the changes in the source code are significant enough to warrant a manual analysis.
 
 This thesis is conducted on behalf of NFC (The Swedish National Forensic Centre)—a division of the Swedish Police Authority—with the goal of developing a method for automated change detection and relevance-based filtering between two software releases.
+\end{comment}
 
+\noindent
+% MOTIVATION
+Applications of forensic interest are frequently analyzed to understand functionalities that may impact the outcomes of digital forensic investigations. However,  when new versions of an application are released, prior assumptions about its functionality may no longer hold. Performing a full manual analysis of every version of all relevant applications would entail an unreasonable amount of work. To counter this, an automated analysis would improve the quality of investigations performed while maintaining a reasonable workload.
+
+% CONTRIBUTION & AIM
+This thesis introduces a novel method for categorizing changes in Android binaries across different software versions. The result of this thesis is a tool that streamlines the reverse engineering processes by categorizing the type of changes that have been made, only by using two Android binaries as input.
+
+% METHODOLOGY
+The tool is built on the Ghidriff diffing engine, which leverages Ghidra to identify changes between Android binaries. It is designed with regular expressions to categorize changes into predefined categories, based on common symbols and function names found in Android source code. Each change is marked as \textit{critical} or \textit{non-critical} based on its forensic relevance. Changes that fall outside the predefined categories are set to \textit{uncategorized}.
+
+% FINDINGS
+The performance and accuracy of the developed tool were evaluated by comparing its output against a manual analysis of source code changes from  Signal's Android GitHub repository across three release diffs. The tool detected 91.4\% of the changes, with a categorization accuracy of 74.3\%. Across the three release comparisons, only 3.3\% of unique changes were marked as \textit{uncategorized}, indicating they did not match any predefined category.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
