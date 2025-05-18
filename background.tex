@@ -88,10 +88,10 @@ broader, more comprehensible context that clarifies its relevance and applicatio
 
 % Argument som kan användas tidigare!
 However, the process of performing binary analysis is time-consuming, which is 
-Why automation of finding these logical differences can imply greater 
+why automation of finding these logical differences can imply greater 
 efficiency and effectiveness in performing forensic analysis on software, 
 without sacrificing the integrity of the evidence by letting some arbitrary 
-An automatic process determines the classification of the evidence.
+automatic process determine the classification of the evidence.
 
 \section{Control-Flow Graph (CFG)}
 To perform static program analysis, knowledge of the control flow is required to understand how the program operates \cite{allen1970control}. Compilers often use analysis of control-flow graphs to optimize software programs, where the purpose is to determine the flow relationships in the program. For instance, detecting inner loops, placement of expressions, and variable definitions \cite{allen1970control}. The control flow is a directed graph, as shown in Figure \ref{background:control_flow_analysis}. In this example, a function that determines prime numbers is shown where conditional logic is depicted as nodes and control flow paths are represented as edges. Python code for the control-flow graph can be seen in Figure \ref{fig:python_code-cfg}.
@@ -180,7 +180,7 @@ While binary comparison may seem daunting at first glance, breaking it down into
     
     \item[Semantic] Analysis of behavior and logical intent of functions by looking at the possible paths to and from a given function of the first binary, and then comparing the outcome relative to the input with the function of the second binary \cite{binhunt_official}. This is done by checking conditional branches at compile time to ensure that declarations and statements are correctly used in a program \cite{wilhelm2013compiler}. This correctness is determined based on the language's definition, using structures like syntax trees and symbol tables. A key semantic analysis component is type checking, where the compiler verifies that operations are applied to compatible types, ensuring that operators and operands are used appropriately and that multiple operators are not declared to the same identifier \cite{wilhelm2013compiler}.
     
-    \item[Structure] Analysis of the conditional branches leading to and from each basic block, which are then stitched together to form the function’s overall control flow. This structured representation is then compared against another function’s control flow to identify similarities and differences in execution paths \cite{binhunt_official}.
+    \item[Structure] Analysis of the conditional branches leading to and from each basic block, which are then stitched together to form the function’s control flow. This structured representation is then compared against another function’s control flow to identify similarities and differences in execution paths \cite{binhunt_official}.
 \end{description}
 
 
@@ -290,7 +290,7 @@ Leveraging the findings obtained by applying the previous section’s steps to t
     \label{tab:comparing_binaries}
 \end{table}
 
-There are numerous tools available for binary diffing. A common limitation of the tools listed in Table \ref{tab:comparing_binaries} is that they are not offered as stand-alone products with integrated disassemblers, decompilers, and related analysis features. Instead, these tools rely on integration with established platforms, such as IDA Pro and Ghidra, to provide the necessary disassembly and decompilation functionality. Furthermore, these binary diffing tools typically operate statically. They compare pre-generated output files from the disassembly and decompilation processes rather than incorporating dynamic analysis during the comparison phase. However, one notable exception is BinHunt, a novel research prototype that leverages symbolic execution and backtracking to enhance the capabilities of traditional diffing approaches like BinDiff. BinHunt aims to integrate dynamic analysis techniques into the diffing process, offering a more in-depth comparison by analyzing the semantics and runtime behavior of the code. At the time of writing this thesis, there is no released version of BinHunt available, leaving its practical utility for future exploration.
+There are numerous tools available for binary diffing. A common limitation of the tools listed in Table \ref{tab:comparing_binaries} is that they are not offered as stand-alone products with integrated disassemblers, decompilers, and related analysis features. Instead, these tools rely on integration with established platforms, such as IDA Pro and Ghidra, to provide the necessary disassembly and decompilation functionality. Furthermore, these binary diffing tools typically operate statically. They compare pre-generated output files from the disassembly and decompilation processes rather than incorporating dynamic analysis during the comparison phase. However, one notable exception is BinHunt, a novel research prototype that leverages symbolic execution and backtracking to enhance the capabilities of traditional diffing approaches like BinDiff. BinHunt aims to integrate dynamic analysis techniques into the diffing process, offering a more in-depth comparison by analyzing the semantics and runtime behavior of the code. At the time of writing this thesis, there is no released version of BinHunt available, leaving its practical use for future exploration.
 
 
 
@@ -323,14 +323,14 @@ Dalvik & APK:
     
     \item[Lambdas] Anonymous functions written by the developer, are often used to reduce the amount of boilerplate code.
     
-    \item[Synthetic methods] Compiler-generated methods internally access private class properties. These methods are automatically created at compile time and do not exist in the source code. Because of this, it is reasonable to deprioritize analyzing the functionality of synthetic methods due to the functionality not directly reflect the code written by the developer. However, since it is compiler-generated, a synthetic method can indirectly indicate how a developer's written function operates.
+    \item[Synthetic methods] Compiler-generated methods to internally access private class properties. These methods are automatically created at compile time and do not exist in the source code. Because of this, it is reasonable to deprioritize analyzing the functionality of synthetic methods due to the functionality not directly reflect the code written by the developer. However, since it is compiler-generated, a synthetic method can indirectly indicate how a developer's written function operates.
 \end{description}
 
 
 \section{Ghidra Change Detection}
 \label{sec:background:ghidra_function_matching}
 
-Ghidra \cite{ghidra_official} is an open‑source, full‑featured framework for binary reverse engineering that provides architecture‑agnostic capabilities for disassembly, decompilation, and metadata extraction.
+Ghidra \cite{ghidra_official} is an open‑source, full‑featured framework for binary reverse engineering that provides architecture‑agnostic capabilities for disassembly, decompilation, metadata extraction, and binary diffing.
 
 Function matching in Ghidra revolves around its diffing engine, Version Tracking (VT). VT orchestrates a collection of correlators—namely \codebox{DataMatchCorrelator}, \codebox{FunctionMatchCorrelator}, \codebox{LegacyMatchCorrelator}, \codebox{ImpliedMatchCorrelator}, \codebox{ManualMatchCorrelator}, and \codebox{SymbolMatchCorrelator} \cite{ghidra_github}—each of which proposes candidate matches and assigns a confidence score to those candidates.
 
@@ -342,7 +342,7 @@ During the diffing of two binaries, VT runs the correlators sequentially; each a
 \label{sec:background:ghidriff}
 Ghidriff \cite{ghidriff_official_blog, Ghidriff} is a command-line binary diffing engine released in late 2023 and written in Python, that leverages Ghidra's robust binary analysis and version tracking capabilities. Designed as a pipeline extension to Ghidra, Ghidriff enables users to input two binaries to compare and then be fed back with a comprehensive diffing result in multiple formats, including Markdown, JSON, and HTML. An example of how the JSON format looks can be seen in Figure \ref{fig:ghidriff_json_output_A}, \ref{fig:ghidriff_json_output_B}, and \ref{fig:ghidriff_json_output_C}.
 
-Ghidriff uses Ghidra's FlatProgramAPI, which facilitates headless execution of custom operations within the Ghidra engine, allowing a seamless automation-like functionality of the steps needed to perform binary analysis and binary diffing. Firstly, Ghidriff conducts an in-depth analysis of the individual Dalvik Executables (DEX), extracting relevant structural, functional information, and generation of Ghidra's P-code (logically representable machine source code generated during binary disassembling). Secondly, it performs binary diffing on the analyzed output to identify added, deleted, and modified functions. Adding to this, Ghidriff parses the detected changes, including the changes in the decompiled code, for an in-depth comparison of the two binaries.
+Ghidriff uses Ghidra's ProgramAPI and FlatProgramAPI, which facilitates headless execution of custom operations within the Ghidra engine, allowing a seamless automation-like functionality of the steps needed to perform binary analysis and binary diffing. Firstly, Ghidriff conducts an in-depth analysis of the individual Dalvik Executables (.dex), extracting relevant structural, functional information, and generation of Ghidra's P-code (logically representable machine source code generated during binary disassembling). Secondly, it performs binary diffing on the analyzed output to identify added, deleted, and modified functions. Adding to this, Ghidriff parses the detected changes, including the changes in the decompiled code, for an in-depth comparison of the two binaries.
 
 
 

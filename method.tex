@@ -67,11 +67,12 @@ The pipeline developed in this thesis can be split into three separate modules. 
     \label{fig:pipeline_overview2}
 \end{figure}
 
-\section{Change Detection}
+\subsection{Change Detection}
 
 The tool Ghidriff, described in Section \ref{sec:background:ghidriff}, is chosen to detect changes between the software versions. Compared to the pipeline mentioned in Section \ref{sec:related_work:kandidat_pipeline}, the current implementation of Ghidriff can neither categorize the changes nor rank them. However, the result of binary analysis and binary diffing is much more informative and serves as a better platform of data to expand upon than the pipeline described in Section \ref{sec:related_work:kandidat_pipeline}. Because of this and the sparse execution time for this thesis project, potential expandability of a tool without the need to change the tool itself is seen as an advantage when deciding which tool to build upon. Because of this, Ghidriff has been chosen over the two.
 
-Other tools for detecting changes have been described in Sections \ref{sec:background:binary_disassembler_decompilers}, \ref{sec:background:binary_diffing}. E.g., recall that combining IDA Pro and BinDiff can serve as a useful alternative to Ghidriff as the combination leverages two independently strong engines for binary analysis and binary diffing. However, integrating these two into a pipeline would require additional time to ensure they work together effectively, rather than simply using Ghidriff's output data. Ultimately, the decision comes down to leveraging an already robust and extendable platform rather than building a new one. More about this can be found in Section \ref{sec:discussion-method}.
+Other tools for detecting changes have been described in Sections \ref{sec:background:binary_disassembler_decompilers}, \ref{sec:background:binary_diffing}. E.g., recall that combining IDA Pro and BinDiff can serve as a useful alternative to Ghidriff as the combination leverages two independently strong engines for binary analysis and binary diffing. However, integrating these two into a pipeline would require additional time to ensure they work together effectively, rather than simply using Ghidriff's output data. Ultimately, the decision comes down to leveraging an already robust and extendable platform rather than building a new one. 
+% More about this can be found in Section \ref{sec:discussion-method}.
 
 In Figure \ref{fig:ghidriff_diagram}, an in-depth visualization of how Ghidriff is constructed is presented, and examples of what the JSON output looks like are found in Figures \ref{fig:ghidriff_json_output_A}, \ref{fig:ghidriff_json_output_B}, and \ref{fig:ghidriff_json_output_C}.
 
@@ -102,7 +103,7 @@ In Figure \ref{fig:ghidriff_diagram}, an in-depth visualization of how Ghidriff 
         \node (init) [process, below=of start] {%
             \textbf{Initialize Ghidra}
             \begin{tabular}{l}
-                $\bullet$ Launch headless version of Ghidra (using FlatProgramAPI) \\ 
+                $\bullet$ Launch headless version of Ghidra (using ProgramAPI and FlatProgramAPI) \\ 
                 $\bullet$ Load binaries into Ghidra \& create Ghidra project structure
             \end{tabular}
         };
@@ -182,12 +183,12 @@ In Figure \ref{fig:ghidriff_diagram}, an in-depth visualization of how Ghidriff 
         %\draw [dashed_arrow] (output) -- (extension);
 
     \end{tikzpicture}
-    \caption{Inner workings and control flow of Ghidriff.}
+    \caption{Inner workings and flow of Ghidriff.}
     \label{fig:ghidriff_diagram}
 \end{figure}
 
 
-\section{Categorization}
+\subsection{Categorization}
 \label{sec:method:categorization}
 \begin{comment}
 As mentioned earlier the main topic of this thesis is to categorize the changes based on the result from the binary analysis and binary diffing. To achieve this machine learning will be used and integrated with the Ghidriff tool. 
@@ -200,7 +201,7 @@ What type of change --> from key changes?
 
 When performing the change detection on released software applications, the output will most likely be of such size that manually looking at the result will prove inefficient. As explained in Section \ref{sec:background:compilation_effects_on_binaries}, and Section \ref{sec:background:comparing_binaries}, the wide range of configurations and compilation options can result in numerous irrelevant or superficial differences being detected. Because of this, it is essential to implement automated mechanisms for categorizing changes based on their significance, ensuring that only meaningful or potentially impactful modifications are flagged for further analysis. Because this thesis is focused on providing a valuable tool for use in a forensic law enforcement process, as well as focusing on Android applications, the categorization is based on Android-specific operations that alter the logical, functional, and structural flow of the application. More about how to specifically match these categories is detailed in the following Section \ref{sec:method:changes_to_categorize}.
 
-\subsection{Changes to Categorize}
+\subsubsection{Changes to Categorize}
 \label{sec:method:changes_to_categorize}
 For this thesis, the client provided an initial list of interesting changes to categorize. After further discussions, the list was polished, and the critical changes were defined. These changes are considered to be of extra importance and relevance in a forensic context and can be seen in Table \ref{tab:critical_changes}. From here onwards, these types of changes are referred to as \textit{critical categories}.
 
@@ -215,10 +216,10 @@ For this thesis, the client provided an initial list of interesting changes to c
         Changes in data storage structure, new reads and writes, etc. \\\\
         \midrule
         \codebox{File write} & 
-        Changes resulting in file write additions or deletions to external files.\\\\
+        Changes resulting in file write additions or deletions of files.\\\\
         \midrule
         \codebox{Logging} & 
-        Changes in what, where, when, and how data is logged. Deprecated logging, etc. \\\\
+        Changes in what, where, when, and how data is logged. \\\\
         \midrule
         \codebox{Authentication} & 
         Changes in login and logout processes, session handling, token validation, and other authentication mechanisms. \\\\
@@ -227,7 +228,7 @@ For this thesis, the client provided an initial list of interesting changes to c
         Adjustments to how errors and exceptions are caught, handled, or logged, including retries, rollbacks, and fallback mechanisms. \\\\
         \midrule
         \codebox{Cryptographic} & 
-        Changes to encryption algorithms, key management, hashing methods, implementation of secure communication protocols, etc.\\\\
+        Changes to encryption algorithms, key management, hashing methods, etc.\\\\
         \bottomrule
     \end{tabular}
     \caption{Critical software changes to identify for forensic analysis.}
@@ -252,7 +253,7 @@ To be certain in finding these critical changes, the categorization also looks a
         Alterations in network requests, including changes in API calls, request/response handling, and new or removed endpoints. \\\\
         \midrule
         \codebox{Library function} & 
-        Changes to functions originated from imported from external or built-in library packages, rather than self-developed ones. \\\\
+        Changes to functions originated from external or built-in library packages, rather than self-developed ones. \\\\
         \midrule
         \codebox{Text manipulation} & 
         Modifications to text strings, including changes to messages, labels, prompts, or other static textual content. \\\\
@@ -263,19 +264,21 @@ To be certain in finding these critical changes, the categorization also looks a
 \end{table}
 
 
-The categorization aims to streamline the process of identifying interesting changes between software versions and reducing reliance on ad-hoc methods. Categorizing changes into multiple categories is, therefore, not considered an issue since it still fits the purpose. Changes affecting more than one thing are also not rare occurrences, and categorizing these into more than one category could be seen as an advantage.
+The categorization aims to streamline the process of identifying interesting changes between software versions and reducing reliance on ad-hoc methods. Categorizing changes into multiple categories is, therefore, not considered an issue since it still fits the purpose. Changes affecting more than one thing are also not rare occurrences, and categorizing these into more than one category can be seen as an advantage.
 
 %\textbf{TODO:} Add 1-2 sentences stating how the categories were selected (e.g., discussions with NFC experts, review of forensic case studies).
 
 
-\subsection{Syntax Matching}
+\subsubsection{Syntax Matching}
 By analyzing code changes at the syntactic level, it is possible to leverage pattern-matching techniques to detect specific operations such as the ones listed in Table \ref{tab:critical_changes}. This can be done by using regular expressions to match commonly used symbols and function names to understand what operations are most likely occurring. Adding to this, analyzing structural patterns and how these symbols and functions are interlinked is also important.
 
 The core process of categorizing the changes begins with parsing the binary diffing output from Ghidriff. Here, the function, library, and superclass names are shown, as well as information about which function is called the one we are looking at and which other functions this function calls. Adding to this, changes in the decompiled bytecode, which Ghidra decompiles into representative pseudo code, can also be parsed in this step. Once the diff is processed, regular expressions are applied to identify key syntactic patterns corresponding to predefined categories. 
 
-Additionally, the tool detects synthetic methods (e.g., compiler-generated methods and lambdas) and assesses their relevance by analyzing their role in the call graph and their interactions with critical resources.
+%%%% Commented because this way of working with synthetic methods hasn't been developed
+% Additionally, the tool detects synthetic methods (e.g., compiler-generated methods and lambdas) and assesses their relevance by analyzing their role in the call graph and their interactions with critical resources.
 
-Potential misclassifications due to matching functions with misleading names are a complex problem to counter, as discussed in Section \ref{sec:method:false_pos_false_neg}. Due to our solution working with syntax matching for categorization, the risk of a faulty categorization is accepted, but further discussed in Section \ref{sec:discussion-method}.
+%%%%% Commented because the discussion doesn't really dig deep into this
+% Potential misclassifications due to matching functions with misleading names are a complex problem to counter, as discussed in Section \ref{sec:method:false_pos_false_neg}. Due to our solution working with syntax matching for categorization, the risk of a faulty categorization is accepted, but further discussed in Section \ref{sec:discussion-method}.
 
 
 \subsubsection{Android Syntax Matching}
@@ -299,7 +302,7 @@ The syntax matching of Android-specific operations used in this thesis is based 
 %    \end{table}
 
 
-\subsection{Syntax Classification Errors}
+\subsubsection{Syntax Classification Errors}
 \label{sec:method:false_pos_false_neg}
 A \textit{false positive} occurs when a classification incorrectly determines a result to be true when it is false. A \textit{false negative} occurs when the classification fails to detect a true result. Here follows further explanation in regards to this thesis.
 
@@ -312,25 +315,25 @@ A \textit{false positive} occurs when a classification incorrectly determines a 
 
 Incorrect or misleading variable names can indeed affect the categorization and lead to false positives and false negatives, making these errors challenging to detect. The regex matcher is sound in that its categorization is strictly based on the predefined keywords used in the regex pattern. However, to achieve completeness would require every possible change to be categorized, which is practically infeasible. Therefore, a fallback category for uncategorized changes is used as a compromise.
 
-\section{Evaluation}
+\subsection{Evaluation}
 %Comparing versions in git logs / Retrieving data changes from
 %looking at the git repo
-The evaluation of the categorized changes is performed by weighting collected strong and weak words mentioned in Section \ref{sec:two_layered_matching}. Changes with the highest scores are considered to be the most important and therefore ranked the highest. The aim is to ensure that higher-ranked changes are more accurate and therefore more meaningful to start investigating for digital forensics.
+The evaluation of the categorized changes is performed by weighting collected strong and weak words mentioned in Section \ref{sec:two_layered_matching}, alongside with the amount of assigned categories for that change. Changes with the highest scores are considered to be the most important and therefore ranked the highest. The aim is to ensure that higher-ranked changes are prioritized to effectively highlight the important changes.
 
-\section{Present Results}
+\subsection{Present Results}
 The categorization result is parsed in tandem with the analysis data into an HTML report, listing everything needed to make a proper assumption of what changes have occurred in the code base. See Figure \ref{fig:html_output} for a screenshot of the generated HTML report. This report is explained in detail in Section \ref{sec:result:pipeline_analysis_report}.
 
 \begin{figure}
     \centering
     \includegraphics[width=1\linewidth]{figures/results/report_screenshots/report_front_page.png}
-    \caption{Screenshot of HTML output from the pipeline used on two versions of Signal (Android)}
+    \caption{Screenshot of HTML output from the pipeline, executed on two versions of Signal (Android) binaries}
     \label{fig:html_output}
 \end{figure}
 
-Finally, an overview in the report is also parsed to quickly grasp changes detected, both to get an overview of what has been detected and to get insight into how confident the analysis has been in finding the changes.
+% Finally, an overview in the report is also parsed to quickly grasp changes detected, both to get an overview of what has been detected and to get insight into how confident the analysis has been in finding the changes.
 
 \section{Developed Tool}
-As mentioned in the methodology Section \ref{sec:method:overview} \textit{Overview}, the tool developed in this thesis is a pipeline leveraging the binary comparison functionality of Ghidriff. In this section, parts of the implementation of the modules are described.  
+As mentioned in the methodology Section \ref{sec:method:overview} \textit{Overview}, the tool developed in this thesis is a pipeline leveraging the binary comparison functionality of Ghidriff. In this section, a technical overview of the implemented pipeline is described.
 
 \subsection{Dependencies and Technical Prerequisites}
 The pipeline is written in Python and fetches JSON data produced by Ghidriff to perform the classification. During classification, data is stored inside the running pipeline program as lists of functions, symbols, etc. in a typical Python manner. The evaluation and relevance prioritization are performed on the same data. After the evaluation is complete, an HTML report is produced by the pipeline which visualizes the findings intuitively. As mentioned, this report is visualized in the screenshot in Figure \ref{fig:html_output}.
