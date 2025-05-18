@@ -299,19 +299,17 @@ The syntax matching of Android-specific operations used in this thesis is based 
 %    \end{table}
 
 
-\textbf{TODO:} Provide data that strengthens the choice to separate e.g. db and delete in this case. Example: create a simple regex matcher that calculates how many "db" vs "delete" were found, and in which contexts they were found (inside which function names?). This can be used as data to show that this separation (weak vs strong) is valid.
-
 \subsection{Syntax Classification Errors}
 \label{sec:method:false_pos_false_neg}
 A \textit{false positive} occurs when a classification incorrectly determines a result to be true when it is false. A \textit{false negative} occurs when the classification fails to detect a true result. Here follows further explanation in regards to this thesis.
 
 \begin{description}
-    \item[False positives] When the regex matcher detects parts of a word in another word and incorrectly categorizes it. For instance, syntax matching of a function named \codebox{showWarningDialogIfNecessary} will result in both a logging change categorization and an authentication flow change. However, because the logging change is a critical operation, as defined in Section \ref{sec:method:changes_to_categorize}, the change will be displayed as a critical logging change rather than a non-critical authentication flow change.
+    \item[False positives] When the regex matcher either \textit{(1)} matches a substring in a longer word and incorrectly categorizes it, or \textit{(2)} matches a valid word that appears in a context unrelated to the category to which the word belongs.
 
     \item[False negatives] When the regex matching does not categorize a change that should be categorized. This is due to missing keywords in the regex matcher, since it only detects changes for the pre-defined keywords.
 \end{description} 
 
-\noindent
+
 Incorrect or misleading variable names can indeed affect the categorization and lead to false positives and false negatives, making these errors challenging to detect. The regex matcher is sound in that its categorization is strictly based on the predefined keywords used in the regex pattern. However, to achieve completeness would require every possible change to be categorized, which is practically infeasible. Therefore, a fallback category for uncategorized changes is used as a compromise.
 
 \section{Evaluation}
@@ -453,7 +451,7 @@ However, this separation does not change the behavior of the categorization, onl
   \centering
   \begin{tabular}{@{} l l l l l l @{}}
     \toprule
-    Authentication & Cryptographically & Data Storage & Error Handling & File Write & Logging \\ \midrule
+    Authentication & Cryptographical & Data Storage & Error Handling & File Write & Logging \\ \midrule
     auth           & aes               & commit        & assert         & append*     & Log\_d \\
     bearer         & brsa              & database      & catch          & export      & Log\_e \\
     credentials    & bouncycastle      & db            & crash          & file        & Log\_i \\

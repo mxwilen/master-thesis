@@ -183,8 +183,8 @@ While binary comparison may seem daunting at first glance, breaking it down into
     \item[Structure] Analysis of the conditional branches leading to and from each basic block, which are then stitched together to form the function’s overall control flow. This structured representation is then compared against another function’s control flow to identify similarities and differences in execution paths \cite{binhunt_official}.
 \end{description}
 
-\noindent
-Effectively detecting relevant changes in binary comparisons requires a balanced approach that leverages these three segments individually. Focusing on meaningful variations while minimizing noise from insignificant modifications, leading to a more precise and reliable binary comparison.
+
+Effectively detecting relevant changes in binary comparisons requires a balanced approach that leverages these three segments individually. Focusing on meaningful variations while minimizing noise from insignificant modifications leads to a more precise and reliable binary comparison.
 
 %\newpage
 \begin{center}
@@ -233,11 +233,11 @@ The task of a \textit{disassembler} is to generate human-readable instructions t
         \textbf{Apktool \cite{apktool_official}} & X &  & X &  &  & X & X &  & \\
         \hline
     \end{longtable}
-    \caption{Feature comparison of commonly used tools for decompiling and disassembling binaries. Plugin-specific features are not included.}
+    \caption{Feature comparison of commonly used tools for decompiling and disassembling binaries. Plugin-specific features are not included}
     \label{tab:decomp_dissassembly_tools}
 \end{table}
 
-Various tools leveraging these techniques to build representative versions of a program exist, most commonly developed open source. In Table \ref{tab:decomp_dissassembly_tools}, the most prominent tools are listed. As seen, the tools have unique specifications, but with the acknowledgment that tools developed open source often have scalability concerns when working with larger binaries and less common architectures. Additionally, IDA is the only fully integrated tool with extensive static and dynamic analysis features for uncovering binary obfuscation and finding uses of external development libraries.
+Various tools leveraging these techniques to build representative versions of a program exist, most commonly developed as open source. In Table \ref{tab:decomp_dissassembly_tools}, the most prominent tools are listed. As seen, the tools have unique specifications, but with the acknowledgment that tools developed open source often have scalability concerns when working with larger binaries and less common architectures. Additionally, IDA is the only fully integrated tool with extensive static and dynamic analysis features for uncovering binary obfuscation and finding uses of external development libraries.
 
 The majority of tools listed in Table \ref{tab:decomp_dissassembly_tools} have a \textit{graph view}, which represents a diagram-based function viewer to demonstrate how different reconstructed functions interact with each other. %Figure \ref{fig:graph-view_binary_ninja} shows the graph view from Binary Ninja. The interface and content shown generally follow the pattern of all the tools with a graph view feature.
 
@@ -286,7 +286,7 @@ Leveraging the findings obtained by applying the previous section’s steps to t
         %\hline
     \end{longtable}
     \textit{*B: In beta}
-    \caption{Feature comparision of commonly used tools for comparing binaries. Features from available plugins are not included}
+    \caption{Feature comparison of commonly used tools for comparing binaries. Features from available plugins are not included}
     \label{tab:comparing_binaries}
 \end{table}
 
@@ -323,27 +323,26 @@ Dalvik & APK:
     
     \item[Lambdas] Anonymous functions written by the developer, are often used to reduce the amount of boilerplate code.
     
-    \item[Synthetic methods] Compiler-generated methods internally access private class properties. These methods are automatically created at compile time and do not exist in the source code. Because of this, it is reasonable to deprioritize analyzing the functionality of synthetic methods due to the functionality not directly reflecting the code written by the developer. However, since being compiler compiler-generated, a synthetic method can indirectly indicate how a developer's written function operates.
+    \item[Synthetic methods] Compiler-generated methods internally access private class properties. These methods are automatically created at compile time and do not exist in the source code. Because of this, it is reasonable to deprioritize analyzing the functionality of synthetic methods due to the functionality not directly reflect the code written by the developer. However, since it is compiler-generated, a synthetic method can indirectly indicate how a developer's written function operates.
 \end{description}
 
 
-\section{Ghidra Function Matching}
+\section{Ghidra Change Detection}
 \label{sec:background:ghidra_function_matching}
 
-\textbf{TODO:} Expand the explanation of how function differences are detected at a technical level. (explain how ghidra finds the matches)
+Ghidra \cite{ghidra_official} is an open‑source, full‑featured framework for binary reverse engineering that provides architecture‑agnostic capabilities for disassembly, decompilation, and metadata extraction.
 
-ghidra analyzes symbol names inside functions, making logical behavior syntactically able to read. much more complex to catch code that doesn't use symbols inside the functions, but that is not the case of e.g. signal.
+Function matching in Ghidra revolves around its diffing engine, Version Tracking (VT). VT orchestrates a collection of correlators—namely \codebox{DataMatchCorrelator}, \codebox{FunctionMatchCorrelator}, \codebox{LegacyMatchCorrelator}, \codebox{ImpliedMatchCorrelator}, \codebox{ManualMatchCorrelator}, and \codebox{SymbolMatchCorrelator} \cite{ghidra_github}—each of which proposes candidate matches and assigns a confidence score to those candidates.
 
-
-
+During the diffing of two binaries, VT runs the correlators sequentially; each applies its own comparison strategy and generates confidence scores for the pairs it proposes. Once all correlators have finished, VT merges their outputs into a single, consolidated match set that highlights identical elements, probable matches, and still‑unmatched code or data, together forming a list of changes between the two binaries.
 
 
 
 \section{Ghidriff}
 \label{sec:background:ghidriff}
-Ghidriff \cite{ghidriff_official_blog, Ghidriff} is a command-line binary diffing engine released in late 2023 and written in Python, that leverages Ghidra's robust binary analysis and version tracking capabilities. Designed as a pipeline extension to Ghidra, Ghidriff enables users to input two binaries to compare and then be fed back with a comprehensive diffing result in multiple formats, including Markdown, JSON, and HTML. An example of how the JSON format looks can be seen in Figure \ref{fig:ghidriff_json_output}.
+Ghidriff \cite{ghidriff_official_blog, Ghidriff} is a command-line binary diffing engine released in late 2023 and written in Python, that leverages Ghidra's robust binary analysis and version tracking capabilities. Designed as a pipeline extension to Ghidra, Ghidriff enables users to input two binaries to compare and then be fed back with a comprehensive diffing result in multiple formats, including Markdown, JSON, and HTML. An example of how the JSON format looks can be seen in Figure \ref{fig:ghidriff_json_output_A}, \ref{fig:ghidriff_json_output_B}, and \ref{fig:ghidriff_json_output_C}.
 
-Ghidriff uses Ghidra's FlatProgramAPI which facilitates headless execution of custom operations within the Ghidra engine, allowing a seamless automation-like functionality of the steps needed to perform binary analysis and binary diffing. Firstly, Ghidriff conducts an in-depth analysis of the individual Dalvik Executables (DEX), extracting relevant structural, functional information, and generation of Ghidra's P-code (logically representable machine source code generated during binary disassembling). Secondly, it performs binary diffing on the analyzed output to identify added, deleted, and modified functions. Adding to this, Ghidriff parses the detected changes, including the changes in the decompiled code, for an in-depth comparison of the two binaries.
+Ghidriff uses Ghidra's FlatProgramAPI, which facilitates headless execution of custom operations within the Ghidra engine, allowing a seamless automation-like functionality of the steps needed to perform binary analysis and binary diffing. Firstly, Ghidriff conducts an in-depth analysis of the individual Dalvik Executables (DEX), extracting relevant structural, functional information, and generation of Ghidra's P-code (logically representable machine source code generated during binary disassembling). Secondly, it performs binary diffing on the analyzed output to identify added, deleted, and modified functions. Adding to this, Ghidriff parses the detected changes, including the changes in the decompiled code, for an in-depth comparison of the two binaries.
 
 
 

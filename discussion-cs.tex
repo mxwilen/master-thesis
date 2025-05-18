@@ -6,7 +6,7 @@
 
 \chapter{Discussion}
 \label{cha:discussion}
-This chapter begins by reviewing the findings presented in chapter \ref{cha:result} \textit{Result}, focusing on the performance and accuracy of the categorization. Secondly, the method from \ref{cha:methodology} \textit{Methodology} is discussed by reflecting on its design, implementation, and limitations. Lastly, the chapter explores the wider context of this thesis, considering societal implications of the work. 
+This chapter begins by reviewing the findings presented in chapter \ref{cha:result} \textit{Result}, focusing on the performance and accuracy of the categorization. Secondly, the method from \ref{cha:methodology} \textit{Methodology} is discussed by reflecting on its design, implementation, and limitations. Lastly, the chapter explores the wider context of this thesis, considering the societal implications of the work. 
 
 \section{Results}
 \label{sec:discussion-results}
@@ -42,12 +42,12 @@ MAX TANKAR:
 \end{enumerate}
 \end{comment}
 
-Following the result presented in Chapter \ref{cha:result}, two main points of interests for further discussion has come up. The two are split up for the reason of targeting different root concerns, but they do somewhat intersect with each other:
+Following the result presented in Chapter \ref{cha:result}, two main points of interest for further discussion have come up. The two are split up for the reason of targeting different root concerns, but they do somewhat intersect with each other:
 
 \begin{explanation}
     These are addressed in their respective subsections.
     \begin{enumerate}
-        \item \textbf{bortsollande av non-kritiska är bra} - effektivare granskning
+        \item \textbf{Effective neglection of less important changes} - Why does high categorization accuracy of \textit{non-critical} changes provides great value?
         
         \item \textbf{Validity of the categorization} - How confident can we be that each change has been placed in the correct category?
     
@@ -57,17 +57,17 @@ Following the result presented in Chapter \ref{cha:result}, two main points of i
     \end{enumerate}
 \end{explanation}
 
-\subsection{bortsollande av non-kritiska är bra}
-...
+\subsection{Effective neglection of less important changes}
+At a first glance of the result presented in Chapter \ref{cha:result}, it is clear that accurate categorization of \emph{critical} changes is essential when detecting differences between two versions. However, while developing this novel approach to change categorization, we also recognized that high accuracy in identifying \emph{non‑critical} changes can filter out modifications that would otherwise distract analysts from the issues that matter most. Because of this, it is wise to acknowledge this fact when considering both usage of the tool and future development.
 
 
 \subsection{Validity of the Categorization}
 \label{sec:discussion:result:validity_of_categorization}
-As presented in Section \ref{sec:res:categorization_result:manual_evaluation_process}, the way that the declaration of a correct/incorrect categorization is done in this thesis has its accompanied concernes. Most obviously is the reliability of the manual analysis being correct in the first place, but this is discussed in the upcoming Section \ref{sec:discussion:subjective_nature_manual_analysis}. 
+As presented in Section \ref{sec:res:categorization_result:manual_evaluation_process}, the way that the declaration of a correct/incorrect categorization is done in this thesis has its accompanied concerns. Most obviously is the reliability of the manual analysis being correct in the first place, but this is discussed in the upcoming Section \ref{sec:discussion:subjective_nature_manual_analysis}. 
 
 % many critical changes received a majority if the critical categories
 % bad take ->
-Instead, we highlight the issue that many critical changes are assigned to several critical categories. Put differently, a substantial share of changes flagged as critical during the manual review have been assigned several critical categories by the pipeline, even though the manual analysis associated each with only a few. This is concerning because it is unclear whether the manual review was incorrect in the first place or whether the pipeline’s categorization is overly generous. It could be that the keyword lists for each category might need to be shortened, or a more relational keyword-matching approach—one that considers the relative positions of keywords—could produce more reliable results. Something however that is not part of this thesis.
+Instead, we highlight the issue that many critical changes are assigned to several critical categories. Put differently, a substantial share of changes flagged as critical during the manual review have been assigned several critical categories by the pipeline, even though the manual analysis associated each with only a few. This is concerning because it is unclear whether the manual review was incorrect in the first place or whether the pipeline’s categorization is overly generous. It could be that the keyword lists for each category might need to be shortened, or a more relational keyword-matching approach—one that considers the relative positions of keywords—could produce more reliable results.  However, that is not part of this thesis.
 
 % good take ->
 Viewed from another angle, the pipeline’s seemingly “generous” labeling might simply reflect a higher level of accuracy and detail than the manual review. Because the pipeline bases its classifications on function-level data derived from Ghidra’s control-flow analysis, it evaluates not only the operations directly modified by a change but also the downstream operations influenced by that change and the overall structure that the change produces. Because of this, changes that have been assigned more categories by the pipeline analysis than the manual analysis can be a consequence of the manual analysis being too vague.
@@ -102,9 +102,9 @@ Looking at the results in Chapter \ref{cha:result}, it is clear that some catego
 \end{itemize}    
 \end{comment}
 
-\textbf{TODO:} I don't think the pipeline works on stripped binaries. look into this further and eventually write about it here.
+Challenges arise in reverse engineering when the analyzed code does not accurately reflect the original functionality. For instance, when stripped binaries or obfuscated code are used. These techniques hinder reverse engineers by removing or altering meaningful code structures, such as function names and symbols.
 
-
+Such cases have not been studied in this thesis. The pipeline heavily relies on the assumption that the output from Ghidriff reflects the program's true functionality. If the categorization is performed on tampered code like this, it may have a significant impact on the accuracy of the result. This represents a key limitation of the thesis, which is difficult to overcome.
 
 \section{Method}
 \label{sec:discussion-method}
@@ -120,7 +120,6 @@ Building on the results in Chapter \ref{cha:result} and the methodology in Chapt
 
         \item \textbf{Choice of Test Data} - Is Signal an appropriate program for testing the pipeline?
 
-        \item \textbf{Why we chose Ghidriff} - What made us choose it over the other options mentioned in Sections \ref{sec:background:binary_disassembler_decompilers} and \ref{sec:background:comparing_binaries}?
     \end{enumerate}
 \end{explanation}
 
@@ -130,26 +129,27 @@ This thesis utilizes the previously mentioned tool, Ghidriff, to detect the chan
 
 \subsection{Subjective Nature of a Manual Analysis}
 \label{sec:discussion:subjective_nature_manual_analysis}
-The results presented in this thesis are derived through manual analysis, and the source code is analyzed without prior knowledge of the implementation. Since both the source code and the output from the pipeline tool are based on this approach, there is a potential for bias. For instance, manual examination of the source code can present challenges since the implementation can sometimes be difficult to understand without knowing the entire code base. This highlights the subjective nature of the manual analysis. To counter this, an approach where a more sophisticated manual analysis was made would increase the consistency and reliability, but would also be more time-consuming given the complexity of automating such a task.
+The results presented in this thesis are derived through manual analysis, and the source code is analyzed without prior knowledge of the implementation. Since both the source code and the output from the pipeline tool are based on this approach, there is a potential for bias. For instance, manual examination of the source code can present challenges since the implementation can sometimes be difficult to understand without knowing the entire code base. This highlights the subjective nature of the manual analysis. To counter this, an approach where a more sophisticated manual analysis was made would increase the consistency and reliability, but would also be more time-consuming, given the complexity of automating such a task.
 
 The results presented in this thesis rest on the prior assumption that a change behaves as interpreted when one examines the specific line of code. Commit messages linked to the change can lend some support to this assumption, but the precise reason the change occurred remains uncertain, and the findings must therefore be interpreted with this limitation in mind.
 
 
 \subsection{Choice of Test Data}
-Testing as only been performed with the Android version of Signal, as presented in previous chapters. The reason for this lies in two main reasons. First, the NFC specifically requested Signal-Android because its scale and architectural style resemble the other apps they plan to process with the pipeline, making it a practical and representative choice for initial testing. Second, Signal’s open-source codebase simplifies data collection and analysis.
+Testing has only been performed with the Android version of Signal, as presented in previous chapters. The reason for this lies in two main reasons. First, the NFC specifically requested Signal-Android because its scale and architectural style resemble the other apps they plan to process with the pipeline, making it a practical and representative choice for initial testing. Second, Signal’s open-source codebase simplifies data collection and analysis.
 
 % The results from the three version diffs analyzed in this thesis may not represent other applications in the same field. However, Signal was chosen since it is a large-scale application and an interesting one for the client to investigate. It is also one of the few where the source code is publicly accessible, which is required in this thesis to validate the performance of the developed tool.
 
 
+\begin{comment}
 \subsection{Why we chose Ghidriff}
 
 \textbf{NOTE TO SULEMAN:} Not sure if this is needed? Some explanation can be found in Chapter \ref{cha:methodology}, but maybe that is not enough?
-
+\end{comment}
 
 
 \section{Replicability}
 \label{sec:replicability}
-To replicate the research performed in this thesis, the pipeline tool described in Chapter \ref{cha:methodology} must be used. The tool and additional information regarding installation and setup is accessible from the thesis project's GitHub repository \cite{public_project_github}. All Signal versions mentioned in the thesis are public releases retrieved from the Signal GitHub repository \cite{githubSignal}. Lastly, Section \ref{sec:res:categorization_result:manual_evaluation_process} describes how the manual evaluation was conducted to collect the results in this thesis.
+To replicate the research performed in this thesis, the pipeline tool described in Chapter \ref{cha:methodology} must be used. The tool and additional information regarding installation and setup are accessible from the thesis project's GitHub repository \cite{public_project_github}. All Signal versions mentioned in the thesis are public releases retrieved from the Signal GitHub repository \cite{githubSignal}. Lastly, Section \ref{sec:res:categorization_result:manual_evaluation_process} describes how the manual evaluation was conducted to collect the results in this thesis.
 
 \section{The Work in a Wider Context}
 \label{sec:work-wider-context}
