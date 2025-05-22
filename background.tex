@@ -12,7 +12,7 @@ in the field. It introduces processes, tools, and techniques in the context of
 their respective sections, providing relevant context rather than 
 an exhaustive list.
 
-The chapter is structured into two sections: a theoretical section, which explains the foundational concepts and principles of the tools and techniques, and a practical section, which demonstrates their application through tools and real-world use cases.
+The chapter is structured into two sections: a theoretical section that explains the foundational concepts and principles of the tools and techniques, and a practical section that demonstrates their application through tools and real-world use cases.
 
 \begin{center}
     \Large\textit{Theoretical background}
@@ -26,7 +26,7 @@ The chapter is structured into two sections: a theoretical section, which explai
 - how to get "stuff" from the digital media
 \end{comment}
 The process of performing digital forensic analysis involves identifying, examining,
-analyzing, and preserving digital evidence—defined as "information stored or 
+analyzing, and preserving digital evidence, defined as "information stored or 
 transmitted in binary form that may be relied on in court," according to 
 \textcite{nij_digital_multimedia_evidence}.
 
@@ -35,7 +35,7 @@ to enhance the efficiency and volume of evidence analyzed within the same time f
 \cite{automatingForensicMethods}. However, automating these steps in forensic analysis 
 is more complex than it initially appears, a challenge highlighted by 
 \textcite{automatingForensicMethods}. Given the complexity of automating the evaluation 
-of diverse sets of evidence and their intricate interconnections, as well as developing 
+of diverse sets of evidence and their intricate interconnections, developing 
 a tool capable of performing such comprehensive analyses is considered inefficient 
 \cite{automatingForensicMethods}. Instead, efforts can be directed toward automating 
 specific steps of the process, such as parsing, structuring, and organizing data.
@@ -51,11 +51,11 @@ Om vi vill ha in något mer specifikt angående jämförelse av olika binära fi
 Starting an arbitrary program cannot simply be done by executing the source 
 code. For the machine to process and execute these instructions, the source 
 code must first be translated into a format that the machine can understand: 
-machine code. This translation process is called compilation, and the output 
+Machine code. This translation process is called compilation, and the output 
 of this process is referred to as binaries. Binaries contain the program's 
 logic and operations written by the developer, but in a low-level format 
 optimized for the machine to read and execute efficiently. When a program is 
-finalized and ready for distribution, all the necessary binaries required to run on a machine are linked and combined into a single file. 
+Finalized and ready for distribution, this file links and combines all the necessary binaries to run on a machine. 
 This file is an executable, containing everything needed for the 
 operating system to load and execute the program. Understanding the 
 fundamental functionality of this distributed program then involves analyzing 
@@ -64,7 +64,7 @@ of determining the program's functionality based only on the binaries is
 called binary analysis \cite{nist_binary_code_scanners}.
 
 In terms of performing forensic analysis on a software application, 
-binary analysis is crucial. Identifying differences between two separate
+Binary analysis is crucial. Identifying differences between two separate
 executables must be done in two ways: 
 
 \begin{enumerate}
@@ -82,19 +82,19 @@ To ensure that the appropriate forensic tools are applied, both must be understo
 % interact. This analysis provides insight into why a specific amount of fuel 
 % (input) results in a particular level of acceleration (output). 
 From this, the forensic investigator can leverage an understanding of the software's 
-logical behavior to validate digital evidence—such as data retrieved from the 
+logical behavior to validate digital evidence, such as data retrieved from the 
 device's memory \cite{nij_digital_multimedia_evidence}—by placing it within a 
 broader, more comprehensible context that clarifies its relevance and application.
 
 % Argument som kan användas tidigare!
 However, the process of performing binary analysis is time-consuming, which is 
-why automation of finding these logical differences can imply greater 
+Why automation of finding these logical differences can imply greater 
 efficiency and effectiveness in performing forensic analysis on software, 
 without sacrificing the integrity of the evidence by letting some arbitrary 
-automatic process determine the classification of the evidence.
+An automatic process determines the classification of the evidence.
 
 \section{Control-Flow Graph (CFG)}
-To perform static program analysis, knowledge of the control flow is required to understand how the program operates \cite{allen1970control}. Compilers often use analysis of control-flow graphs to optimize software programs, where the purpose is to determine the flow relationships in the program. For instance, detecting inner loops, placement of expressions, and variable definitions \cite{allen1970control}. The control flow is a directed graph, as shown in Figure \ref{background:control_flow_analysis}. In this example, a function that determines prime numbers is shown where conditional logic is depicted as nodes and control flow paths are represented as edges. Python code for the control-flow graph can be seen in Figure \ref{fig:python_code-cfg}.
+To perform static program analysis, knowledge of the control flow is required to understand how the program operates \cite{allen1970control}. Compilers often use analysis of control-flow graphs to optimize software programs, where the purpose is to determine the flow relationships in the program. For instance, detecting inner loops, placement of expressions, and variable definitions \cite{allen1970control}. The control flow is a directed graph, as shown in Figure \ref{background:control_flow_analysis}. In this example, a function that determines prime numbers is shown, where conditional logic is depicted as nodes and control flow paths are represented as edges. Python code for the control-flow graph can be seen in Figure \ref{fig:python_code-cfg}.
 
 
 
@@ -311,7 +311,7 @@ Dalvik & APK:
 \end{comment}
 
 \begin{description}
-    \item[ART and Dalvik] Android runtime (ART) is the runtime environment that newer versions of Android use, and it comes with features like ahead-of-time (AOT) compilation for better time efficiency when compared to its predecessor Dalvik. Both of the runtime environments execute Dalvik executables (.dex) \cite{AndroidRuntime_official}.
+    \item[ART and Dalvik] Android runtime (ART) is the runtime environment that newer versions of Android use, and it comes with features like ahead-of-time (AOT) compilation for better time efficiency when compared to its predecessor Dalvik. Both of the runtime environments execute Dalvik executables (\codebox{.dex}) \cite{AndroidRuntime_official}.
     
     \item[Dalvik bytecode] Both ART and Dalvik compile the application into Dalvik bytecode. The bytecode is similar to machine code instructions but is optimized for Android applications specifically. The Dalvik bytecode is stored in dex files \cite{DalvikBytecode_official}.
 
@@ -342,12 +342,9 @@ During the diffing of two binaries, VT runs the correlators sequentially; each a
 \label{sec:background:ghidriff}
 Ghidriff \cite{ghidriff_official_blog, Ghidriff} is a command-line binary diffing engine released in late 2023 and written in Python, that leverages Ghidra's robust binary analysis and version tracking capabilities. Designed as a pipeline extension to Ghidra, Ghidriff enables users to input two binaries to compare and then be fed back with a comprehensive diffing result in multiple formats, including Markdown, JSON, and HTML. An example of how the JSON format looks can be seen in Figure \ref{fig:ghidriff_json_output_A}, \ref{fig:ghidriff_json_output_B}, and \ref{fig:ghidriff_json_output_C}.
 
-Ghidriff uses Ghidra's ProgramAPI and FlatProgramAPI, which facilitates headless execution of custom operations within the Ghidra engine, allowing a seamless automation-like functionality of the steps needed to perform binary analysis and binary diffing. Firstly, Ghidriff conducts an in-depth analysis of the individual Dalvik Executables (.dex), extracting relevant structural, functional information, and generation of Ghidra's P-code (logically representable machine source code generated during binary disassembling). Secondly, it performs binary diffing on the analyzed output to identify added, deleted, and modified functions. Adding to this, Ghidriff parses the detected changes, including the changes in the decompiled code, for an in-depth comparison of the two binaries.
+Ghidriff uses Ghidra's ProgramAPI and FlatProgramAPI, which facilitates headless execution of custom operations within the Ghidra engine, allowing a seamless automation-like functionality of the steps needed to perform binary analysis and binary diffing. Firstly, Ghidriff conducts an in-depth analysis of the individual Dalvik Executables (\codebox{.dex}), extracting relevant structural, functional information, and generation of Ghidra's P-code (logically representable machine source code generated during binary disassembling). Secondly, it performs binary diffing on the analyzed output to identify added, deleted, and modified functions. Adding to this, Ghidriff parses the detected changes, including the changes in the decompiled code, for an in-depth comparison of the two binaries.
 
 
-
-%\section{Bayesian networks}
-
-%\textbf{TODO:} Talk about what bayesian networks are
-
-%\textbf{TODO:} Add graph and tabular explaining bayesian networks
+\begin{rqs}
+    From the tools presented in this chapter, we can conclude what current approaches there are to perform automatic identification of version changes when only having access to binaries. Because of this, research question \textit{\#1} can be answered. See Chapter \ref{cha:conclusion} for the full answer.
+\end{rqs}

@@ -9,6 +9,9 @@
 
 \usepackage{comment}
 
+
+\usepackage[all]{hypcap}
+
 %%%%%%%%%%%%%%%%% GRAPHVIZ %%%%%%%%%%%%%%%%%%%
 \usepackage[pdf]{graphviz}
 \usepackage{float}    % For the [H] placement specifier
@@ -440,6 +443,19 @@
 \declaretheorem[style=thmnotesbox, name=Important Note]{tmpnote}
 \newenvironment{note}[1][]{\vspace{0pt}\begin{tmpnote}}{\end{tmpnote}}
 
+\declaretheoremstyle[
+    headfont=\color{correct_color},
+    numbered=no,
+    mdframed={
+        linewidth=2pt,
+        rightline=false, topline=false, bottomline=false,
+        linecolor=correct_color, 
+        backgroundcolor=weak_correct_color,
+    },
+]{thmrqsbox}
+\declaretheorem[style=thmrqsbox, name=Research question answered]{tmprq}
+\newenvironment{rqs}[1][]{\vspace{0pt}\begin{tmprq}}{\end{tmprq}}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \department{Institutionen för datavetenskap}
 \departmentenglish{Department of Computer and Information Science}
@@ -454,12 +470,14 @@
 \examiner{Andrei Gurtov}
 %\titleenglish{Version Comparison of Software in Context of Forensic Analysis}
 
-\titleenglish{Novel Differential Analysis of Android Binaries: Detecting, Categorizing, and Evaluating Version Changes}
+\titleenglish{A Novel Automated Binary Analysis Framework for Detecting Forensic-Relevant Changes in Android Apps}
+
+%Novel Differential Analysis of Android Binaries: Detecting, Categorizing, and Evaluating Version Changes}
 
 % Novel Analysis of Categorizing and Detecting Android Binary Changes
 
 
-\subtitleenglish{Supporting Reverse-Engineering Workflows through Binary-Centric Change Characterization}
+%\subtitleenglish{Supporting Reverse-Engineering Workflows through Binary-Centric Change Characterization}
 % Facilitating Reverse-Engineering Workflows through Binary-Centric Change Characterization
 
 \titleswedish{Versionsjämförelse av programvara inom forensisk analys}

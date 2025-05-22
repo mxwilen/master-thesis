@@ -106,6 +106,14 @@ Challenges arise in reverse engineering when the analyzed code does not accurate
 
 Such cases have not been studied in this thesis. The pipeline heavily relies on the assumption that the output from Ghidriff reflects the program's true functionality. If the categorization is performed on tampered code like this, it may have a significant impact on the accuracy of the result. This represents a key limitation of the thesis, which is difficult to overcome.
 
+
+
+\begin{rqs}
+    From the discussion in Section \ref{sec:discussion-results}, in tandem with the descriptive presentation of the approach found in Section \ref{sec:method:categorization}, we can conclude how to effectively categorize and rank detected changes without having access to source code. Because of this, research question \textit{\#2} can be answered. See Chapter \ref{cha:conclusion} for the full answer.
+\end{rqs}
+
+
+
 \section{Method}
 \label{sec:discussion-method}
 
@@ -124,7 +132,7 @@ Building on the results in Chapter \ref{cha:result} and the methodology in Chapt
 \end{explanation}
 
 \subsection{Uncontrollable external deficiencies}
-This thesis utilizes the previously mentioned tool, Ghidriff, to detect the changes between different software versions. As shown in Table \ref{tab:overall_accuracy}, not all changes are successfully detected from Ghidriff. If this is due to limitations in Ghidra or Ghidriff is unknown and falls outside the scope of this thesis to investigate, but it does affect the result. It is worth mentioning that Ghidriff has only been referenced in a limited number of prior studies, which may indicate that its capabilities and limitations are not fully explored. In this thesis, there have been cases where Ghidriff has not been able to analyze all .dex files, which can be seen in Table \ref{tab:run_time}.
+This thesis utilizes the previously mentioned tool, Ghidriff, to detect the changes between different software versions. As shown in Table \ref{tab:overall_accuracy}, not all changes are successfully detected from Ghidriff. If this is due to limitations in Ghidra or Ghidriff is unknown and falls outside the scope of this thesis to investigate, but it does affect the result. It is worth mentioning that Ghidriff has only been referenced in a limited number of prior studies, which may indicate that its capabilities and limitations are not fully explored. In this thesis, there have been cases where Ghidriff has not been able to analyze all \codebox{.dex} files, which can be seen in Table \ref{tab:run_time}.
 
 
 \subsection{Subjective Nature of a Manual Analysis}

@@ -142,6 +142,7 @@ The report also includes a dark mode option, which can be toggled using a button
 
 \newpage
 \section{Categorization Results}
+\label{sec:res:categorization:result}
 This section presents the results obtained from analyzing three different versions of the Signal Android application using the tool developed in this thesis. The selected versions, summarized in Table \ref{tab:release_overview}, are sourced from Signal's official Android GitHub repository \cite{githubSignal}. Additionally, Table \ref{tab:run_time} provides an overview of the tool’s runtime performance for each version analysis, including key metrics such as analysis duration and the number of detected changes.
 
 \begin{note}
@@ -179,9 +180,9 @@ It is important to note that the total number of detected changes reflects the u
 
 
 \begin{note}
-    Failed .dex File Analysis.\\
+    Failed \codebox{.dex} File Analysis.\\
     \noindent
-    The column labeled "Failed .dex files" in Table \ref{tab:run_time} indicates whether the pipeline (specifically Ghidra) encountered issues analyzing any .dex files. If any .dex files could not be properly analyzed, this can impact the accuracy of the results for that version diff. Missing or failed .dex file analysis reduces the likelihood of detecting all changes and can affect classification performance. This challenge is further discussed in Section \ref{sec:discussion-results}.
+    The column labeled "Failed \codebox{.dex} files" in Table \ref{tab:run_time} indicates whether the pipeline (specifically Ghidra) encountered issues analyzing any \codebox{.dex} files. If any \codebox{.dex} files could not be properly analyzed, this can impact the accuracy of the results for that version diff. Missing or failed \codebox{.dex} file analysis reduces the likelihood of detecting all changes and can affect classification performance. This challenge is further discussed in Section \ref{sec:discussion-results}.
 \end{note}
 
 
@@ -189,7 +190,7 @@ It is important to note that the total number of detected changes reflects the u
   \centering
   \begin{tabular}{@{} c c c c l @{}}
     \toprule
-    \textbf{Version diff} & \textbf{Run time} & \textbf{Apk size} & \textbf{Detected changes} & \textbf{Failed .dex files} \\ \midrule
+    \textbf{Version diff} & \textbf{Run time} & \textbf{Apk size} & \textbf{Detected changes} & \textbf{Failed \codebox{.dex} files} \\ \midrule
     A & 20m 45s & 99.3 MB  & 1677 &  \\
     B & 21m 43s & 100 MB & 2386 & classes2.dex \& classes5.dex \\
     C & 21m 25s & 102 MB & 377 & classes2.dex \\ \bottomrule
@@ -1299,7 +1300,7 @@ CATEGORY ACCURACY NON-CRIT = (24+8+12)/(27+12+24) = 0,6984126984
         \textit{\ \ \ \ \ \ \ \ Non-critical categories} & 69.8\% \\
         \bottomrule
     \end{tabular}
-    \caption{Combined pipeline accuracy metrics.}
+    \caption{Combined pipeline accuracy metrics}
     \label{tab:overall_accuracy}
 \end{table}
 
@@ -1353,7 +1354,7 @@ From these observations, it is clear that the critical categories \codebox{Authe
         \end{axis}
     \end{tikzpicture}
     
-    \caption{Total ratio of correct vs incorrect assignment of critical categories.}
+    \caption{Total ratio of correct vs incorrect assignment of critical categories}
     \label{fig:correct_incorrect_categorization_accuracy_critical}
 \end{table}
 
@@ -1393,6 +1394,11 @@ From these observations, it is clear that the critical categories \codebox{Authe
         \end{axis}
     \end{tikzpicture}
     
-    \caption{Total ratio of correct vs incorrect assignment of non-critical categories.}
+    \caption{Total ratio of correct vs incorrect assignment of non-critical categories}
     \label{fig:correct_incorrect_categorization_accuracy_noncritical}
 \end{table}
+
+
+\begin{rqs}
+    From the data presented in Section \ref{sec:res:categorization:result}, we can conclude the effectiveness of regular-expression based categorization in filtering forensic-relevant changes. Because of this, research question \textit{\#3} can be answered. See Chapter \ref{cha:conclusion} for the full answer.
+\end{rqs}
