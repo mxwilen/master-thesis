@@ -18,7 +18,7 @@ structure, the section is organized based on the work's specific area.
 \label{sec:related_work:kandidat_pipeline}
 In a previous bachelor's thesis \cite{nfc_kandidatrapport_jesper}, an automated pipeline comparing differences between Android software versions has been implemented. The pipeline uses the Ghidra headless FlatProgramAPI for binary analysis, and binary diffing is achieved by executing BinDiff on the analyzed binaries. The last step is a classification performed on function names, where the differences are categorized into important or unimportant changes. A visual representation can be seen in Figure \ref{related_work:workflow}.
 
-In this thesis, the classification is the main focus. The previous study \cite{nfc_kandidatrapport_jesper} made an automated pipeline that provides the differences between software versions, but the classification can be significantly improved. Instead of only looking at the names of the outer functions and comparing them with a small set of keywords to determine their importance, this thesis will take a more in-depth approach regarding the classification and provide details to make it more useful when reverse engineering applications for digital forensics purposes.
+In this thesis, the categorization is the main focus. The previous study \cite{nfc_kandidatrapport_jesper} made an automated pipeline that provides the differences between software versions, but the classification can be significantly improved. Instead of only looking at the names of the outer functions and comparing them with a small set of keywords to determine their importance, this thesis will take a more in-depth approach regarding the classification and provide details to make it more useful when reverse engineering applications for digital forensics purposes.
 
 
 \begin{figure}[ht]
@@ -97,11 +97,11 @@ and leverage prior research to develop an effective binary analysis tool.
 
 \section{Android Class Structure Matching}
 \label{sec:related_work:class_matching}
+Obfuscated code, such as renaming symbols or class names, can protect an application by replacing meaningful names with shortened, random, or misleading ones \cite{android_matching}. For instance, an actual class name is useful for developers and reverse engineers since it indicates what the class is used for, but the Android Runtime does not rely on the names for execution \cite{android_matching}.
+
 \textcite{android_matching} have implemented a tool named ApkDiff for matching obfuscated classes between different Android application versions. ApkDiff uses a bytecode-based matching of the classes to determine which classes relate to each other between versions. This is achieved by comparing semantic features like fields, methods, and call graphs.
 
-Obfuscated code, such as renaming symbols or class names, can protect an application by replacing meaningful names with shortened, random, or misleading ones \cite{android_matching}. For instance, an actual class name is useful for developers and reverse engineers since it indicates what the class is used for, but the Android Runtime does not rely on the names for execution \cite{android_matching}. 
-
-In this thesis, obfuscated code will not be covered. Instead, the result relies on what the chosen binary analysis and diffing tool manage to extract. This thesis categorizes the actual code differences between two software versions and not only the class names. The research conducted by \textcite{android_matching} shares a similar goal with this thesis in reducing the time and effort required for manual analysis.  
+In this thesis, obfuscated code will not be covered. Instead, the result relies on what the chosen binary analysis and diffing tool manage to extract. This thesis categorizes the actual code differences between the two software versions and not only the class names. The research conducted by \textcite{android_matching} shares a similar goal with this thesis in reducing the time and effort required for manual analysis.  
 
 \section{Software Version Change Classification}
 \label{sec:related_work:classify_detection}
@@ -126,8 +126,14 @@ Some work has been done regarding classifying malicious and benign android appli
 \end{center}
 
 \noindent
-The literature study revealed no prior work that directly categorizes code changes between two software versions in the way this thesis aims to. The closest related work is the bachelor project by \textcite{nfc_kandidatrapport_jesper}, which introduced an automated pipeline for identifying differences between Android software versions. However, its classification method was limited to function names, and the categorization used only addressed whether the changes were of importance or not. This thesis aims to develop a more comprehensive categorization, making it more valuable for reverse engineering in the context of digital forensics.
+Previous sections reveale that no prior work that directly categorizes code changes between two software versions in the way this thesis aims to. The closest related work is the bachelor's project by \textcite{nfc_kandidatrapport_jesper}, which introduced an automated pipeline for identifying differences between Android software versions. However, its classification method was limited to function names, and the categorization used only addressed whether the changes were of importance or not. This thesis aims to develop a more comprehensive categorization, making it more valuable for reverse engineering in the context of digital forensics.
 
-While \textcite{android_matching} compared Android application versions and explored the challenge of obfuscated code, which this thesis does not address. Their work shares a similar goal: reducing the effort required for manual analysis of software changes. Additionally, methodologies from change classification research, such as \textcite{classification_of_change_messages}, provide valuable insights into labeling and categorization techniques, even though they use available version control messages and not starting from the binaries.
+ \textcite{android_matching} compared Android application versions and explored challenges of obfuscated code, which this thesis does not address. However, their work shares a similar goal: reducing the effort required for manual analysis of software changes. Additionally, methodologies from change classification research, such as \textcite{classification_of_change_messages}, provide valuable insights into labeling and categorization techniques, even though they use available version control messages and not start from the binaries.
 
 By building upon these previous works, this thesis aims to bridge the gap in existing research and contribute with a systematic approach to categorizing software changes by analyzing binaries.
+
+\begin{rqs}
+    From the tools presented in the Chapters \ref{cha:background} and \ref{cha:related_work}, we can conclude what
+    current approaches there are to perform automatic identification of version changes when
+    only having access to binaries. The answer to research question 1 is concluded in Chapter \ref{cha:conclusion}.
+\end{rqs}

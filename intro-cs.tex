@@ -30,11 +30,11 @@ SULEMAN COMMENT:
     "Nice work! However, i will say here you have only one paper instead you can cite 3 or 4 papers here if possible and get motivation from these papers like what issues or challeneges we have and these challeneges have that impact so therefore you are doing this this work in this thesis"
 \end{comment}
 
-Applications of digital forensic interest are often analyzed to examine functionality that may affect the results of digital forensic investigations. Therefore, the digital forensic process relies on prior reverse engineering of the application to gain an accurate understanding of the software, ensuring that evidence is correctly extracted, interpreted, and admissible in court. This forensic investigation method is dependent on what type of media and application the digital evidence is to be extracted from. When a new version of an application is released, valuable knowledge about its functionality may no longer hold for reverse engineers \cite{android_matching}. Even minor software updates may change how the information is gathered and which forensic methods should be applied \cite{acm_fingerprinting_survey, nij2004forensic}. As a result, the newly released software version may require manual analysis, a process closely resembling reverse engineering.
+Applications of digital forensic interest are often analyzed to examine functionality that may affect the results of digital forensic investigations. Therefore, the forensic process relies on prior analysis of the application to have an accurate understanding of the software, ensuring that evidence is correctly extracted, interpreted, and admissible in court. The method chosen in a forensic investigation is dependent on what type of media and application the digital evidence is to be extracted from. When a new version of an application is released, valuable knowledge about its functionality may no longer hold for reverse engineers \cite{android_matching}. Even minor software updates may change how the information is gathered and which forensic methods should be applied \cite{acm_fingerprinting_survey, nij2004forensic}. As a result, the newly released software version may require manual analysis, for instance, performing reverse engineering.
 
 Given the rapidly evolving industry in software development and the increasing number of available applications, the pace needed to keep up with the release cycles becomes challenging. For instance, the open-source end-to-end encrypted messaging application Signal is a frequent example of an application of forensic interest. It has multiple software releases every week \cite{githubSignal}. Other encrypted messaging applications monitored by authorities are EncroChat, Exclu, and Ghost \cite{europaInternationalOperation}, which also have frequent release cycles but are not open-source.
 
-Because of this, conducting a full analysis of every version of all relevant applications would entail an unreasonable amount of work. As described by NFC, without knowledge of the relevant changes between two software releases, forensic work becomes an ad hoc process in which all differences must be investigated, rather than focusing on those relevant to the forensic investigation. By categorizing changes and filtering them based on their relevance to the forensic investigation, a decrease in the time needed to analyze a single release of an application could be possible.
+Because of this, conducting a full analysis of every version of all relevant applications would entail an unreasonable amount of work. As described by the thesis client, without knowledge of the relevant changes between two software releases, forensic work becomes an ad hoc process in which all differences must be investigated, rather than focusing on those relevant to the forensic investigation. By categorizing changes and filtering them based on their relevance to the forensic investigation, a decrease in the time needed to analyze a single release of an application could be possible.
 
 %%%%%%% KÄNS LITE FÖR MYCKET AIM
 % This thesis investigates the development of a method to automate the digital forensic process by systematically analyzing differences between software versions.
@@ -68,9 +68,9 @@ Basic points to cover:
 \section{Aim}
 \label{sec:aim}
 
-This thesis aims to develop a novel method for automating version comparison and categorization of relevant changes for use during reverse engineering of software applications in a targeted forensic analysis.
+This thesis aims to develop a novel method for automating version comparison and categorization of relevant changes for use in tandem with reverse engineering of software applications in forensic analysis.
 
-To achieve this, the thesis investigates the development of a tool that can detect programmatic changes between two versions of a software application, categorize these changes, and later filter them based on relevance in the forensic investigation. All without having knowledge of the source code, and only analyzing the released application binaries.
+To achieve this, the thesis investigates the development of a tool that can detect programmatic changes between two versions of a software application, categorize these changes, and later filter them based on relevance in the forensic investigation. All without having knowledge of the source code, and only analyzing the application binaries.
 
 \section{Research questions}
 \label{sec:research-questions}
@@ -97,14 +97,13 @@ SULEMAN COMMMENT:
     "only highlight those things which will be covered in this thesis dont put light on those stuff or write which is not part of this thesis"
 \end{comment}
 
-This thesis addresses the research questions outlined in Section \ref{sec:research-questions} by exploring binary analysis techniques and the tools commonly used for analyzing software executables. Following this, a deep dive into categorizing the discovered changes based on functionality defined as relevant, and the method to perform this is considered the most effective. Ultimately, the research seeks to determine how changes in software applications impact the forensic analysis process and whether these methods can effectively identify significant alterations. 
+This thesis addresses the research questions outlined in Section \ref{sec:research-questions} by exploring binary analysis techniques and the tools commonly used for analyzing software executables. Following this, a deep dive into categorizing the discovered changes based on functionality defined as relevant, and the method to perform this is considered the most effective. Ultimately, the research seeks to determine how changes in software applications may impact the forensic analysis process.
 
 This thesis's primary focus is on producing a method for assessing whether the changes between the two versions' core operations are significant enough to warrant manual reverse engineering of the application.
 
 \section{Limitations}
 \label{sec:limitations}
-The thesis does not introduce specific forensic methods or tools utilized during the analysis process. Instead, it assumes that the tools are functional and relevant to the core operations of the examined software.
-
+The thesis does not cover forensic methods or tools used in the analysis, assuming they are functional and relevant to the examined software’s core operations. During a forensic analysis, various data sources such as RAM dumps, network traffic, and device storage may be examined, which requires specialized tools or further reverse-engineering to extract information. While certain application changes can influence how such tools are applied, this thesis only focuses on presenting and categorizing software changes to maintain a limited scope. Therefore, the usage of the output from the developed tool is never discussed.
 
 \section{Contributions}
 \label{sec:contributions}
@@ -117,12 +116,12 @@ The thesis does not introduce specific forensic methods or tools utilized during
 - present findings and reason for one of the methods being chosen.
 \end{comment}
 
-The presented findings can be effectively used to determine if manual reverse engineering software applications are needed before applying a forensic analysis. The main contributions of this thesis are to provide: 
+The presented findings can effectively be used to quickly determine the significance of changes between two different versions of the same software. The tool is not intended to replace manual reverse engineering or forensic methods, but rather to support the process by helping analysts identify what changes are worthy of further analysis. This can indicate whether the existing forensic methods, assumptions, and knowledge remain valid or need to be updated. The main contributions of this thesis are to provide: 
 
 \begin{enumerate}
     \item \textbf{Research:} Present findings in current binary analysis methods and how these are applied in a version comparison detection setting, followed by effectively categorizing these changes.
 
-    \item \textbf{Experiment:} An experimental method that can be applied when detecting and categorizing changes between two software versions, without knowing the source code.
+    \item \textbf{Experiment:} An experimental method, in the form of a developed Python program, that can be applied when detecting and categorizing changes between two software versions, without knowing the source code.
 \end{enumerate}
 
 

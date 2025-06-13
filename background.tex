@@ -19,7 +19,7 @@ The chapter is structured into two sections: a theoretical section that explains
 \end{center}
 
 
-\section{Digital Forensic Methods}
+\section{Digital Forensics}
 \label{sec:background:digital_forensic_methods}
 \begin{comment}
 - what "stuff" to retrieve from the digital media
@@ -40,58 +40,11 @@ a tool capable of performing such comprehensive analyses is considered inefficie
 \cite{automatingForensicMethods}. Instead, efforts can be directed toward automating 
 specific steps of the process, such as parsing, structuring, and organizing data.
 
+\section{Compilation Effects on Binaries}
+\label{sec:background:compilation_effects_on_binaries}
 
+While compiling the same source code twice should, in theory, produce identical binaries, this is not always guaranteed in practice. Different compilation settings, such as flags, optimization configurations, compiler version, compiler type, and even the operating system version, can affect the generated binary both semantically and logically \cite{compiler_effects_on_binaries}. To accurately compare binaries, it is essential to understand these differences in control-flow behavior and semantic properties, as they help reveal variations between two unique binaries, ensuring the integrity of the findings.
 
-\section{Binary Analysis}
-\label{sec:background:binary_analysis}
-\begin{comment}
-Om vi vill ha in något mer specifikt angående jämförelse av olika binära filer, använd: https://www.mdpi.com/2079-9292/13/9/1715
-\end{comment}
-
-Starting an arbitrary program cannot simply be done by executing the source 
-code. For the machine to process and execute these instructions, the source 
-code must first be translated into a format that the machine can understand: 
-Machine code. This translation process is called compilation, and the output 
-of this process is referred to as binaries. Binaries contain the program's 
-logic and operations written by the developer, but in a low-level format 
-optimized for the machine to read and execute efficiently. When a program is 
-Finalized and ready for distribution, this file links and combines all the necessary binaries to run on a machine. 
-This file is an executable, containing everything needed for the 
-operating system to load and execute the program. Understanding the 
-fundamental functionality of this distributed program then involves analyzing 
-the binaries within its executable (assuming the source code is unavailable), as these binaries represent the program's core logic. This process 
-of determining the program's functionality based only on the binaries is 
-called binary analysis \cite{nist_binary_code_scanners}.
-
-In terms of performing forensic analysis on a software application, 
-Binary analysis is crucial. Identifying differences between two separate
-executables must be done in two ways: 
-
-\begin{enumerate}
-    \item Revealing changes in the source code \cite{practical_binary_analysis_static_code}.
-
-    \item Analyzing how different ways of compiling the program affect the program's fundamental behavior \cite{practical_binary_analysis_static_code}.
-\end{enumerate}
-
-\noindent
-To ensure that the appropriate forensic tools are applied, both must be understood.
-% To illustrate with an analogy: understanding a car's (the executable) fuel 
-% efficiency requires analyzing how the engine (one binary) functions, how the 
-% electronics (another binary) operate, and how the chassis (another binary) is 
-% designed. Additionally, it involves examining how these components (binaries) 
-% interact. This analysis provides insight into why a specific amount of fuel 
-% (input) results in a particular level of acceleration (output). 
-From this, the forensic investigator can leverage an understanding of the software's 
-logical behavior to validate digital evidence, such as data retrieved from the 
-device's memory \cite{nij_digital_multimedia_evidence}—by placing it within a 
-broader, more comprehensible context that clarifies its relevance and application.
-
-% Argument som kan användas tidigare!
-However, the process of performing binary analysis is time-consuming, which is 
-Why automation of finding these logical differences can imply greater 
-efficiency and effectiveness in performing forensic analysis on software, 
-without sacrificing the integrity of the evidence by letting some arbitrary 
-An automatic process determines the classification of the evidence.
 
 \section{Control-Flow Graph (CFG)}
 To perform static program analysis, knowledge of the control flow is required to understand how the program operates \cite{allen1970control}. Compilers often use analysis of control-flow graphs to optimize software programs, where the purpose is to determine the flow relationships in the program. For instance, detecting inner loops, placement of expressions, and variable definitions \cite{allen1970control}. The control flow is a directed graph, as shown in Figure \ref{background:control_flow_analysis}. In this example, a function that determines prime numbers is shown, where conditional logic is depicted as nodes and control flow paths are represented as edges. Python code for the control-flow graph can be seen in Figure \ref{fig:python_code-cfg}.
@@ -136,13 +89,51 @@ To perform static program analysis, knowledge of the control flow is required to
     \label{background:control_flow_analysis}
 \end{figure}
 
-\newpage
-\section{Compilation Effects on Binaries}
-\label{sec:background:compilation_effects_on_binaries}
+\section{Binary Analysis}
+\label{sec:background:binary_analysis}
+\begin{comment}
+Om vi vill ha in något mer specifikt angående jämförelse av olika binära filer, använd: https://www.mdpi.com/2079-9292/13/9/1715
+\end{comment}
 
-While compiling the same source code twice should, in theory, produce identical binaries, this is not always guaranteed in practice. Different compilation settings, such as flags, optimization configurations, compiler version, compiler type, and even the operating system version, can affect the generated binary both semantically and logically \cite{compiler_effects_on_binaries}. To accurately compare binaries, it is essential to understand these differences in control-flow behavior and semantic properties, as they help reveal variations between two unique binaries, ensuring the integrity of the findings.
+Starting an arbitrary program cannot simply be done by executing the source 
+code. For the machine to process and execute these instructions, the source 
+code must first be translated into a format that the machine can understand: 
+Machine code. This translation process is called compilation, and the output 
+of this process is referred to as binaries. Binaries contain the program's 
+logic and operations written by the developer, but in a low-level format 
+optimized for the machine to read and execute efficiently. When a program is finalized and ready for distribution, this file links and combines all the necessary binaries to run on a machine. 
+This file is an executable, containing everything needed for the 
+operating system to load and execute the program. Understanding the 
+fundamental functionality of this distributed program then involves analyzing 
+the binaries within its executable (assuming the source code is unavailable), as these binaries represent the program's core logic. This process 
+of determining the program's functionality based only on the binaries is 
+called binary analysis \cite{nist_binary_code_scanners}.
 
+In terms of performing forensic analysis on a software application, binary analysis is crucial. Identifying differences between two separate
+executables can be done in two ways: 
 
+\begin{enumerate}
+    \item Revealing changes in the source code \cite{practical_binary_analysis_static_code}.
+
+    \item Analyzing how different ways of compiling the program affect the program's fundamental behavior \cite{practical_binary_analysis_static_code}.
+\end{enumerate}
+
+\noindent
+To ensure that the appropriate forensic tools are applied, both must be understood.
+% To illustrate with an analogy: understanding a car's (the executable) fuel 
+% efficiency requires analyzing how the engine (one binary) functions, how the 
+% electronics (another binary) operate, and how the chassis (another binary) is 
+% designed. Additionally, it involves examining how these components (binaries) 
+% interact. This analysis provides insight into why a specific amount of fuel 
+% (input) results in a particular level of acceleration (output). 
+From this, the forensic investigator can leverage an understanding of the software's 
+logical behavior to validate digital evidence, such as data retrieved from the 
+device's memory \cite{nij_digital_multimedia_evidence}—by placing it within a 
+broader, more comprehensible context that clarifies its relevance and application.
+
+% Argument som kan användas tidigare!
+However, the process of performing binary analysis is time-consuming, which is why automation of finding these logical differences can imply greater 
+efficiency and effectiveness in performing forensic analysis on software. This can be done without sacrificing the integrity of the evidence by letting some arbitrary automatic process determine the classification of the evidence.
 
 \section{Techniques for Binary Comparison and Detecting Relevant Changes}
 \label{sec:background:comparing_binaries}
@@ -173,13 +164,15 @@ Pros - More general. A control flow is a type of semantic, and easier to compute
 Source: Ghidra Patch Diffing (https://cve-north-stars.github.io/docs/Ghidra-Patch-Diffing#run-correlators-step-3)
 \end{comment}
 
-While binary comparison may seem daunting at first glance, breaking it down into three distinct segments—each focusing on its specific qualities—can improve accuracy and reliability when used in tandem. These three segments are as follows:
+Binary comparison can be broken down into three distinct segments, each focusing on its specific qualities, which can improve accuracy and reliability when used in tandem. These three segments are as follows:
 
 \begin{description}
-    \item[Syntax] Byte-level or instruction-level analysis of binary code that looks at the raw data to find patterns of matches or minor variations \cite{A_Survey_of_Binary_Code_Similarity_Detection_Techniques}. Effective in matching opcode sequences, function and symbol names, but prone to finding irrelevant changes like e.g. compilation configuration changes (see Section \ref{sec:background:compilation_effects_on_binaries}).
+    \item[Syntax] Byte-level or instruction-level analysis of binary code that looks at the raw data to find patterns of matches or minor variations \cite{A_Survey_of_Binary_Code_Similarity_Detection_Techniques}. Effective in matching opcode sequences, function and symbol names, but prone to finding irrelevant changes, like e.g. compilation configuration changes (see Section \ref{sec:background:compilation_effects_on_binaries}).
     
     \item[Semantic] Analysis of behavior and logical intent of functions by looking at the possible paths to and from a given function of the first binary, and then comparing the outcome relative to the input with the function of the second binary \cite{binhunt_official}. This is done by checking conditional branches at compile time to ensure that declarations and statements are correctly used in a program \cite{wilhelm2013compiler}. This correctness is determined based on the language's definition, using structures like syntax trees and symbol tables. A key semantic analysis component is type checking, where the compiler verifies that operations are applied to compatible types, ensuring that operators and operands are used appropriately and that multiple operators are not declared to the same identifier \cite{wilhelm2013compiler}.
-    
+
+\newpage
+
     \item[Structure] Analysis of the conditional branches leading to and from each basic block, which are then stitched together to form the function’s control flow. This structured representation is then compared against another function’s control flow to identify similarities and differences in execution paths \cite{binhunt_official}.
 \end{description}
 
@@ -248,7 +241,7 @@ The majority of tools listed in Table \ref{tab:decomp_dissassembly_tools} have a
 "It takes relatively little work to change source code and recompile, while the analysis of the object code will have to be completely redone to detect the changes." [cite = Structural Comparison of Executable Objects]
 \end{comment}
 
-Leveraging the findings obtained by applying the previous section’s steps to two different binaries can reveal the differences between them. More specifically, performing binary diffing on two versions of the same program makes it possible to identify which specific source code lines and control flow behaviors have changed between the versions \cite{Ethical_Hackers_Handbook_fourth}.
+Leveraging the findings obtained by applying the previous section’s steps to two different binaries can reveal the differences between them. More specifically, performing binary diffing on two different versions of the same program makes it possible to identify which specific source code lines and control flow behaviors have changed between the versions \cite{Ethical_Hackers_Handbook_fourth}.
 
 \begin{table}
     \centering
@@ -290,7 +283,9 @@ Leveraging the findings obtained by applying the previous section’s steps to t
     \label{tab:comparing_binaries}
 \end{table}
 
-There are numerous tools available for binary diffing. A common limitation of the tools listed in Table \ref{tab:comparing_binaries} is that they are not offered as stand-alone products with integrated disassemblers, decompilers, and related analysis features. Instead, these tools rely on integration with established platforms, such as IDA Pro and Ghidra, to provide the necessary disassembly and decompilation functionality. Furthermore, these binary diffing tools typically operate statically. They compare pre-generated output files from the disassembly and decompilation processes rather than incorporating dynamic analysis during the comparison phase. However, one notable exception is BinHunt, a novel research prototype that leverages symbolic execution and backtracking to enhance the capabilities of traditional diffing approaches like BinDiff. BinHunt aims to integrate dynamic analysis techniques into the diffing process, offering a more in-depth comparison by analyzing the semantics and runtime behavior of the code. At the time of writing this thesis, there is no released version of BinHunt available, leaving its practical use for future exploration.
+There are numerous tools available for binary diffing. A common limitation of the tools listed in Table \ref{tab:comparing_binaries} is that they are not offered as stand-alone products with integrated disassemblers, decompilers, and related analysis features. Instead, these tools rely on integration with established platforms, such as IDA Pro and Ghidra, to provide the necessary disassembly and decompilation functionality. Furthermore, these binary diffing tools typically operate statically. They compare pre-generated output files from the disassembly and decompilation processes rather than incorporating dynamic analysis during the comparison phase. 
+
+However, one notable exception is BinHunt, a novel research prototype that leverages symbolic execution and backtracking to enhance the capabilities of traditional diffing approaches like BinDiff. BinHunt aims to integrate dynamic analysis techniques into the diffing process, offering a more in-depth comparison by analyzing the semantics and runtime behavior of the code. At the time of writing this thesis, there is no released version of BinHunt available, leaving its practical use for future exploration.
 
 
 
@@ -311,7 +306,7 @@ Dalvik & APK:
 \end{comment}
 
 \begin{description}
-    \item[ART and Dalvik] Android runtime (ART) is the runtime environment that newer versions of Android use, and it comes with features like ahead-of-time (AOT) compilation for better time efficiency when compared to its predecessor Dalvik. Both of the runtime environments execute Dalvik executables (\codebox{.dex}) \cite{AndroidRuntime_official}.
+    \item[ART and Dalvik] Android runtime (ART) is the runtime environment that newer versions of Android use, and it comes with features like ahead-of-time (AOT) compilation for better time efficiency when compared to its predecessor, Dalvik. Both of the runtime environments execute Dalvik executables (\codebox{.dex}) \cite{AndroidRuntime_official}.
     
     \item[Dalvik bytecode] Both ART and Dalvik compile the application into Dalvik bytecode. The bytecode is similar to machine code instructions but is optimized for Android applications specifically. The Dalvik bytecode is stored in dex files \cite{DalvikBytecode_official}.
 
@@ -321,9 +316,9 @@ Dalvik & APK:
 
     \item[Libraries] Because of Android development’s heavy reliance on external third-party and official Android libraries, a significant portion of an Android application’s executed code is externally written. Due to this, discovering differences between two versions of an Android application can be cumbersome since changed library code is also detected during the analysis. To cover for this, neglecting a list of specified external libraries can prove efficient when dealing with large differences.
     
-    \item[Lambdas] Anonymous functions written by the developer, are often used to reduce the amount of boilerplate code.
+    \item[Lambdas] Anonymous functions written by the developer are often used to reduce the amount of boilerplate code.
     
-    \item[Synthetic methods] Compiler-generated methods to internally access private class properties. These methods are automatically created at compile time and do not exist in the source code. Because of this, it is reasonable to deprioritize analyzing the functionality of synthetic methods due to the functionality not directly reflect the code written by the developer. However, since it is compiler-generated, a synthetic method can indirectly indicate how a developer's written function operates.
+    \item[Synthetic methods] Compiler-generated methods to internally access private class properties. These methods are automatically created at compile time and do not exist in the source code. Because of this, it is reasonable to deprioritize analyzing the functionality of synthetic methods due to the functionality does not directly reflect the code written by the developer. However, since it is compiler-generated, a synthetic method can indirectly indicate how a developer's written function operates.
 \end{description}
 
 
@@ -340,11 +335,6 @@ During the diffing of two binaries, VT runs the correlators sequentially; each a
 
 \section{Ghidriff}
 \label{sec:background:ghidriff}
-Ghidriff \cite{ghidriff_official_blog, Ghidriff} is a command-line binary diffing engine released in late 2023 and written in Python, that leverages Ghidra's robust binary analysis and version tracking capabilities. Designed as a pipeline extension to Ghidra, Ghidriff enables users to input two binaries to compare and then be fed back with a comprehensive diffing result in multiple formats, including Markdown, JSON, and HTML. An example of how the JSON format looks can be seen in Figure \ref{fig:ghidriff_json_output_A}, \ref{fig:ghidriff_json_output_B}, and \ref{fig:ghidriff_json_output_C}.
+Ghidriff \cite{ghidriff_official_blog, Ghidriff} is a command-line binary diffing engine released in late 2023 and written in Python that leverages Ghidra's robust binary analysis and version tracking capabilities. Designed as a pipeline extension to Ghidra, Ghidriff enables users to input two binaries to compare and then be fed back with a comprehensive diffing result in multiple formats, including Markdown, JSON, and HTML. An example of how the JSON format looks can be seen in Figure \ref{fig:ghidriff_json_output_A}, \ref{fig:ghidriff_json_output_B}, and \ref{fig:ghidriff_json_output_C}.
 
-Ghidriff uses Ghidra's ProgramAPI and FlatProgramAPI, which facilitates headless execution of custom operations within the Ghidra engine, allowing a seamless automation-like functionality of the steps needed to perform binary analysis and binary diffing. Firstly, Ghidriff conducts an in-depth analysis of the individual Dalvik Executables (\codebox{.dex}), extracting relevant structural, functional information, and generation of Ghidra's P-code (logically representable machine source code generated during binary disassembling). Secondly, it performs binary diffing on the analyzed output to identify added, deleted, and modified functions. Adding to this, Ghidriff parses the detected changes, including the changes in the decompiled code, for an in-depth comparison of the two binaries.
-
-
-\begin{rqs}
-    From the tools presented in this chapter, we can conclude what current approaches there are to perform automatic identification of version changes when only having access to binaries. Because of this, research question \textit{\#1} can be answered. See Chapter \ref{cha:conclusion} for the full answer.
-\end{rqs}
+Ghidriff utilizes Ghidra's ProgramAPI and FlatProgramAPI, which facilitate the headless execution of custom operations within the Ghidra engine, enabling seamless automation-like functionality for the steps required to perform binary analysis and binary diffing. Firstly, Ghidriff conducts an in-depth analysis of the individual Dalvik Executables (\codebox{.dex}), extracting relevant structural, functional information, and generating Ghidra's P-code (logically representable machine source code generated during binary disassembling). Secondly, it performs binary diffing on the analyzed output to identify added, deleted, and modified functions. Additionally, Ghidriff parses the detected changes, including those in the decompiled code, for an in-depth comparison of the two binaries.

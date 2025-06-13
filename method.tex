@@ -11,22 +11,13 @@ OLD:
 In Section \ref{sec:contributions}, the overarching methodological approach was outlined. This section builds on that foundation, providing a more detailed elaboration, with each step being covered individually. The chosen methodology is supported by insights from prior research in the field of computer science and software engineering, along with a discussion on how the result can prove valuable and applicable in terms of the project's context.
 \end{comment}
 
-The research for this thesis began by exploring relevant tools for binary comparison. Numerous options exist as outlined in Section \ref{sec:background:binary_disassembler_decompilers} and Section \ref{sec:background:binary_diffing}. Experimentation and comparison led to selecting a tool that supports multiple architectures and large-scale programs, and one that meets this thesis's current needs and the client's future needs when application to other architectures and functionality extendability is requested.
-
-This reasoning led us to choose Ghidriff as the solution. It leverages the power of the well-established Ghidra engine and presents detailed binary diffing output for use during change categorization.
+The research for this thesis began by exploring relevant tools for binary comparison. Numerous options exist as outlined in Section \ref{sec:background:binary_disassembler_decompilers} and Section \ref{sec:background:binary_diffing}. Experimentation and comparison led to selecting a tool that supports multiple architectures and large-scale programs, and one that meets this thesis's current needs and the client's future needs when application to other architectures and functionality extendability is requested. This reasoning led us to choose Ghidriff as the solution. It leverages the power of the well-established Ghidra engine and presents detailed binary diffing output for use during change categorization.
 
 
 %\section{Experimental development}
 %This section of the methodology %concerns the experimental %development of the tool this %thesis presents, and the %methodological steps that made %the tool. 
 
-
-\section{Overview of Developed Tool}
 \label{sec:method:overview}
-\begin{comment}
-OLD:
-The research process of this thesis started by exploring what different tools are available and relevant to use. The next step consisted of experimenting with the chosen tool to see what information could be extracted, and how it could be visualized in a report. In combination with a better understanding of how Ghidriff works, additional features that could enhance the work were also explored.
-\end{comment}
-
 The pipeline developed in this thesis can be split into three separate modules. The first covers the comparison of the two given executables. This module is named \textit{Change detection} and uses Ghidra to produce the binary diffing outputs needed for the second module, namely \textit{Categorization}, which categorizes the detected changes. The third module \textit{Evaluation} evaluates these categorized changes alongside their relevance. The output from these three modules is later presented in an HTML report that ranks the changes found based on the evaluated relevance and also presents the specific logical functionality that has changed between the two executables. This overview is presented in Figure \ref{fig:pipeline_overview2} and resembles the flow of the developed tool in a high-level manner.
 
 \begin{figure}[ht]
@@ -67,7 +58,74 @@ The pipeline developed in this thesis can be split into three separate modules. 
     \label{fig:pipeline_overview2}
 \end{figure}
 
-\subsection{Change Detection}
+
+
+\section{Dependencies and Technical Prerequisites}
+The pipeline is written in Python and fetches JSON data produced by Ghidriff to perform the classification. During classification, data is stored inside the running pipeline program as lists of functions, symbols, etc. in a typical Python manner. The evaluation and relevance prioritization are performed on the same data. After the evaluation is complete, an HTML report is produced by the pipeline, which visualizes the findings. As mentioned, this report is visualized in the screenshot in Figure \ref{fig:html_output}. See figure \ref{fig:project_structure} for project structure.
+
+
+\begin{figure}[H]
+    \centering
+    \resizebox{0.5\textwidth}{!}{%
+        \begin{forest}
+            for tree={font=\sffamily, 
+            grow'=0,
+            folder indent=.9em, 
+            folder icons,
+            edge=densely dotted}
+            [\
+                [categorization
+                    [categorization.py, is file]
+                    [metadata\_registration.py, is file]
+                    [matchers
+                        [\_\_init\_\_.py, is file]
+                        [<CATEGORY\_NAME>.yml, is file]
+                    ]
+                    [helpers.py, is file]
+                    [static.py, is file]
+                ]
+                [change\_detection
+                    [ghidriff\_controller.py, is file]
+                ]
+                [evaluation
+                    [eval.py, is file]
+                ]
+                [misc
+                    [FuncCollection.py, is file]
+                    [FuncNode.py, is file]
+                    [FuncStatus.py, is file]
+                    [GhidriffLog.py, is file]
+                    [report\_generation.py, is file]
+                    [static.py, is file]
+                ]
+                [signal-binaries]
+                [ghidriff-project]
+                [ghidriffs]
+                [output]
+                [result
+                    [X.XX.X-Y.YY.Y
+                        [analysis-report.html, is file]
+                        [categories\_critical.html, is file]
+                        [categories\_noncritical.html, is file]
+                        [function\_data.json, is file]
+                        [overview.html, is file]
+                    ]
+                ]
+                [pipeline.py, is file]
+                [run.bat, is file]
+                [run.sh, is file]
+                [requirements.txt, is file]
+                [README.md, is file]
+            ]
+        \end{forest}
+    }
+    \caption{Project structure}
+    \label{fig:project_structure}
+\end{figure}
+
+
+
+\section{Change Detection}
 
 The tool Ghidriff, described in Section \ref{sec:background:ghidriff}, is chosen to detect changes between the software versions. Compared to the pipeline mentioned in Section \ref{sec:related_work:kandidat_pipeline}, the current implementation of Ghidriff can neither categorize the changes nor rank them. However, the result of binary analysis and binary diffing is much more informative and serves as a better platform of data to expand upon than the pipeline described in Section \ref{sec:related_work:kandidat_pipeline}. Because of this and the sparse execution time for this thesis project, potential expandability of a tool without the need to change the tool itself is seen as an advantage when deciding which tool to build upon. Because of this, Ghidriff has been chosen over the two.
 
@@ -188,7 +246,7 @@ In Figure \ref{fig:ghidriff_diagram}, an in-depth visualization of how Ghidriff 
 \end{figure}
 
 
-\subsection{Categorization}
+\section{Categorization}
 \label{sec:method:categorization}
 \begin{comment}
 As mentioned earlier the main topic of this thesis is to categorize the changes based on the result from the binary analysis and binary diffing. To achieve this machine learning will be used and integrated with the Ghidriff tool. 
@@ -199,9 +257,9 @@ What type of change --> from key changes?
 "reason" for change, security patch, bug fix, optimization, new feature etc.
 \end{comment}
 
-When performing the change detection on released software applications, the output will most likely be of such size that manually looking at the result will prove inefficient. As explained in Section \ref{sec:background:compilation_effects_on_binaries}, and Section \ref{sec:background:comparing_binaries}, the wide range of configurations and compilation options can result in numerous irrelevant or superficial differences being detected. Because of this, it is essential to implement automated mechanisms for categorizing changes based on their significance, ensuring that only meaningful or potentially impactful modifications are flagged for further analysis. Because this thesis is focused on providing a valuable tool for use in a forensic law enforcement process, as well as focusing on Android applications, the categorization is based on Android-specific operations that alter the logical, functional, and structural flow of the application. More about how to specifically match these categories is detailed in the following Section \ref{sec:method:changes_to_categorize}.
+When performing the change detection on released software applications, the output will most likely be of such size that manually looking at the result will prove inefficient. As explained in Section \ref{sec:background:compilation_effects_on_binaries}, and Section \ref{sec:background:comparing_binaries}, the wide range of configurations and compilation options can result in numerous irrelevant or superficial differences being detected. Because of this, it is essential to implement automated mechanisms for categorizing changes based on their significance, ensuring that only meaningful or potentially impactful modifications are flagged for further analysis. Because this thesis is focused on providing a valuable tool for use in a forensic law enforcement process, as well as focusing on Android applications, the categorization is based on Android-specific operations that alter the logical, functional, and structural flow of the application.
 
-\subsubsection{Changes to Categorize}
+\subsection{Changes to Categorize}
 \label{sec:method:changes_to_categorize}
 For this thesis, the client provided an initial list of interesting changes to categorize. After further discussions, the list was polished, and the critical changes were defined. These changes are considered to be of extra importance and relevance in a forensic context and can be seen in Table \ref{tab:critical_changes}. From here onwards, these types of changes are referred to as \textit{critical categories}.
 
@@ -264,21 +322,17 @@ To be certain in finding these critical changes, the categorization also looks a
 \end{table}
 
 
-The categorization aims to streamline the process of identifying interesting changes between software versions and reducing reliance on ad-hoc methods. Categorizing changes into multiple categories is, therefore, not considered an issue since it still fits the purpose. Changes affecting more than one thing are also not rare occurrences, and categorizing these into more than one category can be seen as an advantage.
+The categorization aims to streamline the process of identifying interesting changes between software versions and reducing reliance on ad-hoc methods. Categorizing changes into multiple categories is, therefore, not considered an issue since it still fits the purpose. Changes affecting more than one thing are also not rare occurrences, and categorizing these into more than one category is logical.
 
 %\textbf{TODO:} Add 1-2 sentences stating how the categories were selected (e.g., discussions with NFC experts, review of forensic case studies).
 
 
-\subsubsection{Syntax Matching}
+\subsection{Syntax Matching}
 By analyzing code changes at the syntactic level, it is possible to leverage pattern-matching techniques to detect specific operations such as the ones listed in Table \ref{tab:critical_changes}. This can be done by using regular expressions to match commonly used symbols and function names to understand what operations are most likely occurring. Adding to this, analyzing structural patterns and how these symbols and functions are interlinked is also important.
 
-The core process of categorizing the changes begins with parsing the binary diffing output from Ghidriff. Here, the function, library, and superclass names are shown, as well as information about which function is called the one we are looking at and which other functions this function calls. Adding to this, changes in the decompiled bytecode, which Ghidra decompiles into representative pseudo code, can also be parsed in this step. Once the diff is processed, regular expressions are applied to identify key syntactic patterns corresponding to predefined categories. 
+The core process of categorizing the changes begins with parsing the binary diffing output from Ghidriff. Here, the function, library, and superclass names are shown, as well as information about parent and child functions in the call graph. Adding to this, changes in the decompiled bytecode, which Ghidra decompiles into representative pseudo code, can also be parsed in this step. Once the diff is processed, regular expressions are applied to identify key syntactic patterns corresponding to predefined categories. 
 
-%%%% Commented because this way of working with synthetic methods hasn't been developed
-% Additionally, the tool detects synthetic methods (e.g., compiler-generated methods and lambdas) and assesses their relevance by analyzing their role in the call graph and their interactions with critical resources.
 
-%%%%% Commented because the discussion doesn't really dig deep into this
-% Potential misclassifications due to matching functions with misleading names are a complex problem to counter, as discussed in Section \ref{sec:method:false_pos_false_neg}. Due to our solution working with syntax matching for categorization, the risk of a faulty categorization is accepted, but further discussed in Section \ref{sec:discussion-method}.
 
 
 \subsubsection{Android Syntax Matching}
@@ -286,160 +340,8 @@ The syntax matching of Android-specific operations used in this thesis is based 
 
 
 
-%    \begin{table}[ht]
-%        \centering
-%        \begin{tabular}{c c c}
-%            \toprule
-%            \textbf{Matched word} & \textbf{Strong} & \textbf{Weak} \\
-%            \midrule
-%            db & \textit{X} & \\
-%            \midrule
-%            delete &  & \textit{X} \\
-%           \bottomrule
-%        \end{tabular}
-%        \caption{Strong and weak words used for categorizing database management changes.}
-%        \label{tab:strong_weak}
-%    \end{table}
 
-
-\subsubsection{Syntax Classification Errors}
-\label{sec:method:false_pos_false_neg}
-A \textit{false positive} occurs when a classification incorrectly determines a result to be true when it is false. A \textit{false negative} occurs when the classification fails to detect a true result. Here follows further explanation in regards to this thesis.
-
-\begin{description}
-    \item[False positives] When the regex matcher either \textit{(1)} matches a substring in a longer word and incorrectly categorizes it, or \textit{(2)} matches a valid word that appears in a context unrelated to the category to which the word belongs.
-
-    \item[False negatives] When the regex matching does not categorize a change that should be categorized. This is due to missing keywords in the regex matcher, since it only detects changes for the pre-defined keywords.
-\end{description} 
-
-
-Incorrect or misleading variable names can indeed affect the categorization and lead to false positives and false negatives, making these errors challenging to detect. The regex matcher is sound in that its categorization is strictly based on the predefined keywords used in the regex pattern. However, to achieve completeness would require every possible change to be categorized, which is practically infeasible. Therefore, a fallback category for uncategorized changes is used as a compromise.
-
-\subsection{Evaluation}
-%Comparing versions in git logs / Retrieving data changes from
-%looking at the git repo
-The evaluation of the categorized changes is performed by weighting collected strong and weak words mentioned in Section \ref{sec:two_layered_matching}, alongside with the amount of assigned categories for that change. Changes with the highest scores are considered to be the most important and therefore ranked the highest. The aim is to ensure that higher-ranked changes are prioritized to effectively highlight the important changes.
-
-\subsection{Present Results}
-The categorization result is parsed in tandem with the analysis data into an HTML report, listing everything needed to make a proper assumption of what changes have occurred in the code base. See Figure \ref{fig:html_output} for a screenshot of the generated HTML report. This report is explained in detail in Section \ref{sec:result:pipeline_analysis_report}.
-
-\begin{figure}
-    \centering
-    \includegraphics[width=1\linewidth]{figures/results/report_screenshots/report_front_page.png}
-    \caption{Screenshot of HTML output from the pipeline, executed on two versions of Signal (Android) binaries}
-    \label{fig:html_output}
-\end{figure}
-
-% Finally, an overview in the report is also parsed to quickly grasp changes detected, both to get an overview of what has been detected and to get insight into how confident the analysis has been in finding the changes.
-
-\section{Developed Tool}
-As mentioned in the methodology Section \ref{sec:method:overview} \textit{Overview}, the tool developed in this thesis is a pipeline leveraging the binary comparison functionality of Ghidriff. In this section, a technical overview of the implemented pipeline is described.
-
-\subsection{Dependencies and Technical Prerequisites}
-The pipeline is written in Python and fetches JSON data produced by Ghidriff to perform the classification. During classification, data is stored inside the running pipeline program as lists of functions, symbols, etc. in a typical Python manner. The evaluation and relevance prioritization are performed on the same data. After the evaluation is complete, an HTML report is produced by the pipeline which visualizes the findings intuitively. As mentioned, this report is visualized in the screenshot in Figure \ref{fig:html_output}.
-
-
-\begin{figure}
-    \centering
-    \begin{forest}
-        for tree={font=\sffamily, 
-        grow'=0,
-        folder indent=.9em, 
-        folder icons,
-        edge=densely dotted}
-        [\
-            [categorization
-                [categorization.py, is file]
-                [metadata\_registration.py, is file]
-                [matchers
-                    [\_\_init\_\_.py, is file]
-                    [<CATEGORY\_NAME>.yml, is file]
-                ]
-                [helpers.py, is file]
-                [static.py, is file]
-            ]
-            [change\_detection
-                [ghidriff\_controller.py, is file]
-            ]
-            [evaluation
-                [eval.py, is file]
-            ]
-            [misc
-                [FuncCollection.py, is file]
-                [FuncNode.py, is file]
-                [FuncStatus.py, is file]
-                [GhidriffLog.py, is file]
-                [report\_generation.py, is file]
-                [static.py, is file]
-            ]
-            [signal-binaries]
-            [ghidriff-project]
-            [ghidriffs]
-            [output]
-            [result
-                [X.XX.X-Y.YY.Y
-                    [analysis-report.html, is file]
-                    [categories\_critical.html, is file]
-                    [categories\_noncritical.html, is file]
-                    [function\_data.json, is file]
-                    [overview.html, is file]
-                ]
-            ]
-            [pipeline.py, is file]
-            [run.bat, is file]
-            [run.sh, is file]
-            [requirements.txt, is file]
-            [README.md, is file]
-        ]
-    \end{forest}
-    \caption{Project structure}
-    \label{fig:project_structure}
-\end{figure}
-
-
-\subsection{Categorization Using Regex}
-
-\begin{comment}
-The following descriptions outline the specific categories for the critical operations and some of the names used during their respective syntax-based classification.
-
-
-\begin{description}
-    \item[Data storage] 
-    These operations commonly involve words such as \codebox{db}, \codebox{sql}, \codebox{database}, \codebox{commit}, etc. These keywords are widely used in function names related to database transactions and data persistence in Android applications.
-
-    \item[File write] 
-    Functions related to file handling frequently contain terms like \codebox{write}, \codebox{save}, \codebox{file}, etc. These terms are standard in naming functions that interact with internal or external storage, ensuring reliable data management.
-
-    \item[Logging change] 
-    Logging functions in Android typically include terms such as \codebox{log}, \codebox{logger}, \codebox{print}, \codebox{debug}, etc. These keywords are widely used in debugging tools like Logcat and are essential for monitoring application behavior, capturing errors, and improving maintainability.    
-
-    \item[Authentication change] 
-    Authentication and security-related functions frequently include words such as \codebox{auth}, \codebox{login}, \codebox{logout}, \codebox{token}, etc. These terms identify functions responsible for managing user authentication, session handling, and access control.
-
-    \item[Error handling] 
-    Functions that handle application errors and exceptions typically include words such as \codebox{error}, \codebox{exception}, \codebox{fail}, \codebox{catch}, \codebox{throw}, etc. These terms indicate logic for preventing crashes, implementing retry mechanisms, and ensuring application resilience.
-
-    \item[Cryptographical change] ...TODO...
-\end{description}
-
-\noindent
-The following descriptions outline the specific categories for the non-critical operations and some of the names used during their respective syntax-based classification.
-\begin{description}
-    \item[UI updates] 
-    UI-related functions commonly include terms such as \codebox{ui},\codebox{toggle}, \codebox{setVisibility}, etc. These words indicate functions that modify the graphical user interface, ensuring smooth transitions and visual updates.
-
-    \item[Network call] 
-    Functions that handle network requests and API calls often contain terms like \codebox{http}, \codebox{get}, \codebox{post}, \codebox{fetch}, etc. These terms help identify code that interacts with remote servers, ensuring efficient data communication. 
-
-    \item[Backup change] ...TODO...
-
-    \item[Library function] ...TODO...
-
-    \item[Text manipulation change] ...TODO...
-\end{description}
-\end{comment}
-
-
+\subsubsection{Categorization Using Regex}
 Regular expression grammars have been defined for each category to map function names, symbols, and code changes accordingly. During syntax analysis, function names are compared against a predefined set of keywords. In addition, critical categories are also computed using an analysis of the code diff. The reason for only looking at the code diff when computing the critical syntax analysis is that the critical changes are harder to spot when only matching function names. This is further discussed in Section \ref{sec:discussion-method}
 
 To illustrate the syntax analysis, consider a function that has been identified as changed between the two compared binaries. Then, the function names and code changes will undergo a syntax matching analysis where the strings are mapped to the predefined list of keywords for each of the available categories. All matched keywords are stored for later use when generating the HTML report, and the functions are assigned to the matched category. The keywords for the regex matching used in this thesis are found in the Tables \ref{tab:critical_regex_keywords} and \ref{tab:noncritical_regex_keywords}.\textbf{}
@@ -454,7 +356,7 @@ However, this separation does not change the behavior of the categorization, onl
   \centering
   \begin{tabular}{@{} l l l l l l @{}}
     \toprule
-    Authentication & Cryptographical & Data Storage & Error Handling & File Write & Logging \\ \midrule
+    \codebox{Authentication} & \codebox{Cryptographical} & \codebox{Data Storage} & \codebox{Error Handling} & \codebox{File Write} & \codebox{Logging} \\ \midrule
     auth           & aes               & commit        & assert         & append*     & Log\_d \\
     bearer         & brsa              & database      & catch          & export      & Log\_e \\
     credentials    & bouncycastle      & db            & crash          & file        & Log\_i \\
@@ -492,7 +394,7 @@ However, this separation does not change the behavior of the categorization, onl
   \centering
   \begin{tabular}{@{} l l l @{}}
     \toprule
-    Network Call & UI Update       & Text Manipulation \\ \midrule
+    \codebox{Network Call} & \codebox{UI Update}       & \codebox{Text Manipulation} \\ \midrule
     api          & animatingtoggle & replace \\
     connect      & bui             & spannable \\
     fetch        & compact         & string \\
@@ -516,18 +418,29 @@ However, this separation does not change the behavior of the categorization, onl
   \label{tab:noncritical_regex_keywords}
 \end{table}
 
-\begin{comment}
-This operation will be processed by the category matching functions, e.g. \codebox{is\_db\_change}, which itself loads the keywords defined for that category found in the file \codebox{categorization/matchers/data\_storage.yml}. Then all matched keywords are stored for later use when generating the HTML report, and the function itself is set to the matched category.
-\end{comment}
 
-\begin{comment}
-\begin{figure}
-    \centering
-    \lstinputlisting[language=python]{code_blocks/classification_regex.py}
-    \caption{Python code for regular expression categorization of critical operation syntax.}
-    \label{fig:python_code-classification}
-\end{figure}
-\end{comment}
 
-\subsection{Evaluation of Categorized Changes}
-The evaluation score reflects how many category and keyword matches a change has received. A higher score indicates that a change has a wider variety of detected operations, making it easy to sort the most interesting changes the pipeline has discovered.
+
+
+\subsubsection{Syntax Classification Errors}
+\label{sec:method:false_pos_false_neg}
+A \textit{false positive} occurs when a classification incorrectly determines a result to be true when it is false. A \textit{false negative} occurs when the classification fails to detect a true result. Here follows further explanation in regards to this thesis.
+
+\begin{description}
+    \item[False positives] When the regex matcher either \textit{(1)} matches a substring in a longer word and incorrectly categorizes it, or \textit{(2)} matches a valid word that appears in a context unrelated to the category to which the word belongs.
+
+    \item[False negatives] When the regex matching does not categorize a change that should be categorized. This is due to missing keywords in the regex matcher, since it only detects changes for the pre-defined keywords.
+\end{description} 
+
+
+Incorrect or misleading variable names can indeed affect the categorization and lead to false positives and false negatives, making these errors challenging to detect. The regex matcher is sound in that its categorization is strictly based on the predefined keywords used in the regex pattern. However, to achieve completeness would require every possible change to be categorized, which is practically infeasible. Therefore, a fallback category for uncategorized changes is used as a compromise.
+
+\section{Evaluation}
+%Comparing versions in git logs / Retrieving data changes from
+%looking at the git repo
+The evaluation of the categorized changes is performed by weighting collected strong and weak words mentioned in Section \ref{sec:two_layered_matching}, alongside with the amount of assigned categories for that change. Changes with the highest scores are considered to be the most important and therefore ranked the highest. The aim is to ensure that higher-ranked changes are prioritized to effectively highlight the important changes.
+
+
+\section{Present Results}
+The categorization result is parsed in tandem with the analysis data into an HTML report, listing everything needed to make a proper assumption of what changes have occurred in the code base. See Figure \ref{fig:pipeline_frontpage} for a screenshot of the generated HTML report. This report is explained in detail in Section \ref{sec:result:pipeline_analysis_report}.
+

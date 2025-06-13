@@ -6,7 +6,7 @@
 
 \chapter{Discussion}
 \label{cha:discussion}
-This chapter begins by reviewing the findings presented in chapter \ref{cha:result} \textit{Result}, focusing on the performance and accuracy of the categorization. Secondly, the method from \ref{cha:methodology} \textit{Methodology} is discussed by reflecting on its design, implementation, and limitations. Lastly, the chapter explores the wider context of this thesis, considering the societal implications of the work. 
+This chapter begins by reviewing the findings presented in chapter \ref{cha:result} \textit{Result}, focusing on the performance and accuracy of the categorization. Secondly, the method from Chapter \ref{cha:methodology} is discussed by reflecting on its design, implementation, and limitations. Lastly, the chapter explores the wider context of this thesis, considering the societal implications of the work. 
 
 \section{Results}
 \label{sec:discussion-results}
@@ -58,12 +58,12 @@ Following the result presented in Chapter \ref{cha:result}, two main points of i
 \end{explanation}
 
 \subsection{Effective neglection of less important changes}
-At a first glance of the result presented in Chapter \ref{cha:result}, it is clear that accurate categorization of \emph{critical} changes is essential when detecting differences between two versions. However, while developing this novel approach to change categorization, we also recognized that high accuracy in identifying \emph{non‑critical} changes can filter out modifications that would otherwise distract analysts from the issues that matter most. Because of this, it is wise to acknowledge this fact when considering both usage of the tool and future development.
+At a first glance of the result presented in Chapter \ref{cha:result}, it is clear that accurate categorization of \emph{critical} changes is essential when detecting differences between two versions. However, while developing this novel approach to change categorization, we also recognized that high accuracy in identifying \emph{non‑critical} changes can filter out modifications that would otherwise distract analysts from the issues that matter most. Because of this, it is wise to acknowledge this fact when considering both the usage of the tool and future development.
 
 
 \subsection{Validity of the Categorization}
 \label{sec:discussion:result:validity_of_categorization}
-As presented in Section \ref{sec:res:categorization_result:manual_evaluation_process}, the way that the declaration of a correct/incorrect categorization is done in this thesis has its accompanied concerns. Most obviously is the reliability of the manual analysis being correct in the first place, but this is discussed in the upcoming Section \ref{sec:discussion:subjective_nature_manual_analysis}. 
+As presented in Section \ref{sec:res:categorization_result:manual_evaluation_process}, the way that the declaration of a correct/incorrect categorization is done in this thesis has its accompanied concerns. Most importantly is the reliability of the manual analysis being correct in the first place, but this is discussed in the upcoming Section \ref{sec:discussion:subjective_nature_manual_analysis}. 
 
 % many critical changes received a majority if the critical categories
 % bad take ->
@@ -109,7 +109,7 @@ Such cases have not been studied in this thesis. The pipeline heavily relies on 
 
 
 \begin{rqs}
-    From the discussion in Section \ref{sec:discussion-results}, in tandem with the descriptive presentation of the approach found in Section \ref{sec:method:categorization}, we can conclude how to effectively categorize and rank detected changes without having access to source code. Because of this, research question \textit{\#2} can be answered. See Chapter \ref{cha:conclusion} for the full answer.
+    From the discussion in Section \ref{sec:discussion-results}, in tandem with the descriptive presentation of the approach found in Section \ref{sec:method:categorization}, we can conclude how to effectively categorize and rank detected changes without having access to source code. The answer to  research question 2 is concluded in Chapter \ref{cha:conclusion}.
 \end{rqs}
 
 
@@ -122,11 +122,11 @@ Building on the results in Chapter \ref{cha:result} and the methodology in Chapt
 \begin{explanation}
     These are addressed in their respective subsections.
     \begin{enumerate}    
-        \item \textbf{Uncontrollable external deficiencies} - How do external actions affect the pipeline?
-
-        \item \textbf{Subjective Nature of a Manual Analysis} - How certain can we be that the manual analysis was done correctly?
+        \item \textbf{Uncontrollable third-party deficiencies} - How do external actions affect the pipeline?
 
         \item \textbf{Choice of Test Data} - Is Signal an appropriate program for testing the pipeline?
+    
+        \item \textbf{Subjective Nature of a Manual Analysis} - How certain can we be that the manual analysis was done correctly?
 
     \end{enumerate}
 \end{explanation}
@@ -134,16 +134,14 @@ Building on the results in Chapter \ref{cha:result} and the methodology in Chapt
 \subsection{Uncontrollable external deficiencies}
 This thesis utilizes the previously mentioned tool, Ghidriff, to detect the changes between different software versions. As shown in Table \ref{tab:overall_accuracy}, not all changes are successfully detected from Ghidriff. If this is due to limitations in Ghidra or Ghidriff is unknown and falls outside the scope of this thesis to investigate, but it does affect the result. It is worth mentioning that Ghidriff has only been referenced in a limited number of prior studies, which may indicate that its capabilities and limitations are not fully explored. In this thesis, there have been cases where Ghidriff has not been able to analyze all \codebox{.dex} files, which can be seen in Table \ref{tab:run_time}.
 
+\subsection{Choice of Test Data}
+Testing has only been performed with the Android version of Signal, as presented in previous chapters. The reason for this lies in two main reasons. First, the thesis client specifically requested Signal-Android because its scale and architectural style resemble the other application they plan to process with the pipeline, making it a practical and representative choice for initial testing. Second, Signal’s open-source codebase simplifies data collection and analysis.
 
 \subsection{Subjective Nature of a Manual Analysis}
 \label{sec:discussion:subjective_nature_manual_analysis}
 The results presented in this thesis are derived through manual analysis, and the source code is analyzed without prior knowledge of the implementation. Since both the source code and the output from the pipeline tool are based on this approach, there is a potential for bias. For instance, manual examination of the source code can present challenges since the implementation can sometimes be difficult to understand without knowing the entire code base. This highlights the subjective nature of the manual analysis. To counter this, an approach where a more sophisticated manual analysis was made would increase the consistency and reliability, but would also be more time-consuming, given the complexity of automating such a task.
 
 The results presented in this thesis rest on the prior assumption that a change behaves as interpreted when one examines the specific line of code. Commit messages linked to the change can lend some support to this assumption, but the precise reason the change occurred remains uncertain, and the findings must therefore be interpreted with this limitation in mind.
-
-
-\subsection{Choice of Test Data}
-Testing has only been performed with the Android version of Signal, as presented in previous chapters. The reason for this lies in two main reasons. First, the NFC specifically requested Signal-Android because its scale and architectural style resemble the other apps they plan to process with the pipeline, making it a practical and representative choice for initial testing. Second, Signal’s open-source codebase simplifies data collection and analysis.
 
 % The results from the three version diffs analyzed in this thesis may not represent other applications in the same field. However, Signal was chosen since it is a large-scale application and an interesting one for the client to investigate. It is also one of the few where the source code is publicly accessible, which is required in this thesis to validate the performance of the developed tool.
 
@@ -162,7 +160,7 @@ To replicate the research performed in this thesis, the pipeline tool described 
 \section{The Work in a Wider Context}
 \label{sec:work-wider-context}
 This thesis has been conducted on behalf of a client operating in the digital forensics sector. The tool
-has been tailored to meet their needs and requirements, but has been developed with flexibility in mind. The categories and keywords used can easily be modified, making it adaptable for a wider range of usage beyond its original purpose. 
+has been tailored to meet their needs and requirements, but has been developed with flexibility in mind. The categories and keywords used can easily be modified, making it adaptable for a wider range of usage beyond its original specified configuration. 
 
 \subsection{Ethical Considerations}
 In the context of digital forensics, there are two opposing perspectives: those who aim to exploit systems and those who work to protect and investigate them. Therefore, ethical considerations remain an important aspect of this thesis. A potential hacker could benefit from understanding the differences between two software versions, as such changes may introduce new vulnerabilities that could be exploited in recently released software.
