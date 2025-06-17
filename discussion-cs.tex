@@ -6,7 +6,7 @@
 
 \chapter{Discussion}
 \label{cha:discussion}
-This chapter begins by reviewing the findings presented in chapter \ref{cha:result} \textit{Result}, focusing on the performance and accuracy of the categorization. Secondly, the method from Chapter \ref{cha:methodology} is discussed by reflecting on its design, implementation, and limitations. Lastly, the chapter explores the wider context of this thesis, considering the societal implications of the work. 
+This chapter begins by reviewing the findings presented in Chapter~\ref{cha:result} \textit{Result}, focusing on the performance and accuracy of the categorization. Secondly, the method from Chapter~\ref{cha:methodology} is discussed by reflecting on its design, implementation, and limitations. Lastly, the chapter explores the wider context of this thesis, considering the societal implications of the work. 
 
 \section{Results}
 \label{sec:discussion-results}
@@ -42,7 +42,7 @@ MAX TANKAR:
 \end{enumerate}
 \end{comment}
 
-Following the result presented in Chapter \ref{cha:result}, two main points of interest for further discussion have come up. The two are split up for the reason of targeting different root concerns, but they do somewhat intersect with each other:
+Following the result presented in Chapter~\ref{cha:result}, two main points of interest for further discussion have come up. The two are split up for the reason of targeting different root concerns, but they do somewhat intersect with each other:
 
 \begin{explanation}
     These are addressed in their respective subsections.
@@ -58,12 +58,12 @@ Following the result presented in Chapter \ref{cha:result}, two main points of i
 \end{explanation}
 
 \subsection{Effective neglection of less important changes}
-At a first glance of the result presented in Chapter \ref{cha:result}, it is clear that accurate categorization of \emph{critical} changes is essential when detecting differences between two versions. However, while developing this novel approach to change categorization, we also recognized that high accuracy in identifying \emph{non‑critical} changes can filter out modifications that would otherwise distract analysts from the issues that matter most. Because of this, it is wise to acknowledge this fact when considering both the usage of the tool and future development.
+At a first glance of the result presented in Chapter~\ref{cha:result}, it is clear that accurate categorization of \emph{critical} changes is essential when detecting differences between two versions. However, while developing this novel approach to change categorization, we also recognized that high accuracy in identifying \emph{non‑critical} changes can filter out modifications that would otherwise distract analysts from the issues that matter most. Because of this, it is wise to acknowledge this fact when considering both the usage of the tool and future development.
 
 
 \subsection{Validity of the Categorization}
 \label{sec:discussion:result:validity_of_categorization}
-As presented in Section \ref{sec:res:categorization_result:manual_evaluation_process}, the way that the declaration of a correct/incorrect categorization is done in this thesis has its accompanied concerns. Most importantly is the reliability of the manual analysis being correct in the first place, but this is discussed in the upcoming Section \ref{sec:discussion:subjective_nature_manual_analysis}. 
+As presented in Section~\ref{sec:res:categorization_result:manual_evaluation_process}, the way that the declaration of a correct/incorrect categorization is done in this thesis has its accompanied concerns. Most importantly is the reliability of the manual analysis being correct in the first place, but this is discussed in the upcoming Section~\ref{sec:discussion:subjective_nature_manual_analysis}. 
 
 % many critical changes received a majority if the critical categories
 % bad take ->
@@ -77,12 +77,12 @@ Viewed from another angle, the pipeline’s seemingly “generous” labeling mi
 \subsection{Criteria for correctness}
 This section examines the standards for calling a categorization correct or incorrect when we compare the manual review with the pipeline’s output, and it highlights the limitations of that comparison.
 
-The current method counts a change as “correctly categorized” even when the pipeline matches only a subset of the categories identified in the manual review. This can distort the results: a change tagged with all categories by the pipeline may still be labeled correct even though the manual analysis assigned just one. As noted in Section \ref{sec:discussion:result:validity_of_categorization}, the mismatch may stem from the pipeline’s finer granularity, but it is still problematic. Many changes end up marked as fully correct when they would be better described as e.g., only \textit{partly correct}. However, we decided not to adapt such labeling because it might add complexity without improving reliability. At the time of writing this thesis, we cannot tell whether the pipeline, the manual review, or both contains the greater inaccuracy, so we lack a clear basis for weighting one over the other. Given this uncertainty—and the experimental nature of the thesis—we have maintained the existing approach. Future studies may shed more light on the issue, with this thesis approach in mind.
+The current method counts a change as “correctly categorized” even when the pipeline matches only a subset of the categories identified in the manual review. This can distort the results: a change tagged with all categories by the pipeline may still be labeled correct even though the manual analysis assigned just one. As noted in Section~\ref{sec:discussion:result:validity_of_categorization}, the mismatch may stem from the pipeline’s finer granularity, but it is still problematic. Many changes end up marked as fully correct when they would be better described as e.g., only \textit{partly correct}. However, we decided not to adapt such labeling because it might add complexity without improving reliability. At the time of writing this thesis, we cannot tell whether the pipeline, the manual review, or both contains the greater inaccuracy, so we lack a clear basis for weighting one over the other. Given this uncertainty—and the experimental nature of the thesis—we have maintained the existing approach. Future studies may shed more light on the issue, with this thesis approach in mind.
 
 
 
 \subsection{Depth of coverage}
-Looking at the results in Chapter \ref{cha:result}, it is clear that some categories—\codebox{File write}, \codebox{Cryptographic}, and \codebox{Text manipulation}—are under-represented, so their performance metrics cannot be considered reliable. In contrast, the many assignments to \codebox{UI update} and \codebox{Data storage} indicate that the selected version diffs are weighted toward changes that primarily affect those categories. With this in mind, it would—for future additions to this work—be of interest how to choose test data that more effectively targets all the categories used as part of the categorization. Unfortunately, this lies beyond the scope of this thesis.
+Looking at the results in Chapter~\ref{cha:result}, it is clear that some categories—\codebox{File write}, \codebox{Cryptographic}, and \codebox{Text manipulation}—are under-represented, so their performance metrics cannot be considered reliable. In contrast, the many assignments to \codebox{UI update} and \codebox{Data storage} indicate that the selected version diffs are weighted toward changes that primarily affect those categories. With this in mind, it would—for future additions to this work—be of interest how to choose test data that more effectively targets all the categories used as part of the categorization. Unfortunately, this lies beyond the scope of this thesis.
 
 
 
@@ -109,7 +109,7 @@ Such cases have not been studied in this thesis. The pipeline heavily relies on 
 
 
 \begin{rqs}
-    From the discussion in Section \ref{sec:discussion-results}, in tandem with the descriptive presentation of the approach found in Section \ref{sec:method:categorization}, we can conclude how to effectively categorize and rank detected changes without having access to source code. The answer to  research question 2 is concluded in Chapter \ref{cha:conclusion}.
+    From the discussion in Section~\ref{sec:discussion-results}, in tandem with the descriptive presentation of the approach found in Section~\ref{sec:method:categorization}, we can conclude how to effectively categorize and rank detected changes without having access to source code. The answer to  research question 2 is concluded in Chapter~\ref{cha:conclusion}.
 \end{rqs}
 
 
@@ -117,7 +117,7 @@ Such cases have not been studied in this thesis. The pipeline heavily relies on 
 \section{Method}
 \label{sec:discussion-method}
 
-Building on the results in Chapter \ref{cha:result} and the methodology in Chapter \ref{cha:methodology}, we have identified several discussion points. Each one stems from a different core concern, yet they partly overlap. 
+Building on the results in Chapter~\ref{cha:result} and the methodology in Chapter~\ref{cha:methodology}, we have identified several discussion points. Each one stems from a different core concern, yet they partly overlap. 
 
 \begin{explanation}
     These are addressed in their respective subsections.
@@ -132,7 +132,7 @@ Building on the results in Chapter \ref{cha:result} and the methodology in Chapt
 \end{explanation}
 
 \subsection{Uncontrollable external deficiencies}
-This thesis utilizes the previously mentioned tool, Ghidriff, to detect the changes between different software versions. As shown in Table \ref{tab:overall_accuracy}, not all changes are successfully detected from Ghidriff. If this is due to limitations in Ghidra or Ghidriff is unknown and falls outside the scope of this thesis to investigate, but it does affect the result. It is worth mentioning that Ghidriff has only been referenced in a limited number of prior studies, which may indicate that its capabilities and limitations are not fully explored. In this thesis, there have been cases where Ghidriff has not been able to analyze all \codebox{.dex} files, which can be seen in Table \ref{tab:run_time}.
+This thesis utilizes the previously mentioned tool, Ghidriff, to detect the changes between different software versions. As shown in Table~\ref{tab:overall_accuracy}, not all changes are successfully detected from Ghidriff. If this is due to limitations in Ghidra or Ghidriff is unknown and falls outside the scope of this thesis to investigate, but it does affect the result. It is worth mentioning that Ghidriff has only been referenced in a limited number of prior studies, which may indicate that its capabilities and limitations are not fully explored. In this thesis, there have been cases where Ghidriff has not been able to analyze all \codebox{.dex} files, which can be seen in Table~\ref{tab:run_time}.
 
 \subsection{Choice of Test Data}
 Testing has only been performed with the Android version of Signal, as presented in previous chapters. The reason for this lies in two main reasons. First, the thesis client specifically requested Signal-Android because its scale and architectural style resemble the other application they plan to process with the pipeline, making it a practical and representative choice for initial testing. Second, Signal’s open-source codebase simplifies data collection and analysis.
@@ -149,13 +149,13 @@ The results presented in this thesis rest on the prior assumption that a change 
 \begin{comment}
 \subsection{Why we chose Ghidriff}
 
-\textbf{NOTE TO SULEMAN:} Not sure if this is needed? Some explanation can be found in Chapter \ref{cha:methodology}, but maybe that is not enough?
+\textbf{NOTE TO SULEMAN:} Not sure if this is needed? Some explanation can be found in Chapter~\ref{cha:methodology}, but maybe that is not enough?
 \end{comment}
 
 
 \section{Replicability}
 \label{sec:replicability}
-To replicate the research performed in this thesis, the pipeline tool described in Chapter \ref{cha:methodology} must be used. The tool and additional information regarding installation and setup are accessible from the thesis project's GitHub repository \cite{public_project_github}. All Signal versions mentioned in the thesis are public releases retrieved from the Signal GitHub repository \cite{githubSignal}. Lastly, Section \ref{sec:res:categorization_result:manual_evaluation_process} describes how the manual evaluation was conducted to collect the results in this thesis.
+To replicate the research performed in this thesis, the pipeline tool described in Chapter~\ref{cha:methodology} must be used. The tool and additional information regarding installation and setup are accessible from the thesis project's GitHub repository \cite{public_project_github}. All Signal versions mentioned in the thesis are public releases retrieved from the Signal GitHub repository \cite{githubSignal}. Lastly, Section~\ref{sec:res:categorization_result:manual_evaluation_process} describes how the manual evaluation was conducted to collect the results in this thesis.
 
 \section{The Work in a Wider Context}
 \label{sec:work-wider-context}
