@@ -167,9 +167,9 @@ Source: Ghidra Patch Diffing (https://cve-north-stars.github.io/docs/Ghidra-Patc
 Binary comparison can be broken down into three distinct segments, each focusing on its specific qualities, which can improve accuracy and reliability when used in tandem. These three segments are as follows:
 
 \begin{description}
-    \item[Syntax] Byte-level or instruction-level analysis of binary code that looks at the raw data to find patterns of matches or minor variations \cite{A_Survey_of_Binary_Code_Similarity_Detection_Techniques}. Effective in matching opcode sequences, function and symbol names, but prone to finding irrelevant changes, like e.g. compilation configuration changes (see Section~\ref{sec:background:compilation_effects_on_binaries}).
+    \item[Syntax] Byte-level or instruction-level analysis of binary code that looks at the raw data to find patterns of matches or minor variations \cite{A_Survey_of_Binary_Code_Similarity_Detection_Techniques}. Effective in matching opcode sequences, function and symbol names, but prone to finding irrelevant changes, such as e.g. compilation configuration changes (see Section~\ref{sec:background:compilation_effects_on_binaries}).
     
-    \item[Semantic] Analysis of behavior and logical intent of functions by looking at the possible paths to and from a given function of the first binary, and then comparing the outcome relative to the input with the function of the second binary \cite{binhunt_official}. This is done by checking conditional branches at compile time to ensure that declarations and statements are correctly used in a program \cite{wilhelm2013compiler}. This correctness is determined based on the language's definition, using structures like syntax trees and symbol tables. A key semantic analysis component is type checking, where the compiler verifies that operations are applied to compatible types, ensuring that operators and operands are used appropriately and that multiple operators are not declared to the same identifier \cite{wilhelm2013compiler}.
+    \item[Semantic] Analysis of behavior and logical intent of functions by looking at the possible paths to and from a given function of the first binary, and then comparing the outcome relative to the input with the function of the second binary \cite{binhunt_official}. This is done by checking conditional branches at compile time to ensure that declarations and statements are correctly used in a program \cite{wilhelm2013compiler}. This correctness is determined based on the language's definition, using structures such as syntax trees and symbol tables. A key semantic analysis component is type checking, where the compiler verifies that operations are applied to compatible types, ensuring that operators and operands are used appropriately and that multiple operators are not declared to the same identifier \cite{wilhelm2013compiler}.
 
 \newpage
 
@@ -285,7 +285,7 @@ Leveraging the findings obtained by applying the previous section’s steps to t
 
 There are numerous tools available for binary diffing. A common limitation of the tools listed in Table~\ref{tab:comparing_binaries} is that they are not offered as stand-alone products with integrated disassemblers, decompilers, and related analysis features. Instead, these tools rely on integration with established platforms, such as IDA Pro and Ghidra, to provide the necessary disassembly and decompilation functionality. Furthermore, these binary diffing tools typically operate statically. They compare pre-generated output files from the disassembly and decompilation processes rather than incorporating dynamic analysis during the comparison phase. 
 
-However, one notable exception is BinHunt, a novel research prototype that leverages symbolic execution and backtracking to enhance the capabilities of traditional diffing approaches like BinDiff. BinHunt aims to integrate dynamic analysis techniques into the diffing process, offering a more in-depth comparison by analyzing the semantics and runtime behavior of the code. At the time of writing this thesis, there is no released version of BinHunt available, leaving its practical use for future exploration.
+However, one notable exception is BinHunt, a novel research prototype that leverages symbolic execution and backtracking to enhance the capabilities of traditional diffing approaches such as BinDiff. BinHunt aims to integrate dynamic analysis techniques into the diffing process, offering a more in-depth comparison by analyzing the semantics and runtime behavior of the code. At the time of writing this thesis, there is no released version of BinHunt available, leaving its practical use for future exploration.
 
 
 
@@ -306,7 +306,7 @@ Dalvik & APK:
 \end{comment}
 
 \begin{description}
-    \item[ART and Dalvik] Android runtime (ART) is the runtime environment that newer versions of Android use, and it comes with features like ahead-of-time (AOT) compilation for better time efficiency when compared to its predecessor, Dalvik. Both of the runtime environments execute Dalvik executables (\codebox{.dex}) \cite{AndroidRuntime_official}.
+    \item[ART and Dalvik] Android runtime (ART) is the runtime environment that newer versions of Android use, and it comes with features such as ahead-of-time (AOT) compilation for better time efficiency when compared to its predecessor, Dalvik. Both of the runtime environments execute Dalvik executables (\codebox{.dex}) \cite{AndroidRuntime_official}.
     
     \item[Dalvik bytecode] Both ART and Dalvik compile the application into Dalvik bytecode. The bytecode is similar to machine code instructions but is optimized for Android applications specifically. The Dalvik bytecode is stored in dex files \cite{DalvikBytecode_official}.
 

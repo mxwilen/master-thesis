@@ -99,7 +99,7 @@ and leverage prior research to develop an effective binary analysis tool.
 \label{sec:related_work:class_matching}
 Obfuscated code, such as renaming symbols or class names, can protect an application by replacing meaningful names with shortened, random, or misleading ones \cite{android_matching}. For instance, an actual class name is useful for developers and reverse engineers since it indicates what the class is used for, but the Android Runtime does not rely on the names for execution \cite{android_matching}.
 
-\textcite{android_matching} have implemented a tool named ApkDiff for matching obfuscated classes between different Android application versions. ApkDiff uses a bytecode-based matching of the classes to determine which classes relate to each other between versions. This is achieved by comparing semantic features like fields, methods, and call graphs.
+\textcite{android_matching} have implemented a tool named ApkDiff for matching obfuscated classes between different Android application versions. ApkDiff uses a bytecode-based matching of the classes to determine which classes relate to each other between versions. This is achieved by comparing semantic features such as fields, methods, and call graphs.
 
 In this thesis, obfuscated code will not be covered. Instead, the result relies on what the chosen binary analysis and diffing tool manage to extract. This thesis categorizes the actual code differences between the two software versions and not only the class names. The research conducted by \textcite{android_matching} shares a similar goal with this thesis in reducing the time and effort required for manual analysis.  
 
